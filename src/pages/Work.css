@@ -1,0 +1,56 @@
+/*
+  Desktop bento (matches the wireframe):
+    a a a a a a b b b b b b
+    c c c d d d d e e e e
+    c c c d d d d f f f f
+*/
+.bento {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, auto);
+  grid-template-areas:
+    'a a a a a a a a a a a a b b b b b b b b b b b b'
+    'c c c c c c c d d d d d d d d d d e e e e e e e'
+    'c c c c c c c d d d d d d d d d d f f f f f f f';
+}
+
+.bento__a { grid-area: a; min-height: 30rem; }
+.bento__b { grid-area: b; min-height: 30rem; }
+.bento__c { grid-area: c; }
+.bento__d { grid-area: d; }
+.bento__e { grid-area: e; }
+.bento__f { grid-area: f; }
+
+/* Any projects beyond the six wireframe slots flow in below */
+.bento > :not([class*='bento__']) {
+  grid-column: span 12;
+}
+
+@media (max-width: 1100px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'a b'
+      'c d'
+      'e f';
+  }
+  .bento__a,
+  .bento__b {
+    min-height: 24rem;
+  }
+  .bento > :not([class*='bento__']) {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 680px) {
+  .bento {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'a' 'b' 'c' 'd' 'e' 'f';
+  }
+  .bento__a,
+  .bento__b {
+    min-height: 0;
+  }
+}

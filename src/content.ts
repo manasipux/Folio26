@@ -260,8 +260,7 @@ export const projects: Project[] = [
 ];
 
 export const work = {
-  heading: 'Work',
-  intro: '[TODO: optional one-line intro for the Work page, or leave empty]',
+  heading: 'Work', // read by screen readers; the nav label shows it visually
   cardCta: 'View case study',
 };
 
