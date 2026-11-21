@@ -8,11 +8,15 @@ type Props = Img & {
   height?: number;
 };
 
+/** Prefix site-relative paths ("/images/x.jpg") with the deploy base path. */
+export const withBase = (src: string) =>
+  src.startsWith('/') ? `${import.meta.env.BASE_URL}${src.slice(1)}` : src;
+
 /** <img> with lazy loading + async decoding by default. */
 export default function LazyImage({ src, alt, className, eager, width, height }: Props) {
   return (
     <img
-      src={src}
+      src={withBase(src)}
       alt={alt}
       className={className}
       width={width}

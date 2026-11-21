@@ -51,7 +51,29 @@ All colours, the type scale, radii and spacing are CSS variables in `src/styles/
 2. Change `--font-sans` in `tokens.css`.
 3. Remove the Google Fonts `<link>` in `index.html`.
 
-## Deploying to Vercel (free)
+## Deploying to GitHub Pages (free)
+
+A workflow in `.github/workflows/deploy-pages.yml` builds and publishes the site every time you push to `main`.
+
+1. In the repo on GitHub, go to **Settings → Pages**. Under **Build and deployment → Source**, choose **GitHub Actions**.
+2. Merge your work into `main` (or push to it). The **Actions** tab shows the "Deploy to GitHub Pages" run.
+3. When it's green, the site is live at **https://manasipux.github.io/Folio26/**.
+4. To redeploy without a code change, open **Actions → Deploy to GitHub Pages → Run workflow**.
+
+How it handles Pages quirks:
+- **Subfolder URL:** the site is served from `/Folio26/`, so the workflow sets `BASE_PATH` and all links and images are prefixed automatically. Keep writing image paths as `/images/…` in `content.ts`.
+- **Deep links:** `index.html` is copied to `404.html`, so refreshing `/work/salt-pe` still loads the app.
+- **Custom domain:** if you add one (Settings → Pages → Custom domain), change `BASE_PATH` in the workflow to `/`.
+
+To test a Pages-style build locally:
+
+```bash
+BASE_PATH=/Folio26/ npm run build && npm run preview
+```
+
+Then open http://localhost:4173/Folio26/.
+
+## Deploying to Vercel (alternative)
 
 1. Push this repo to GitHub.
 2. Go to <https://vercel.com>, sign in with GitHub, and click **Add New → Project**.
