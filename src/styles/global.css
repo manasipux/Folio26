@@ -35,6 +35,9 @@ img, svg {
   display: block;
   max-width: 100%;
 }
+img {
+  height: auto;
+}
 
 a {
   color: inherit;

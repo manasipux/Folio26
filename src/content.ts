@@ -291,7 +291,6 @@ export const about = {
     'Outside of work, I’m naturally drawn to observing how people interact with everyday products, interfaces, and systems, a curiosity that tends to follow me everywhere. I’m particularly interested in interaction patterns, behavioural nuances, and the small details that quietly shape how experiences feel.',
   ],
   feedLabel: 'Life outside work',
-  feedHandle: '@manasi',
   // The scrolling "social feed" panel. Swap src/alt/caption for your own photos.
   feed: [
     {

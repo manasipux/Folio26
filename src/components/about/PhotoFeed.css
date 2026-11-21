@@ -1,0 +1,107 @@
+.feed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: clamp(32rem, 78vh, 46rem);
+  border: 8px solid var(--c-purple);
+  border-radius: var(--radius-xl);
+  background: var(--c-lavender);
+  overflow: hidden;
+}
+
+.feed__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--c-purple);
+  background: var(--c-lavender);
+}
+
+.feed__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--c-pink);
+}
+
+.feed__title {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.feed__sub {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-muted);
+}
+
+.feed__scroller {
+  flex: 1;
+  min-height: 0;
+  container-type: size; /* lets each post size itself to the panel */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none; /* Firefox */
+  border-radius: 0 0 calc(var(--radius-xl) - 8px) calc(var(--radius-xl) - 8px);
+}
+.feed__scroller::-webkit-scrollbar {
+  display: none; /* Safari / Chrome */
+}
+.feed__scroller:focus-visible {
+  outline-offset: -6px;
+}
+
+.feed__list {
+  margin: 0;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.feed__post {
+  scroll-snap-align: start;
+  scroll-margin-top: var(--space-3);
+  /* one post fills the panel, with the top of the next one peeking in */
+  height: calc(100cqh - 4.5rem);
+}
+
+.feed__post figure {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(28 26 34 / 6%);
+}
+
+.feed__img {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: cover;
+  background: var(--c-lavender-2);
+}
+
+.feed__caption {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  font-size: var(--fs-md);
+  font-weight: 500;
+}
+
+.feed__hint {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-3);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+}
