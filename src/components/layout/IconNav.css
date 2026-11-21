@@ -44,7 +44,7 @@
   border-radius: var(--radius-sm);
   background: var(--c-dark);
   color: var(--c-ink-inverse);
-  font-size: var(--fs-lg);
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
   white-space: nowrap;
@@ -88,6 +88,20 @@
 
 .icon-nav--mobile-only {
   display: none;
+}
+
+/* Narrower desktops: reserve room for icons only; labels float over content on hover/focus */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .icon-nav__item.active .icon-nav__label {
+    opacity: 0;
+    transform: translateX(-0.5rem);
+  }
+  .icon-nav__item:hover .icon-nav__label,
+  .icon-nav__item:focus-visible .icon-nav__label {
+    opacity: 1;
+    transform: none;
+    box-shadow: var(--shadow-card);
+  }
 }
 
 /* ---------- Mobile: bottom tab bar ---------- */

@@ -1,0 +1,119 @@
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-8);
+  min-height: calc(100dvh - 2 * var(--space-8));
+}
+
+.contact__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 36rem;
+}
+
+.contact__heading {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.contact__invite {
+  font-size: var(--fs-lg);
+  color: var(--c-ink-muted);
+  line-height: 1.4;
+}
+
+.contact__menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+}
+
+.contact__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--c-lavender);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.25s var(--ease-out), background-color 0.2s ease;
+}
+a.contact__option:hover {
+  border-color: var(--c-purple);
+  background: var(--c-lavender-2);
+  transform: translateX(4px);
+}
+
+.contact__key {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.8rem;
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+  font-weight: 700;
+}
+
+.contact__option-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.contact__option-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-purple-deep);
+}
+.contact__option-value {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.contact__arrow {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--c-purple-deep);
+}
+
+.contact__location {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-muted);
+}
+
+.contact__phone {
+  display: grid;
+  place-items: center;
+  padding-top: 3rem; /* room for the antenna */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.contact__option:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    min-height: 0;
+  }
+  .contact__phone {
+    order: -1;
+  }
+  .contact__phone .cphone {
+    zoom: 0.5; /* shrink the whole illustration on small screens */
+  }
+}
