@@ -1,5 +1,8 @@
 .home {
   position: relative;
+  background:
+    var(--tex-grain),
+    radial-gradient(90% 70% at 55% 45%, #fbf9f5 0%, var(--c-desk) 70%, #ebe5db 100%);
   min-height: 100vh;
   min-height: 100dvh;
   min-height: max(100dvh, 680px);
@@ -32,6 +35,23 @@
   }
 }
 
+/* The pencil is long and thin, so give it a wider box */
+.obj--work {
+  width: clamp(9rem, 15vw, 14rem);
+}
+
+/* The phone object: the X222 drawn small and tilted */
+.obj--contact {
+  --x222-scale: 0.3;
+}
+.obj--contact .float-obj__art {
+  display: grid;
+  justify-items: center;
+}
+.obj--contact .x222 {
+  rotate: 9deg;
+}
+
 /* ---------- Phones: card first, objects in a row underneath ---------- */
 @media (max-width: 767px) {
   .home {
@@ -51,5 +71,8 @@
   .home__objects .float-obj {
     position: static;
     width: 6rem;
+  }
+  .obj--contact {
+    --x222-scale: 0.2;
   }
 }

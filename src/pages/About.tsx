@@ -12,7 +12,9 @@ export default function About() {
 
       <div className="about__grid">
         <section className="about__intro" aria-label="About me">
-          <LazyImage {...about.photo} className="about__photo" eager width={400} height={400} />
+          <figure className="about__print">
+            <LazyImage {...about.photo} className="about__photo" eager width={800} height={1000} />
+          </figure>
           <div className="about__copy">
             {about.short.map((para, i) => (
               <p key={i}>{para}</p>

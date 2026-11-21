@@ -1,6 +1,6 @@
 import { contact, site } from '../content';
 import SmartLink from '../components/common/SmartLink';
-import ContactPhone from '../components/illustrations/ContactPhone';
+import PhoneX222 from '../components/illustrations/PhoneX222';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Contact.css';
 
@@ -45,7 +45,7 @@ export default function Contact() {
       </div>
 
       <div className="contact__phone">
-        <ContactPhone />
+        <PhoneX222 interactive />
       </div>
     </div>
   );

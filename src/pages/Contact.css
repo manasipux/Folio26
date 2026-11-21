@@ -93,14 +93,37 @@ a.contact__option:hover {
 }
 
 .contact__phone {
+  --x222-scale: 1;
   display: grid;
   place-items: center;
-  padding-top: 3rem; /* room for the antenna */
+}
+.contact__phone .x222 {
+  rotate: 4deg;
+  filter: drop-shadow(0 3px 2px rgb(30 15 10 / 30%)) drop-shadow(14px 30px 30px rgb(30 15 10 / 28%));
+  animation: phone-in 0.9s var(--ease-out) both;
+}
+
+@keyframes phone-in {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+    rotate: 12deg;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   a.contact__option:hover {
     transform: none;
+  }
+  .contact__phone .x222 {
+    rotate: 0deg;
+    animation: fade-in 0.4s ease both;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
 }
 
@@ -113,7 +136,7 @@ a.contact__option:hover {
   .contact__phone {
     order: -1;
   }
-  .contact__phone .cphone {
-    zoom: 0.5; /* shrink the whole illustration on small screens */
+  .contact__phone {
+    --x222-scale: 0.72;
   }
 }

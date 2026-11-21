@@ -18,7 +18,7 @@
   --lh-body: 1.55;
 
   /* Palette — neutrals */
-  --c-bg: #ffffff;
+  --c-bg: #fbfaf7;             /* warm off-white page */
   --c-surface: #f4f3f7;        /* light grey card */
   --c-surface-2: #e8e6ee;      /* nav squares, placeholders */
   --c-ink: #1c1a22;            /* main text  (16.9:1 on white) */
@@ -61,4 +61,16 @@
   --content-max: 1440px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Surfaces */
+  --c-desk: #f3efe8;           /* warm "desk" behind the Home card */
+  --c-paper: #fffdf8;          /* cardstock */
+  /* Fine grain to make flat colours feel like paper (tiny inline SVG noise) */
+  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --shadow-paper:
+    0 0.5px 0 rgb(255 255 255 / 80%) inset,
+    0 1px 1px rgb(60 40 20 / 10%),
+    0 4px 8px -2px rgb(60 40 20 / 12%),
+    0 18px 40px -12px rgb(60 40 20 / 28%),
+    0 40px 80px -30px rgb(60 40 20 / 25%);
 }

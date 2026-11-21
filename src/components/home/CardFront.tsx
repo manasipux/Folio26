@@ -24,12 +24,14 @@ export default function CardFront() {
         </p>
 
         <div className="card-front__bottom">
-          <div className="card-front__stamp" aria-hidden="true">
+          <div className="card-front__stamp-wrap" aria-hidden="true">
+          <div className="card-front__stamp">
             <svg viewBox="0 0 40 40">
               <path d="M6 28c6-10 12-14 28-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               <circle cx="28" cy="26" r="5" fill="currentColor" />
             </svg>
             <span>{site.stampLabel}</span>
+          </div>
           </div>
           <span className="card-front__hint" aria-hidden="true">
             {home.flipHint} <span className="card-front__hint-icon">↻</span>

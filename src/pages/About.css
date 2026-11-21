@@ -15,22 +15,42 @@
 }
 
 .about__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
   min-height: clamp(32rem, 78vh, 46rem);
   padding: clamp(1.5rem, 3vw, 3rem);
   border-radius: var(--radius-lg);
-  background: var(--c-surface);
+  background: var(--tex-grain), linear-gradient(160deg, #faf8f4, #f1ede6);
+}
+
+/* A printed photo, taped to the page */
+.about__print {
+  position: relative;
+  padding: 0.6rem 0.6rem 2.2rem;
+  background: #fff;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-2.5deg);
+  margin-top: var(--space-3);
+}
+.about__print::before {
+  content: '';
+  position: absolute;
+  top: -0.9rem;
+  left: 50%;
+  width: 5.5rem;
+  height: 1.8rem;
+  background: rgb(255 133 179 / 45%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+  transform: translateX(-50%) rotate(3deg);
+  backdrop-filter: blur(1px);
 }
 
 .about__photo {
-  width: clamp(8rem, 14vw, 11rem);
-  aspect-ratio: 1;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: var(--radius-lg);
-  transform: rotate(-3deg);
-  box-shadow: var(--shadow-card);
 }
 
 .about__copy {
@@ -80,5 +100,14 @@
   }
   .about__intro {
     min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .about__intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about__print {
+    width: min(16rem, 80%);
   }
 }

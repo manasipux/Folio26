@@ -3,7 +3,7 @@ import FlipCard from '../components/home/FlipCard';
 import FloatingObject from '../components/home/FloatingObject';
 import PencilIllustration from '../components/illustrations/PencilIllustration';
 import PassportIllustration from '../components/illustrations/PassportIllustration';
-import FlipPhoneIllustration from '../components/illustrations/FlipPhoneIllustration';
+import PhoneX222 from '../components/illustrations/PhoneX222';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Home.css';
 
@@ -25,7 +25,7 @@ export default function Home() {
           <PassportIllustration />
         </FloatingObject>
         <FloatingObject to="/contact" {...objects.contact} className="obj--contact" delay={-4}>
-          <FlipPhoneIllustration />
+          <PhoneX222 />
         </FloatingObject>
       </nav>
     </div>

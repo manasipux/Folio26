@@ -10,7 +10,7 @@ export default function PhotoFeed() {
   return (
     <section className="feed" aria-labelledby="feed-title">
       <header className="feed__header">
-        <LazyImage {...about.photo} alt="" className="feed__avatar" width={40} height={40} />
+        <LazyImage src={about.avatar} alt="" className="feed__avatar" width={40} height={40} />
         <div>
           <h2 id="feed-title" className="feed__title">
             {about.feedLabel}

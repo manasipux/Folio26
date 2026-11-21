@@ -1,26 +1,27 @@
+import { home } from '../../content';
+import { withBase } from '../common/LazyImage';
+import './PassportIllustration.css';
+
 /**
- * PLACEHOLDER ART — Passport photo (links to About me).
- * Swap for your own illustration or a real cropped photo.
+ * Passport-style photo print (links to About me): a circular photo on white
+ * photo paper, held by a paperclip. Uses home.passportPhoto from content.ts.
  */
 export default function PassportIllustration() {
   return (
-    <svg viewBox="0 0 160 160" aria-hidden="true" focusable="false">
-      <defs>
-        <clipPath id="passport-clip">
-          <circle cx="80" cy="80" r="62" />
-        </clipPath>
-      </defs>
-      <circle cx="80" cy="80" r="74" fill="#fff" stroke="#a99fd0" strokeWidth="3" strokeDasharray="6 6" />
-      <g clipPath="url(#passport-clip)">
-        <rect width="160" height="160" fill="#e9e4fb" />
-        <circle cx="80" cy="68" r="22" fill="#a99fd0" />
-        <path d="M34 150c4-30 22-46 46-46s42 16 46 46z" fill="#a99fd0" />
-      </g>
-      {/* little stamp */}
-      <g transform="rotate(-18 128 126)">
-        <rect x="108" y="114" width="42" height="22" rx="4" fill="none" stroke="#ff85b3" strokeWidth="3" />
-        <path d="M115 125h28" stroke="#ff85b3" strokeWidth="3" strokeLinecap="round" />
-      </g>
-    </svg>
+    <span className="passport" aria-hidden="true">
+      <span className="passport__print">
+        <img src={withBase(home.passportPhoto)} alt="" width={360} height={360} loading="lazy" decoding="async" />
+      </span>
+      <svg className="passport__clip" viewBox="0 0 24 64">
+        <path
+          d="M8 40V10a4 4 0 0 1 8 0v38a6 6 0 0 1-12 0V14"
+          fill="none"
+          stroke="#b9bcc4"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        <path d="M8 40V10a4 4 0 0 1 8 0v38a6 6 0 0 1-12 0V14" fill="none" stroke="#fff" strokeWidth=".8" strokeLinecap="round" opacity=".7" />
+      </svg>
+    </span>
   );
 }

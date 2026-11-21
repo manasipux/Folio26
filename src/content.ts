@@ -54,9 +54,11 @@ export type NavId = (typeof nav)[number]['id'];
 // ------------------------------------------------------------
 export const home = {
   photo: {
-    src: '/images/portrait-placeholder.svg',
-    alt: 'Portrait of Manasi', // update once you add a real photo
+    src: '/images/manasi-square.webp',
+    alt: 'Manasi smiling outdoors by the water, with trees behind her',
   } satisfies Img,
+  // Used inside the "passport photo" object that links to About me
+  passportPhoto: '/images/manasi-passport.webp',
   flipHint: 'Flip me',
   back: {
     heading: 'Intro about the type of experiences I create',
@@ -101,19 +103,20 @@ export type Project = {
   };
 };
 
-const placeholderCover = (name: string): Img => ({
-  src: '/images/cover-placeholder.svg',
+// Abstract placeholder art in /public/images/cover-<art>.svg — replace with real screens.
+const placeholderCover = (name: string, art: string): Img => ({
+  src: `/images/cover-${art}.svg`,
   alt: `Placeholder cover image for ${name}`,
 });
 
-const placeholderGallery = (name: string): Img[] => [
+const placeholderGallery = (name: string, art: string): Img[] => [
   {
-    src: '/images/cover-placeholder.svg',
+    src: `/images/cover-${art}.svg`,
     alt: `Placeholder image for ${name}`,
     caption: '[TODO: caption for this image]',
   },
   {
-    src: '/images/cover-placeholder.svg',
+    src: `/images/cover-${art}.svg`,
     alt: `Placeholder image for ${name}`,
     caption: '[TODO: caption for this image]',
   },
@@ -141,7 +144,7 @@ export const projects: Project[] = [
       '[TODO: one-line summary. Keep it free of confidential client or product details.]',
     tags: ['Enterprise UX', 'IBM'],
     size: 'large',
-    cover: placeholderCover('the IBM case study'),
+    cover: placeholderCover('the IBM case study', 'ibm'),
     caseStudy: {
       role: 'UX Designer',
       timeline: '[TODO: e.g. 2023 – 2024]',
@@ -152,7 +155,7 @@ export const projects: Project[] = [
       problem: '[TODO: the problem, in user terms]',
       process: templateProcess,
       outcome: '[TODO: add outcome — only real, shareable results]',
-      images: placeholderGallery('the IBM case study'),
+      images: placeholderGallery('the IBM case study', 'ibm'),
     },
   },
   {
@@ -162,7 +165,7 @@ export const projects: Project[] = [
     summary: '[TODO: one-line summary]',
     tags: ['UX Design', 'Redesign'],
     size: 'large',
-    cover: placeholderCover('the EPFO Portal Redesign'),
+    cover: placeholderCover('the EPFO Portal Redesign', 'epfo'),
     caseStudy: {
       role: '[TODO: your role]',
       timeline: '[TODO: timeline]',
@@ -172,7 +175,7 @@ export const projects: Project[] = [
       problem: '[TODO: the problem]',
       process: templateProcess,
       outcome: '[TODO: add outcome]',
-      images: placeholderGallery('the EPFO Portal Redesign'),
+      images: placeholderGallery('the EPFO Portal Redesign', 'epfo'),
     },
   },
   {
@@ -182,7 +185,7 @@ export const projects: Project[] = [
     summary: '[TODO: one-line summary]',
     tags: ['UX Design'],
     size: 'medium',
-    cover: placeholderCover('the AI Research Synthesizer'),
+    cover: placeholderCover('the AI Research Synthesizer', 'ai'),
     caseStudy: {
       role: '[TODO: your role]',
       timeline: '[TODO: timeline]',
@@ -192,7 +195,7 @@ export const projects: Project[] = [
       problem: '[TODO: the problem]',
       process: templateProcess,
       outcome: '[TODO: add outcome]',
-      images: placeholderGallery('the AI Research Synthesizer'),
+      images: placeholderGallery('the AI Research Synthesizer', 'ai'),
     },
   },
   {
@@ -203,7 +206,7 @@ export const projects: Project[] = [
     summary: '[TODO: one-line summary]',
     tags: ['UX Design'],
     size: 'medium',
-    cover: placeholderCover('this UX project'),
+    cover: placeholderCover('this UX project', 'ux'),
     caseStudy: {
       role: '[TODO: your role]',
       timeline: '[TODO: timeline]',
@@ -213,7 +216,7 @@ export const projects: Project[] = [
       problem: '[TODO: the problem]',
       process: templateProcess,
       outcome: '[TODO: add outcome]',
-      images: placeholderGallery('this UX project'),
+      images: placeholderGallery('this UX project', 'ux'),
     },
   },
   {
@@ -224,7 +227,7 @@ export const projects: Project[] = [
       'Before transitioning fully into UX, I worked in graphic design where I developed a strong foundation in visual hierarchy, typography, and communication clarity — skills that continue to inform my UX practice.',
     tags: ['Visual Design'],
     size: 'small',
-    cover: placeholderCover('Salt.pe'),
+    cover: placeholderCover('Salt.pe', 'salt'),
     caseStudy: {
       role: '[TODO: your role]',
       timeline: '[TODO: timeline]',
@@ -234,7 +237,7 @@ export const projects: Project[] = [
       problem: '[TODO: the brief]',
       process: templateProcess,
       outcome: '[TODO: add outcome]',
-      images: placeholderGallery('Salt.pe'),
+      images: placeholderGallery('Salt.pe', 'salt'),
     },
   },
   {
@@ -244,7 +247,7 @@ export const projects: Project[] = [
     summary: '[TODO: one-line summary]',
     tags: ['Industrial Design'],
     size: 'small',
-    cover: placeholderCover('Brand as Design Foundation'),
+    cover: placeholderCover('Brand as Design Foundation', 'student'),
     caseStudy: {
       role: '[TODO: your role]',
       timeline: '[TODO: timeline]',
@@ -254,7 +257,7 @@ export const projects: Project[] = [
       problem: '[TODO: the brief]',
       process: templateProcess,
       outcome: '[TODO: add outcome]',
-      images: placeholderGallery('Brand as Design Foundation'),
+      images: placeholderGallery('Brand as Design Foundation', 'student'),
     },
   },
 ];
@@ -271,9 +274,10 @@ export const about = {
   headline:
     'My background across industrial, graphic, and UX design continues to shape how I think about structure, clarity, and user interaction.',
   photo: {
-    src: '/images/portrait-placeholder.svg',
-    alt: 'Portrait of Manasi', // update once you add a real photo
+    src: '/images/manasi-portrait.webp',
+    alt: 'Manasi smiling by a river at golden hour, trees in the background',
   } satisfies Img,
+  avatar: '/images/manasi-avatar.webp',
   // Short version — shown on the page
   short: [
     'My background spans industrial design, graphic design, and user experience design, a progression that has shaped how I approach problem-solving today.',
@@ -323,8 +327,12 @@ export const contact = {
   heading: 'Say hello',
   invite:
     'Whether it’s a role, a project, or a chat about untangling complex systems, my line is open.',
-  phoneGreeting: 'Hello!',
-  phoneStatus: 'New message',
+  // The Micromax X222 on the Contact page: a short "boot" message, then a home screen
+  // whose tiles are real links.
+  phone: {
+    bootText: 'Hello!',
+    tiles: { email: 'Email', linkedin: 'LinkedIn', work: 'My work', about: 'About me' },
+  },
   menu: [
     { key: '1', label: 'Email', kind: 'email' },
     { key: '2', label: 'LinkedIn', kind: 'linkedin' },

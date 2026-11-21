@@ -16,7 +16,8 @@
   display: block;
   width: 100%;
   transition: transform 0.35s var(--ease-out), filter 0.35s ease;
-  filter: drop-shadow(0 8px 12px rgb(28 26 34 / 12%));
+  /* objects resting on the desk: a tight contact shadow + a soft cast shadow */
+  filter: drop-shadow(0 2px 1.5px rgb(60 40 20 / 22%)) drop-shadow(6px 14px 14px rgb(60 40 20 / 18%));
 }
 
 .float-obj__label {
@@ -40,7 +41,7 @@
 .float-obj:hover .float-obj__art,
 .float-obj:focus-visible .float-obj__art {
   transform: scale(1.08) rotate(-6deg);
-  filter: drop-shadow(0 14px 18px rgb(28 26 34 / 20%));
+  filter: drop-shadow(0 3px 2px rgb(60 40 20 / 18%)) drop-shadow(10px 24px 20px rgb(60 40 20 / 22%));
 }
 
 .float-obj:hover .float-obj__label,
