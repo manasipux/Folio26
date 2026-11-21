@@ -1,0 +1,155 @@
+.icon-nav {
+  position: fixed;
+  left: var(--space-6);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+
+.icon-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+}
+
+.icon-nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--c-ink);
+  border-radius: var(--radius-md);
+}
+
+.icon-nav__square {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--c-surface-2);
+  color: var(--c-ink);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out);
+}
+
+.icon-nav__label {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  /* Hidden visually until hover/focus/active, but still read by screen readers */
+  opacity: 0;
+  transform: translateX(-0.5rem);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s var(--ease-out);
+}
+
+/* Hover / keyboard focus */
+.icon-nav__item:hover .icon-nav__square,
+.icon-nav__item:focus-visible .icon-nav__square {
+  background: var(--c-lavender-2);
+  color: var(--c-purple-deep);
+  transform: translateX(3px) scale(1.04);
+  box-shadow: var(--shadow-card);
+}
+.icon-nav__item:hover .icon-nav__label,
+.icon-nav__item:focus-visible .icon-nav__label {
+  opacity: 1;
+  transform: none;
+}
+
+/* Active page */
+.icon-nav__item.active .icon-nav__square {
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+}
+.icon-nav__item.active .icon-nav__label {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only the hovered/focused label should show alongside the active one */
+.icon-nav__item:focus-visible {
+  outline-offset: 4px;
+}
+
+.icon-nav--mobile-only {
+  display: none;
+}
+
+/* ---------- Mobile: bottom tab bar ---------- */
+@media (max-width: 767px) {
+  .icon-nav,
+  .icon-nav--mobile-only {
+    display: block;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    background: rgb(255 255 255 / 92%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--c-surface-2);
+    padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom));
+  }
+
+  .icon-nav__list {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0;
+  }
+
+  .icon-nav__list > li {
+    flex: 1;
+  }
+
+  .icon-nav__item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px 0;
+  }
+
+  .icon-nav__square {
+    width: 2.75rem;
+    height: 2rem;
+    border-radius: var(--radius-pill);
+    background: transparent;
+  }
+
+  .icon-nav__label {
+    padding: 0;
+    background: none;
+    color: var(--c-ink-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 1;
+    transform: none;
+  }
+
+  .icon-nav__item:hover .icon-nav__square,
+  .icon-nav__item:focus-visible .icon-nav__square {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .icon-nav__item.active .icon-nav__square {
+    background: var(--c-dark);
+  }
+  .icon-nav__item.active .icon-nav__label {
+    color: var(--c-ink);
+  }
+}

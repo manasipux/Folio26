@@ -1,0 +1,25 @@
+.main {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-8) var(--space-6) var(--space-8) calc(var(--nav-rail) + var(--space-6));
+  outline: none;
+}
+
+.main--home {
+  padding: 0;
+  overflow: hidden;
+}
+
+.page {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: var(--space-6) var(--space-4) calc(var(--bottom-bar) + var(--space-6));
+  }
+  .main--home {
+    padding: 0 0 var(--bottom-bar);
+  }
+}

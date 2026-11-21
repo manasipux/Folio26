@@ -1,0 +1,86 @@
+.float-obj {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: clamp(6.5rem, 10vw, 9.5rem);
+  text-decoration: none;
+  color: var(--c-ink);
+  border-radius: var(--radius-lg);
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-obj__art {
+  display: block;
+  width: 100%;
+  transition: transform 0.35s var(--ease-out), filter 0.35s ease;
+  filter: drop-shadow(0 8px 12px rgb(28 26 34 / 12%));
+}
+
+.float-obj__label {
+  padding: 0.15rem 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.25s var(--ease-out);
+}
+
+.float-obj__arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.float-obj:hover .float-obj__art,
+.float-obj:focus-visible .float-obj__art {
+  transform: scale(1.08) rotate(-6deg);
+  filter: drop-shadow(0 14px 18px rgb(28 26 34 / 20%));
+}
+
+.float-obj:hover .float-obj__label,
+.float-obj:focus-visible .float-obj__label {
+  opacity: 1;
+  transform: none;
+}
+
+.float-obj:hover .float-obj__arrow {
+  transform: translateX(3px);
+}
+
+/* Touch devices can't hover: always show the label */
+@media (hover: none) {
+  .float-obj__label {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-obj {
+    animation: none;
+  }
+  .float-obj__art,
+  .float-obj__arrow {
+    transition: filter 0.2s ease;
+  }
+  .float-obj:hover .float-obj__art,
+  .float-obj:focus-visible .float-obj__art {
+    transform: none;
+  }
+}

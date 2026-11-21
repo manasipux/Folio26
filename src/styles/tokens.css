@@ -1,0 +1,64 @@
+/* ============================================================
+   Design tokens. Change the look of the whole site from here.
+   ============================================================ */
+:root {
+  /* Font — swap to Maison Neue later by changing this one line
+     (and loading the font in index.html / via @font-face). */
+  --font-sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, system-ui, sans-serif;
+
+  /* Type scale: 64 / 48 large, 24 small; fluid down on mobile */
+  --fs-display: clamp(2.5rem, 1.6rem + 3.2vw, 4rem);      /* 64px */
+  --fs-h1: clamp(2rem, 1.45rem + 2vw, 3rem);              /* 48px */
+  --fs-h2: clamp(1.5rem, 1.25rem + 1vw, 2rem);            /* 32px */
+  --fs-lg: clamp(1.125rem, 0.95rem + 0.6vw, 1.5rem);      /* 24px */
+  --fs-md: 1.125rem;                                      /* 18px */
+  --fs-base: 1rem;
+  --fs-sm: 0.875rem;
+  --lh-tight: 1.15;
+  --lh-body: 1.55;
+
+  /* Palette — neutrals */
+  --c-bg: #ffffff;
+  --c-surface: #f4f3f7;        /* light grey card */
+  --c-surface-2: #e8e6ee;      /* nav squares, placeholders */
+  --c-ink: #1c1a22;            /* main text  (16.9:1 on white) */
+  --c-ink-muted: #55515f;      /* secondary  (7.6:1 on white, 6.1:1 on lavender) */
+  --c-ink-inverse: #ffffff;
+  --c-dark: #2a2633;           /* active nav, label chips */
+
+  /* Palette — accents */
+  --c-lavender: #e9e4fb;       /* project cards */
+  --c-lavender-2: #ddd5f7;     /* hover */
+  --c-purple: #a99fd0;         /* borders (decorative) */
+  --c-purple-deep: #5b4b9a;    /* text/icons on lavender (6.4:1) */
+  --c-pink: #ff85b3;           /* pill tags */
+  --c-pink-ink: #4a0f2a;       /* text on pink (8.3:1) */
+
+  --c-focus: #5b4b9a;
+
+  /* Shape + depth */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 2px rgb(28 26 34 / 6%), 0 12px 32px -8px rgb(28 26 34 / 18%);
+  --shadow-lift: 0 2px 4px rgb(28 26 34 / 8%), 0 20px 40px -12px rgb(28 26 34 / 25%);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Layout */
+  --nav-rail: 7.5rem;          /* space reserved for the left nav */
+  --bottom-bar: 4.25rem;       /* mobile bottom nav height */
+  --content-max: 1440px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
