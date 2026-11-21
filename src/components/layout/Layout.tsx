@@ -9,15 +9,14 @@ export default function Layout() {
   const { pathname } = useLocation();
   const isHome = pathname === '/';
   const mainRef = useRef<HTMLElement>(null);
-  const firstRender = useRef(true);
+  const prevPath = useRef(pathname);
 
   // On route change: back to top, and move focus to the new page for screen readers.
+  // (Not on first load, so Tab still starts at the skip link.)
   useEffect(() => {
+    if (prevPath.current === pathname) return;
+    prevPath.current = pathname;
     window.scrollTo(0, 0);
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
     mainRef.current?.focus({ preventScroll: true });
   }, [pathname]);
 
