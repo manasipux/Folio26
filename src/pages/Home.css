@@ -1,78 +1,61 @@
 .home {
-  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-8) var(--space-7) var(--space-7) 16rem; /* room for the text nav */
   background:
     var(--tex-grain),
     radial-gradient(90% 70% at 55% 45%, #fbf9f5 0%, var(--c-desk) 70%, #ebe5db 100%);
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: max(100dvh, 680px);
 }
 
-.home__card {
-  display: grid;
-  place-items: center;
-  min-height: inherit;
-  padding: 6rem 6rem 6rem 12rem; /* leave room for the text nav on the left */
+.home__intro {
+  max-width: 52rem;
+  margin-bottom: var(--space-6);
 }
 
-/* Object positions follow the wireframe */
-.obj--work {
-  top: 9%;
-  right: 6%;
+.home__eyebrow {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
 }
-.obj--about {
-  bottom: 3%;
-  right: 19%;
+
+.home__heading {
+  margin: 0 0 var(--space-4);
+  font-size: var(--fs-h1);
+  line-height: 1.1;
+  text-wrap: balance;
 }
-.obj--contact {
-  bottom: 9%;
-  left: 15%;
+
+.home__text {
+  margin: 0;
+  max-width: 40rem;
+  font-size: var(--fs-md);
+  color: var(--c-ink-muted);
+}
+
+.home .desk {
+  max-width: 76rem;
+}
+
+.home__hint {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-ink-muted);
 }
 
 @media (max-width: 1100px) {
-  .home__card {
-    padding: 7rem 3rem 7rem 10rem;
+  .home {
+    padding: var(--space-7) var(--space-5) var(--space-7) 13rem;
   }
 }
 
-/* The pencil is long and thin, so give it a wider box */
-.obj--work {
-  width: clamp(9rem, 15vw, 14rem);
-}
-
-/* The phone object: the X222 drawn small and tilted */
-.obj--contact {
-  --x222-scale: 0.3;
-}
-.obj--contact .float-obj__art {
-  display: grid;
-  justify-items: center;
-}
-.obj--contact .x222 {
-  rotate: 9deg;
-}
-
-/* ---------- Phones: card first, objects in a row underneath ---------- */
 @media (max-width: 767px) {
   .home {
     min-height: auto;
-    padding-top: var(--space-4);
+    padding: var(--space-6) var(--space-4) calc(var(--space-8) + 4rem);
   }
-  .home__card {
-    min-height: 0;
-    padding: var(--space-6) var(--space-4);
-  }
-  .home__objects {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-4);
-    padding: var(--space-4) var(--space-4) var(--space-7);
-  }
-  .home__objects .float-obj {
-    position: static;
-    width: 6rem;
-  }
-  .obj--contact {
-    --x222-scale: 0.2;
+  .home .desk {
+    border-radius: var(--radius-sm);
   }
 }

@@ -33,8 +33,6 @@ export const site = {
   linkedinLabel: 'LinkedIn',
   // Shown in the browser tab
   title: 'Manasi — UX Designer',
-  // Tiny label inside the "stamp" on the home card
-  stampLabel: 'Folio ’26',
 };
 
 // ------------------------------------------------------------
@@ -53,25 +51,51 @@ export type NavId = (typeof nav)[number]['id'];
 // Home
 // ------------------------------------------------------------
 export const home = {
-  photo: {
-    src: '/images/manasi-square.webp',
-    alt: 'Manasi smiling outdoors by the water, with trees behind her',
-  } satisfies Img,
-  // Used inside the "passport photo" object that links to About me
-  passportPhoto: '/images/manasi-passport.webp',
-  flipHint: 'Flip me',
-  back: {
-    heading: 'Intro about the type of experiences I create',
-    intro:
-      'I design for complex enterprise environments where simplicity isn’t about reducing features, but about creating clarity within complexity. I enjoy untangling messy problems, improving workflows, and shaping experiences that feel intuitive without oversimplifying reality.',
-    quote: 'I’m a UX designer who enjoys bringing clarity to complex systems.',
+  // Big line at the top of the page
+  heading: 'I’m a UX designer who enjoys bringing clarity to complex systems.',
+  intro:
+    'I design for complex enterprise environments where simplicity isn’t about reducing features, but about creating clarity within complexity.',
+  hint: 'Pick something up off the desk.',
+
+  // The flat-lay photo. AI-generated in Figma, with my photo added to the ID badge.
+  scene: {
+    src: '/images/desk-scene.webp',
+    srcSmall: '/images/desk-scene-1024.webp',
+    width: 1536,
+    height: 1024,
+    alt: 'Top-down photo of a wooden desk board: an IBM ID badge with my photo, SALT and Godrej lanyards, a kraft sketchbook with a blue pencil, an old keypad phone, wired earphones, a wristwatch and keys.',
   },
-  // The three illustrated objects around the card
-  objects: {
-    work: { label: 'Work', description: 'See my work' },
-    about: { label: 'About me', description: 'Read about me' },
-    contact: { label: 'Contact me', description: 'Get in touch' },
+
+  // Clickable objects in the photo. `box` is the object's position in the photo,
+  // in percent: x/y = top-left corner, w/h = size. `to` is where it goes;
+  // `action: 'playlist'` opens the Spotify panel instead.
+  objects: [
+    { id: 'about', label: 'About me', description: 'My ID badge', to: '/about', box: { x: 6.2, y: 6.3, w: 14, h: 53.7 } },
+    { id: 'salt', label: 'Salt.pe', description: 'Visual design for SALT', to: '/work/salt-pe', box: { x: 23.8, y: 11.2, w: 11.7, h: 50.8 } },
+    // [TODO: point this at a Godrej case study once you add one to `projects`]
+    { id: 'godrej', label: 'Godrej', description: 'See my work', to: '/work', box: { x: 37.6, y: 11.2, w: 10.2, h: 51.3 } },
+    { id: 'work', label: 'Work', description: 'My sketchbook of projects', to: '/work', box: { x: 52.4, y: 9.3, w: 24.7, h: 53.2 } },
+    { id: 'contact', label: 'Contact me', description: 'Give me a call', to: '/contact', box: { x: 81.1, y: 15.4, w: 11.3, h: 40 } },
+    { id: 'playlist', label: 'Now playing', description: 'What I design to', action: 'playlist', box: { x: 6, y: 64.5, w: 18.2, h: 26.2 } },
+  ] as HomeObject[],
+
+  // The earphones open this. Paste your playlist link from Spotify
+  // (Share → Copy link to playlist), e.g. https://open.spotify.com/playlist/abc123
+  playlist: {
+    heading: 'What I design to',
+    url: '[TODO: Spotify playlist link]',
+    close: 'Close',
+    missing: 'Playlist coming soon.',
   },
+};
+
+export type HomeObject = {
+  id: string;
+  label: string;
+  description: string;
+  to?: string;
+  action?: 'playlist';
+  box: { x: number; y: number; w: number; h: number };
 };
 
 // ------------------------------------------------------------

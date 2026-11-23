@@ -1,33 +1,24 @@
-import { home } from '../content';
-import FlipCard from '../components/home/FlipCard';
-import FloatingObject from '../components/home/FloatingObject';
-import PencilIllustration from '../components/illustrations/PencilIllustration';
-import PassportIllustration from '../components/illustrations/PassportIllustration';
-import PhoneX222 from '../components/illustrations/PhoneX222';
+import { home, site } from '../content';
+import DeskScene from '../components/home/DeskScene';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Home.css';
 
 export default function Home() {
   usePageTitle();
-  const { objects } = home;
 
   return (
     <div className="home">
-      <div className="home__card">
-        <FlipCard />
-      </div>
+      <header className="home__intro">
+        <p className="home__eyebrow">
+          {site.name} · {site.roles[0]} · {site.location}
+        </p>
+        <h1 className="home__heading">{home.heading}</h1>
+        <p className="home__text">{home.intro}</p>
+      </header>
 
-      <nav className="home__objects" aria-label="Explore">
-        <FloatingObject to="/work" {...objects.work} className="obj--work" delay={0}>
-          <PencilIllustration />
-        </FloatingObject>
-        <FloatingObject to="/about" {...objects.about} className="obj--about" delay={-2}>
-          <PassportIllustration />
-        </FloatingObject>
-        <FloatingObject to="/contact" {...objects.contact} className="obj--contact" delay={-4}>
-          <PhoneX222 />
-        </FloatingObject>
-      </nav>
+      <DeskScene />
+
+      <p className="home__hint">{home.hint}</p>
     </div>
   );
 }
