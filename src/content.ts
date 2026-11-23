@@ -51,32 +51,81 @@ export type NavId = (typeof nav)[number]['id'];
 // Home
 // ------------------------------------------------------------
 export const home = {
-  // Big line at the top of the page
+  // Printed on the ID card. heading = the big line, intro = the small print
+  // (the small print is hidden on narrow phones, where the card is small).
   heading: 'I’m a UX designer who enjoys bringing clarity to complex systems.',
   intro:
     'I design for complex enterprise environments where simplicity isn’t about reducing features, but about creating clarity within complexity.',
-  hint: 'Pick something up off the desk.',
+  hint: 'Pick something up off the desk',
 
-  // The flat-lay photo. AI-generated in Figma, with my photo added to the ID badge.
+  // The desk photo fills the page. Two versions: landscape for wide screens,
+  // portrait for phones. AI-generated in Figma.
   scene: {
-    src: '/images/desk-scene.webp',
-    srcSmall: '/images/desk-scene-1024.webp',
-    width: 1536,
-    height: 1024,
-    alt: 'Top-down photo of a wooden desk board: an IBM ID badge with my photo, SALT and Godrej lanyards, a kraft sketchbook with a blue pencil, an old keypad phone, wired earphones, a wristwatch and keys.',
+    alt: 'Top-down photo of a wooden desk: my IBM ID card on a navy lanyard, with SALT and Godrej lanyards tucked under it, a kraft sketchbook with a blue pencil, a small touchscreen phone, wired earphones, and a watch and keys at the edges.',
+    landscape: {
+      src: '/images/desk-scene.webp',
+      srcSmall: '/images/desk-scene-1024.webp',
+      width: 1536,
+      height: 1024,
+      // Where the blank white card sits in the photo (percent)
+      card: { x: 16.28, y: 32.3, w: 29.3, h: 27.3 },
+    },
+    portrait: {
+      src: '/images/desk-scene-portrait.webp',
+      srcSmall: '/images/desk-scene-portrait-683.webp',
+      width: 1024,
+      height: 1536,
+      card: { x: 25.3, y: 15, w: 47.4, h: 18.6 },
+    },
   },
 
-  // Clickable objects in the photo. `box` is the object's position in the photo,
-  // in percent: x/y = top-left corner, w/h = size. `to` is where it goes;
-  // `action: 'playlist'` opens the Spotify panel instead.
+  // Clickable objects in the photo. `box` is the object's position in each
+  // photo, in percent: x/y = top-left corner, w/h = size. `to` is where it
+  // goes; `action: 'playlist'` opens the Spotify panel instead.
   objects: [
-    { id: 'about', label: 'About me', description: 'My ID badge', to: '/about', box: { x: 6.2, y: 6.3, w: 14, h: 53.7 } },
-    { id: 'salt', label: 'Salt.pe', description: 'Visual design for SALT', to: '/work/salt-pe', box: { x: 23.8, y: 11.2, w: 11.7, h: 50.8 } },
+    {
+      id: 'about',
+      label: 'About me',
+      description: 'More about me',
+      to: '/about',
+      box: { landscape: { x: 15.5, y: 27.8, w: 31.1, h: 33.2 }, portrait: { x: 23.9, y: 13, w: 50.3, h: 21.6 } },
+    },
+    {
+      id: 'salt',
+      label: 'Salt.pe',
+      description: 'Visual design for SALT',
+      to: '/work/salt-pe',
+      box: { landscape: { x: 29.8, y: 60.4, w: 5.4, h: 7 }, portrait: { x: 40.4, y: 33.6, w: 8.6, h: 4.4 } },
+    },
     // [TODO: point this at a Godrej case study once you add one to `projects`]
-    { id: 'godrej', label: 'Godrej', description: 'See my work', to: '/work', box: { x: 37.6, y: 11.2, w: 10.2, h: 51.3 } },
-    { id: 'work', label: 'Work', description: 'My sketchbook of projects', to: '/work', box: { x: 52.4, y: 9.3, w: 24.7, h: 53.2 } },
-    { id: 'contact', label: 'Contact me', description: 'Give me a call', to: '/contact', box: { x: 81.1, y: 15.4, w: 11.3, h: 40 } },
-    { id: 'playlist', label: 'Now playing', description: 'What I design to', action: 'playlist', box: { x: 6, y: 64.5, w: 18.2, h: 26.2 } },
+    {
+      id: 'godrej',
+      label: 'Godrej',
+      description: 'See my work',
+      to: '/work',
+      box: { landscape: { x: 35.6, y: 60.4, w: 7.7, h: 6.4 }, portrait: { x: 50, y: 33.6, w: 8.4, h: 4.4 } },
+    },
+    {
+      id: 'work',
+      label: 'Work',
+      description: 'My sketchbook of projects',
+      to: '/work',
+      box: { landscape: { x: 50.1, y: 14.2, w: 31.3, h: 66.4 }, portrait: { x: 14.6, y: 41.1, w: 38.8, h: 34.1 } },
+    },
+    {
+      id: 'contact',
+      label: 'Contact me',
+      description: 'Give me a call',
+      to: '/contact',
+      box: { landscape: { x: 83.5, y: 28.8, w: 13.3, h: 36.8 }, portrait: { x: 59.4, y: 44.8, w: 23.4, h: 28.3 } },
+    },
+    {
+      id: 'playlist',
+      label: 'Now playing',
+      description: 'What I design to',
+      action: 'playlist',
+      box: { landscape: { x: 0, y: 71.3, w: 16.3, h: 27.3 }, portrait: { x: 33.2, y: 77.5, w: 35.6, h: 19.5 } },
+    },
   ] as HomeObject[],
 
   // The earphones open this. Paste your playlist link from Spotify
@@ -89,13 +138,15 @@ export const home = {
   },
 };
 
+export type Box = { x: number; y: number; w: number; h: number };
+
 export type HomeObject = {
   id: string;
   label: string;
   description: string;
   to?: string;
   action?: 'playlist';
-  box: { x: number; y: number; w: number; h: number };
+  box: { landscape: Box; portrait: Box };
 };
 
 // ------------------------------------------------------------

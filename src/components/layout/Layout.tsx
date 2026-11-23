@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import IconNav from './IconNav';
-import TextNav from './TextNav';
 import './Layout.css';
 
 export default function Layout() {
@@ -25,14 +24,8 @@ export default function Layout() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      {isHome ? (
-        <>
-          <TextNav />
-          <IconNav mobileOnly />
-        </>
-      ) : (
-        <IconNav />
-      )}
+      {/* On Home, the objects on the desk are the navigation */}
+      {!isHome && <IconNav />}
       <motion.main
         id="main"
         ref={mainRef}

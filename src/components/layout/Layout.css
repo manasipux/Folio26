@@ -26,6 +26,6 @@
     padding: var(--space-6) var(--space-4) calc(var(--bottom-bar) + var(--space-6));
   }
   .main--home {
-    padding: 0 0 var(--bottom-bar);
+    padding: 0;
   }
 }

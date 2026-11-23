@@ -8,9 +8,9 @@ import './IconNav.css';
  *          The active one shows its label; others reveal it on hover/focus.
  * Mobile:  restyled (CSS only) into a bottom tab bar.
  */
-export default function IconNav({ mobileOnly = false }: { mobileOnly?: boolean }) {
+export default function IconNav() {
   return (
-    <nav aria-label="Main" className={`icon-nav${mobileOnly ? ' icon-nav--mobile-only' : ''}`}>
+    <nav aria-label="Main" className="icon-nav">
       <ul role="list" className="icon-nav__list">
         {nav.map((item) => (
           <li key={item.id}>

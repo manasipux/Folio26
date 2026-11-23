@@ -86,10 +86,6 @@
   outline-offset: 4px;
 }
 
-.icon-nav--mobile-only {
-  display: none;
-}
-
 /* Narrower desktops: reserve room for icons only; labels float over content on hover/focus */
 @media (min-width: 768px) and (max-width: 1279px) {
   .icon-nav__item.active .icon-nav__label {
@@ -106,8 +102,7 @@
 
 /* ---------- Mobile: bottom tab bar ---------- */
 @media (max-width: 767px) {
-  .icon-nav,
-  .icon-nav--mobile-only {
+  .icon-nav {
     display: block;
     top: auto;
     left: 0;
