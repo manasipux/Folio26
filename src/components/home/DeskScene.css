@@ -1,0 +1,149 @@
+.desk {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 1px 2px rgb(60 40 20 / 0.12),
+    0 18px 50px -12px rgb(60 40 20 / 0.28);
+  container-type: inline-size;
+}
+
+.desk__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Spotlight ---------- */
+.desk__spot {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  width: var(--w, 0%);
+  height: var(--h, 0%);
+  border-radius: 14px;
+  box-shadow: 0 0 0 200vmax rgb(30 22 14 / 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s var(--ease-out),
+    left 0.35s var(--ease-out),
+    top 0.35s var(--ease-out),
+    width 0.35s var(--ease-out),
+    height 0.35s var(--ease-out);
+}
+.desk__spot.is-on {
+  opacity: 1;
+}
+
+/* ---------- Click areas ---------- */
+.desk__objects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.desk__obj {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+}
+
+.desk__hit {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.desk__hit:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--c-focus);
+}
+
+/* ---------- Labels (paper tags under each object) ---------- */
+.desk__tag {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.5rem);
+  translate: -50% 0;
+  display: grid;
+  gap: 2px;
+  padding: 0.45rem 0.75rem 0.5rem;
+  border-radius: 6px;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  box-shadow: 0 6px 18px rgb(30 22 14 / 0.25);
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.desk__tag-label {
+  font-weight: 700;
+  font-size: var(--fs-base);
+}
+.desk__tag-desc {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-muted);
+}
+
+.desk__hit:hover .desk__tag,
+.desk__hit:focus-visible .desk__tag {
+  opacity: 1;
+  transform: none;
+}
+
+/* Objects in the bottom half get their tag above, so it stays inside the photo */
+.desk__obj--low .desk__tag {
+  top: auto;
+  bottom: calc(100% + 0.5rem);
+}
+
+/* ---------- Touch screens: no hover, so tags are always visible but small ---------- */
+@media (hover: none), (pointer: coarse), (max-width: 767px) {
+  .desk__tag {
+    opacity: 1;
+    transform: none;
+    top: auto;
+    bottom: 4px;
+    padding: 0.2rem 0.45rem;
+    gap: 0;
+    box-shadow: 0 2px 8px rgb(30 22 14 / 0.3);
+  }
+  .desk__tag-desc {
+    display: none;
+  }
+  .desk__tag-label {
+    font-size: clamp(0.625rem, 2.6cqi, 0.875rem);
+  }
+  .desk__obj--low .desk__tag {
+    bottom: 4px;
+  }
+  .desk__spot {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desk__spot,
+  .desk__tag {
+    transition: opacity 0.2s linear;
+  }
+}
