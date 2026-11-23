@@ -175,6 +175,10 @@ export type Project = {
     process: { heading: string; body: string }[];
     outcome: string;
     images: Img[];
+    /** Optional richer sections — only rendered when present. */
+    decisions?: { title: string; body: string }[];
+    tables?: { title: string; caption?: string; columns: string[]; rows: string[][] }[];
+    callout?: { heading: string; body: string };
   };
 };
 
@@ -213,24 +217,125 @@ const templateProcess = [
 export const projects: Project[] = [
   {
     slug: 'ibm',
-    eyebrow: 'IBM · Enterprise UX',
-    title: '[TODO: IBM case study title]',
+    eyebrow: 'IBM watsonx Orchestrate · Enterprise UX',
+    title: 'Deploying AI agents: channel and voice configuration',
     summary:
-      '[TODO: one-line summary. Keep it free of confidential client or product details.]',
-    tags: ['Enterprise UX', 'IBM'],
+      'Turning dense technical requirements into setup flows that let builders put AI agents into Teams, Slack, WhatsApp and phone calls, without drowning in settings.',
+    tags: ['Enterprise UX', 'AI platform', 'Complex forms'],
     size: 'large',
-    cover: placeholderCover('the IBM case study', 'ibm'),
+    cover: placeholderCover('the watsonx Orchestrate case study', 'ibm'),
     caseStudy: {
-      role: 'UX Designer',
-      timeline: '[TODO: e.g. 2023 – 2024]',
-      team: '[TODO: team you worked with]',
-      tools: '[TODO: tools used]',
+      role: 'UX Designer, channel and voice configuration',
+      timeline: '[TODO: e.g. 2025]',
+      team: 'Product manager, engineering [TODO: add anyone else, e.g. content design]',
+      tools: 'Figma, Carbon Design System [TODO: confirm]',
       overview:
-        '[TODO: short overview. Share only what you are cleared to share publicly — no confidential IBM or client details.]',
-      problem: '[TODO: the problem, in user terms]',
-      process: templateProcess,
-      outcome: '[TODO: add outcome — only real, shareable results]',
-      images: placeholderGallery('the IBM case study', 'ibm'),
+        'watsonx Orchestrate lets enterprises build AI agents. An agent only becomes useful once it lives where people already work, so builders have to deploy it to channels like Microsoft Teams, Slack, WhatsApp and Facebook Messenger, and, for voice agents, choose how it listens and speaks. I designed the configuration flows for both.',
+      problem:
+        'For a builder (our persona, Bob), “connect a channel” is not one form but many. Each channel needs credentials created in a different product. The same channel needs a different connection depending on where Orchestrate runs: IBM Cloud, AWS or on-premises. Draft and live environments each hold their own setup. Voice adds speech-to-text and text-to-speech providers such as ElevenLabs and Deepgram, whose documentation lists far more parameters than most builders will ever touch. Requirements arrived as a PM epic with fields and acceptance criteria. My job was deciding how a builder actually gets through them.',
+      process: [
+        {
+          heading: 'Start from what already worked',
+          body: 'This was the first version of channels in Orchestrate’s agent builder, so rather than reinventing it I adapted the proven integration patterns from watsonx Assistant, then extended them for new fields and deployment-specific connection types.',
+        },
+        {
+          heading: 'Map every variation',
+          body: 'Before designing screens I mapped what changes the setup: channel, deployment, environment and, for voice, provider. That map showed which parts could share one pattern and which genuinely had to differ.',
+        },
+        {
+          heading: 'Question every field',
+          body: 'The provider documentation listed many more fields than builders need. I went through them with the PM and engineers and challenged which ones to show, which to tuck away, and which the system could handle itself.',
+        },
+        {
+          heading: 'Design for the moment after “Save”',
+          body: 'A form that saves is not the same as an agent that works. I designed validation, error states and a preview-and-test step so builders could check a connection or hear a voice before real users do.',
+        },
+      ],
+      tables: [
+        {
+          title: 'What changes the setup',
+          caption: 'Based on IBM’s public watsonx Orchestrate documentation.',
+          columns: ['Factor', 'Examples', 'What it changes in the form'],
+          rows: [
+            [
+              'Channel',
+              'Teams, Slack, WhatsApp (via Twilio), Facebook Messenger',
+              'Different credentials: Teams needs an app ID, password and tenant ID; Slack a client ID, signing secret and workspace IDs; WhatsApp a Twilio account SID and auth token',
+            ],
+            [
+              'Deployment',
+              'IBM Cloud, AWS, on-premises',
+              'A different connection type for the same channel',
+            ],
+            [
+              'Environment',
+              'Draft, live',
+              'Each environment holds its own setup, one per channel type',
+            ],
+            [
+              'Voice provider',
+              'ElevenLabs, Deepgram and others',
+              'Different models, languages and parameter ranges',
+            ],
+          ],
+        },
+        {
+          title: 'How I decided what Bob sees',
+          caption:
+            'A tiered model, agreed field by field with product and engineering. [TODO: add “ElevenLabs documents ~X parameters; builders see Y by default”, counted from the public API docs]',
+          columns: ['Tier', 'Rule', 'How it appears'],
+          rows: [
+            ['Required', 'The connection cannot work without it', 'Always visible, at the top'],
+            [
+              'Common',
+              'Most builders will want to adjust it',
+              'Visible, with a sensible default already filled in',
+            ],
+            [
+              'Advanced',
+              'Rarely changed, or safe to default',
+              'Collapsed under “Advanced settings”',
+            ],
+            ['Removed', 'Not relevant to builders, or set by the system', 'Not shown at all'],
+          ],
+        },
+      ],
+      decisions: [
+        {
+          title: 'The provider drives the rest of the form',
+          body: 'In voice configuration, choosing a provider changes which models and languages are available. The form updates as Bob chooses, so he only ever sees valid options. [TODO: what happens to settings that stop being valid after a change: cleared, kept or flagged?]',
+        },
+        {
+          title: 'Defaults so builders don’t need to be speech experts',
+          body: 'Every common setting starts with a recommended value, so a builder can ship a working voice agent without understanding every provider’s parameters, and still fine-tune within the ranges set in the acceptance criteria. [TODO: name the control you chose for ranges (slider, input or presets) and why]',
+        },
+        {
+          title: 'Preview and test before going live',
+          body: 'Builders can hear the voice and test the setup before saving, so problems surface in the builder, not in front of customers. [TODO: what happens when a test fails, and what the error tells Bob to do]',
+        },
+        {
+          title: 'Disagreeing well',
+          body: 'Product and engineering pushed back on some of the fields I proposed hiding or removing. We worked through them one by one against what builders actually need. [TODO: one specific field you debated: who wanted what, why, and where it landed]',
+        },
+      ],
+      callout: {
+        heading: 'Designing for AI',
+        body: 'These flows are where an AI agent leaves the builder and meets real people, in a chat app or on a call. Preview and test exist so builders can trust what the agent will say and sound like before anyone else hears it. [TODO: one way you used AI tools in your own process, and one moment you overrode what the AI suggested]',
+      },
+      outcome:
+        'Channel integrations and voice configuration shipped in watsonx Orchestrate’s agent builder. [TODO: one real, shareable result: adoption, setups completed, fewer support questions, or field counts before and after]',
+      images: [
+        {
+          src: '/images/cover-ibm.svg',
+          alt: 'Placeholder for a redrawn channel setup screen',
+          caption: '[TODO: redrawn channel setup screen with generic labels]',
+        },
+        {
+          src: '/images/cover-ibm.svg',
+          alt: 'Placeholder for a redrawn voice configuration screen',
+          caption: '[TODO: redrawn voice configuration with the provider, model and preview step]',
+        },
+      ],
     },
   },
   {
@@ -427,6 +532,7 @@ export const caseStudyLabels = {
   problem: 'The problem',
   process: 'Process',
   outcome: 'Outcome',
+  decisions: 'Key decisions',
   next: 'Next project',
 };
 
