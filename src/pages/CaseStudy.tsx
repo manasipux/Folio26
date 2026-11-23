@@ -75,6 +75,57 @@ export default function CaseStudy() {
         </ol>
       </section>
 
+      {cs.tables?.map((t, ti) => (
+        <section key={ti} className="cs__section" aria-labelledby={`cs-table-${ti}`}>
+          <h2 id={`cs-table-${ti}`}>{t.title}</h2>
+          <div className="cs__table-wrap">
+            <table className="cs__table">
+              {t.caption && <caption>{t.caption}</caption>}
+              <thead>
+                <tr>
+                  {t.columns.map((c) => (
+                    <th key={c} scope="col">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {t.rows.map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((cell, ci) =>
+                      ci === 0 ? (
+                        <th key={ci} scope="row">
+                          {cell}
+                        </th>
+                      ) : (
+                        <td key={ci} data-label={t.columns[ci]}>
+                          {cell}
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+
+      {cs.decisions && cs.decisions.length > 0 && (
+        <section className="cs__section" aria-labelledby="cs-decisions">
+          <h2 id="cs-decisions">{L.decisions}</h2>
+          <ul role="list" className="cs__decisions">
+            {cs.decisions.map((d, i) => (
+              <li key={i}>
+                <h3>{d.title}</h3>
+                <p>{d.body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {cs.images.length > 0 && (
         <div className="cs__gallery">
           {cs.images.map((img, i) => (
@@ -84,6 +135,13 @@ export default function CaseStudy() {
             </figure>
           ))}
         </div>
+      )}
+
+      {cs.callout && (
+        <aside className="cs__callout" aria-labelledby="cs-callout">
+          <h2 id="cs-callout">{cs.callout.heading}</h2>
+          <p>{cs.callout.body}</p>
+        </aside>
       )}
 
       <section className="cs__section cs__outcome" aria-labelledby="cs-outcome">
