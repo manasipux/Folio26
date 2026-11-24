@@ -226,9 +226,9 @@ export const projects: Project[] = [
     cover: placeholderCover('the watsonx Orchestrate case study', 'ibm'),
     caseStudy: {
       role: 'UX Designer, channel and voice configuration',
-      timeline: '[TODO: e.g. 2025]',
-      team: 'Product manager, engineering [TODO: add anyone else, e.g. content design]',
-      tools: 'Figma, Carbon Design System [TODO: confirm]',
+      timeline: '2025 – 2026, ongoing',
+      team: 'Product manager, engineering',
+      tools: 'Figma, Carbon Design System',
       overview:
         'watsonx Orchestrate lets enterprises build AI agents. An agent only becomes useful once it lives where people already work, so builders have to deploy it to channels like Microsoft Teams, Slack, WhatsApp and Facebook Messenger, and, for voice agents, choose how it listens and speaks. I designed the configuration flows for both.',
       problem:
@@ -236,19 +236,19 @@ export const projects: Project[] = [
       process: [
         {
           heading: 'Start from what already worked',
-          body: 'This was the first version of channels in Orchestrate’s agent builder, so rather than reinventing it I adapted the proven integration patterns from watsonx Assistant, then extended them for new fields and deployment-specific connection types.',
+          body: 'This was the first version of channels in Orchestrate’s agent builder, so rather than reinventing it I adapted the proven integration patterns from watsonx Assistant, then extended them for new fields and deployment-specific connection types. For voice, I built on the existing IBM Watson speech setup and its preview panel, so third-party providers feel like part of the same product.',
         },
         {
           heading: 'Map every variation',
           body: 'Before designing screens I mapped what changes the setup: channel, deployment, environment and, for voice, provider. That map showed which parts could share one pattern and which genuinely had to differ.',
         },
         {
-          heading: 'Question every field',
-          body: 'The provider documentation listed many more fields than builders need. I went through them with the PM and engineers and challenged which ones to show, which to tuck away, and which the system could handle itself.',
+          heading: 'Translate the documentation',
+          body: 'Requirements came as a PM epic, backed by provider documentation written for engineers, with many more parameters than builders need. I worked out what each one does, then went through them with the PM and engineers to decide which to show, which to move to advanced settings, and which the system could handle itself.',
         },
         {
           heading: 'Design for the moment after “Save”',
-          body: 'A form that saves is not the same as an agent that works. I designed validation, error states and a preview-and-test step so builders could check a connection or hear a voice before real users do.',
+          body: 'A form that saves is not the same as an agent that works. Errors appear inline, right where they need fixing, and a preview lets builders hear a voice before real users do.',
         },
       ],
       tables: [
@@ -294,7 +294,7 @@ export const projects: Project[] = [
             [
               'Advanced',
               'Rarely changed, or safe to default',
-              'Collapsed under “Advanced settings”',
+              'Moved to a final “Advanced settings” step',
             ],
             ['Removed', 'Not relevant to builders, or set by the system', 'Not shown at all'],
           ],
@@ -302,25 +302,29 @@ export const projects: Project[] = [
       ],
       decisions: [
         {
-          title: 'The provider drives the rest of the form',
-          body: 'In voice configuration, choosing a provider changes which models and languages are available. The form updates as Bob chooses, so he only ever sees valid options. [TODO: what happens to settings that stop being valid after a change: cleared, kept or flagged?]',
+          title: 'The provider comes first and drives everything else',
+          body: 'Provider is the first field, and every field below depends on it: models, languages, voices and their settings. Switching provider resets everything to that provider’s defaults, so Bob never carries over a setting the new provider doesn’t support. Fields also adapt to the model: Deepgram’s Flux offers Expressivity, Aura 2 doesn’t, so it isn’t shown.',
         },
         {
-          title: 'Defaults so builders don’t need to be speech experts',
-          body: 'Every common setting starts with a recommended value, so a builder can ship a working voice agent without understanding every provider’s parameters, and still fine-tune within the ranges set in the acceptance criteria. [TODO: name the control you chose for ranges (slider, input or presets) and why]',
+          title: 'A step-by-step setup, with the complexity at the end',
+          body: 'Voice setup runs as four steps: Set up voice, Speech to text, Text to speech, then Advanced settings. Within each step, fields are grouped into “API and authentication” and “Language and voice”, so builders deal with access first and then with how the agent sounds. Anything most builders won’t touch waits in the final step.',
         },
         {
-          title: 'Preview and test before going live',
-          body: 'Builders can hear the voice and test the setup before saving, so problems surface in the builder, not in front of customers. [TODO: what happens when a test fails, and what the error tells Bob to do]',
+          title: 'Sliders you can hear',
+          body: 'Speed and Expressivity use a slider together with a number input, with the range and a help tooltip shown. The slider is for adjusting by ear: drag, press Preview, listen, and adjust again. The input is for when a builder already knows the exact value.',
         },
         {
-          title: 'Disagreeing well',
-          body: 'Product and engineering pushed back on some of the fields I proposed hiding or removing. We worked through them one by one against what builders actually need. [TODO: one specific field you debated: who wanted what, why, and where it landed]',
+          title: 'One experience across providers',
+          body: 'I extended the existing Watson preview panel to third-party voices rather than designing a new one, so ElevenLabs, Deepgram and IBM voices all look and behave the same. A notice under the provider makes clear when a model is non-IBM and governed by its own license terms.',
+        },
+        {
+          title: 'A pronunciation dictionary that scales',
+          body: 'Agents mispronounce product names, brands and jargon, so I designed a pronunciation dictionary. Bob adds a word and its IPA pronunciation in a row above the table, and mistakes are caught inline (“Enter valid IPA pronunciation”) before they are saved. Entries go into a searchable, paginated table with delete on every row, built to hold hundreds of words. [TODO: why inline instead of a modal, how duplicates are handled, and whether Bob can hear a word in the preview]',
         },
       ],
       callout: {
         heading: 'Designing for AI',
-        body: 'These flows are where an AI agent leaves the builder and meets real people, in a chat app or on a call. Preview and test exist so builders can trust what the agent will say and sound like before anyone else hears it. [TODO: one way you used AI tools in your own process, and one moment you overrode what the AI suggested]',
+        body: 'These flows are where an AI agent leaves the builder and meets real people, in a chat app or on a call. Preview, pronunciation control and sensible defaults exist so builders can trust what the agent will say and sound like before anyone else hears it.',
       },
       outcome:
         'Channel integrations and voice configuration shipped in watsonx Orchestrate’s agent builder. [TODO: one real, shareable result: adoption, setups completed, fewer support questions, or field counts before and after]',
