@@ -5,6 +5,8 @@ import { usePageTitle } from '../components/common/usePageTitle';
 import NotFound from './NotFound';
 import PersonaPeek from '../components/work/PersonaPeek';
 import PerchedBob from '../components/work/PerchedBob';
+import SlideCarousel from '../components/work/SlideCarousel';
+import Media from '../components/work/Media';
 import ProcessStack from '../components/work/ProcessStack';
 import './CaseStudy.css';
 
@@ -162,10 +164,14 @@ export default function CaseStudy() {
           <div className="cs__spotlights">
             {cs.spotlights.map((sp, i) => (
               <article key={i} className="cs__spotlight">
-                <figure>
-                  <LazyImage {...sp.image} width={sp.image.width ?? 1200} height={sp.image.height ?? 800} />
-                  {sp.image.caption && <figcaption>{sp.image.caption}</figcaption>}
-                </figure>
+                {sp.slides && sp.slides.length > 0 ? (
+                  <SlideCarousel slides={sp.slides} />
+                ) : (
+                  <figure>
+                    <Media image={sp.image} />
+                    {sp.image.caption && <figcaption>{sp.image.caption}</figcaption>}
+                  </figure>
+                )}
                 <div className="cs__spotlight-text">
                   <p className="cs__spotlight-label">{sp.label}</p>
                   <h3>{sp.title}</h3>
