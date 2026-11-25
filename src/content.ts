@@ -180,7 +180,8 @@ export type Project = {
     /** `summary` is the short, bold decision; `body` is the reasoning. */
     decisions?: { title: string; summary?: string; body: string }[];
     /** A closer look at one flow: an image with a few annotated points. */
-    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img }[];
+    /** `slides` turns the image into a step-by-step carousel (a slide without an image shows a placeholder). */
+    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img; slides?: { label: string; image?: Img }[] }[];
     /** `cursor: 'glasses'` turns the pointer into Bob's glasses over the section. */
     tables?: { title: string; cursor?: 'glasses'; caption?: string; columns: string[]; rows: string[][] }[];
     callout?: { heading: string; body: string };
@@ -331,7 +332,7 @@ export const projects: Project[] = [
         {
           title: 'Complexity comes last',
           summary: 'Four steps, with advanced settings saved for the end.',
-          body: 'Set up voice, Speech to text, Text to speech, then Advanced settings. Each step groups access details first and behaviour second, and anything most builders won’t touch waits in the final step.',
+          body: 'Details, Speech to text, Text to speech, then Advanced settings. Each step groups access details first and behaviour second, and anything most builders won’t touch waits in the final step.',
         },
         {
           title: 'One experience, any provider',
@@ -344,18 +345,61 @@ export const projects: Project[] = [
           label: 'Voice configuration',
           title: 'Bringing third-party voices in',
           points: [
-            'Provider first: choosing it decides the models, languages and voices below',
+            'Provider first: the form rebuilds around it. Watson asks for an instance URL and API key; Deepgram for a model, turn-taking, key terms and filters',
             'Switching provider resets every field to that provider’s defaults',
-            'Access details grouped under “API and authentication settings”, ahead of how the agent sounds',
-            'A licence notice whenever the provider is non-IBM',
+            'Cost and licence up front: paid providers carry a $ in the list and a warning when chosen, and third-party models show their licence terms',
+            'Every slider has an exact-value field beside it, and tooltips appear only where a setting needs explaining, like end-of-turn threshold',
+            'Settings most builders won’t touch wait in a final Advanced settings step',
           ],
           image: {
-            src: '/images/voice-config.gif',
-            alt: 'Screen recording of the Text to speech step: the builder switches the provider from Deepgram to ElevenLabs, the form updates with a cost warning and new models, they pick a model and voice, adjust the speed, stability and style sliders, and save.',
-            caption: 'Switching provider to ElevenLabs: the form adapts to the provider and model.',
-            width: 760,
-            height: 711,
+            src: '/images/voice-tts.mp4',
+            alt: 'Screen recording of the Text to speech step: the builder switches the provider from Deepgram to ElevenLabs and sees a cost warning, changes the model to Eleven Turbo, turns Speaker Boost off, tunes the speed, stability and style sliders, previews the voice and saves.',
+            caption: 'Text to speech: switch to ElevenLabs, pick a model, then tune speed, stability and style and preview the voice before saving.',
+            width: 1200,
+            height: 1124,
           },
+          slides: [
+            {
+              label: 'Details',
+              image: {
+                src: '/images/voice-details.mp4',
+                alt: 'Screen recording of the Details step: the builder names the voice configuration, keeps the default voice orchestrator, and moves on to the next step.',
+                caption: 'Details: name the voice configuration and choose the voice orchestrator.',
+                width: 1200,
+                height: 1210,
+              },
+            },
+            {
+              label: 'Speech to text',
+              image: {
+                src: '/images/voice-stt.mp4',
+                alt: 'Screen recording of the Speech to text step: the builder switches the provider to Deepgram, which brings in a third-party licence note and a different set of fields, picks the Flux General English model, checks the tooltip on the end-of-turn threshold, turns on numerals, adds "refund" as a key term and turns on the profanity filter.',
+                caption: 'Speech to text: switch to Deepgram and the form reshapes around its model, turn-taking, key terms and filters.',
+                width: 1200,
+                height: 1210,
+              },
+            },
+            {
+              label: 'Text to speech',
+              image: {
+                src: '/images/voice-tts.mp4',
+                alt: 'Screen recording of the Text to speech step: the builder switches the provider from Deepgram to ElevenLabs and sees a cost warning, changes the model to Eleven Turbo, turns Speaker Boost off, tunes the speed, stability and style sliders, previews the voice and saves.',
+                caption: 'Text to speech: switch to ElevenLabs, pick a model, then tune speed, stability and style and preview the voice before saving.',
+                width: 1200,
+                height: 1124,
+              },
+            },
+            {
+              label: 'Advanced settings',
+              image: {
+                src: '/images/voice-advanced.mp4',
+                alt: 'Screen recording of the Advanced settings step: the builder adjusts voice activity detection thresholds and speech delays, reviews keypad (DTMF) input and silence handling settings, and sees the reasoning engine choice before finishing.',
+                caption: 'Advanced settings: voice activity detection, keypad (DTMF) input, silence handling and the reasoning engine, kept out of the way until a builder needs them.',
+                width: 1200,
+                height: 1210,
+              },
+            },
+          ],
         },
         {
           label: 'Channel configuration',

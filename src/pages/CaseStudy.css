@@ -289,13 +289,18 @@
 .cs__spotlight:nth-child(even) {
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
 }
-.cs__spotlight:nth-child(even) > figure {
+.cs__spotlight:nth-child(even) > figure,
+.cs__spotlight:nth-child(even) > .carousel {
   order: 2;
+}
+.cs__spotlight {
+  align-items: start;
 }
 .cs__spotlight figure {
   margin: 0;
 }
-.cs__spotlight img {
+.cs__spotlight img,
+.cs__spotlight video {
   width: 100%;
   height: auto;
   box-shadow: 0 8px 28px -12px rgb(42 38 51 / 0.35);
