@@ -1,0 +1,91 @@
+.pstack__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pstack__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border: 2px solid var(--c-purple);
+  border-radius: var(--radius-lg);
+  background: var(--c-bg);
+  box-shadow: 0 -8px 22px -14px rgb(42 38 51 / 0.35);
+}
+.pstack__num {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--c-purple-deep);
+}
+.pstack__of {
+  color: var(--c-ink-muted);
+  font-weight: 400;
+}
+.pstack__card h3 {
+  font-size: var(--fs-lg);
+}
+.pstack__line {
+  margin-top: var(--space-2);
+  color: var(--c-ink-muted);
+}
+.pstack__body {
+  opacity: var(--body-o, 1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--c-lavender-2);
+}
+
+/* Plain fallback: cards one below the other */
+.pstack--static .pstack__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Scroll scene */
+.pstack--live {
+  position: relative;
+}
+.pstack__stage {
+  position: absolute;
+  inset: 0 0 auto 0;
+  will-change: transform;
+}
+.pstack__inner {
+  position: relative;
+  height: 100%;
+}
+.pstack--live .pstack__list {
+  position: relative;
+  height: 100%;
+}
+.pstack--live .pstack__card {
+  position: absolute;
+  inset: 0 0 auto 0;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.pstack__clip {
+  position: absolute;
+  z-index: 50;
+  top: -50px;
+  left: 40px;
+  width: 40px;
+  height: 112px;
+  transform-origin: 50% 80%;
+  filter: drop-shadow(1px 2px 1.5px rgb(42 38 51 / 0.35));
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .pstack__card {
+    padding: var(--space-4);
+  }
+  .pstack__clip {
+    left: 22px;
+  }
+}
