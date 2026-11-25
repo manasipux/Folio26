@@ -14,7 +14,7 @@
  * ============================================================
  */
 
-export type Img = { src: string; alt: string; caption?: string };
+export type Img = { src: string; alt: string; caption?: string; width?: number; height?: number };
 
 /** True while a value is still a "[TODO: …]" placeholder. */
 export const isTodo = (value: string) => value.trim().startsWith('[TODO');
@@ -172,14 +172,31 @@ export type Project = {
     tools: string;
     overview: string;
     problem: string;
-    process: { heading: string; body: string }[];
+    /** `summary` is the one-liner shown on the closed tile; `body` opens on click. */
+    process: { heading: string; summary?: string; body: string }[];
     outcome: string;
     images: Img[];
     /** Optional richer sections — only rendered when present. */
-    decisions?: { title: string; body: string }[];
-    tables?: { title: string; caption?: string; columns: string[]; rows: string[][] }[];
+    /** `summary` is the short, bold decision; `body` is the reasoning. */
+    decisions?: { title: string; summary?: string; body: string }[];
+    /** A closer look at one flow: an image with a few annotated points. */
+    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img }[];
+    /** `cursor: 'glasses'` turns the pointer into Bob's glasses over the section. */
+    tables?: { title: string; cursor?: 'glasses'; caption?: string; columns: string[]; rows: string[][] }[];
     callout?: { heading: string; body: string };
+    /** Inline persona: the first match of `trigger` in the problem text opens a card. */
+    persona?: { trigger: string } & Persona;
   };
+};
+
+export type Persona = {
+  name: string;
+  role: string;
+  /** Shown on the card's header band. */
+  product?: string;
+  quote?: string;
+  summary: string;
+  details: { label: string; value: string }[];
 };
 
 // Abstract placeholder art in /public/images/cover-<art>.svg — replace with real screens.
@@ -236,24 +253,28 @@ export const projects: Project[] = [
       process: [
         {
           heading: 'Start from what already worked',
+          summary: 'Built on proven patterns from watsonx Assistant and IBM’s Watson speech setup instead of starting from scratch.',
           body: 'This was the first version of channels in Orchestrate’s agent builder, so rather than reinventing it I adapted the proven integration patterns from watsonx Assistant, then extended them for new fields and deployment-specific connection types. For voice, I built on the existing IBM Watson speech setup and its preview panel, so third-party providers feel like part of the same product.',
         },
         {
           heading: 'Map every variation',
+          summary: 'Mapped how channel, deployment, environment and provider each change the setup.',
           body: 'Before designing screens I mapped what changes the setup: channel, deployment, environment and, for voice, provider. That map showed which parts could share one pattern and which genuinely had to differ.',
         },
         {
           heading: 'Translate the documentation',
-          body: 'Requirements came as a PM epic, backed by provider documentation written for engineers, with many more parameters than builders need. I worked out what each one does, then went through them with the PM and engineers to decide which to show, which to move to advanced settings, and which the system could handle itself.',
+          summary: 'Turned provider documentation written for engineers into a form builders can get through.',
+          body: 'Requirements came as a PM epic, backed by provider documentation written for engineers, with many more parameters than builders need. I worked out what each one does, then went through them in a 3-in-a-box review with the PM and engineering lead to decide which to show, which to move to advanced settings, and which the system could handle itself.',
         },
         {
           heading: 'Design for the moment after “Save”',
-          body: 'A form that saves is not the same as an agent that works. Errors appear inline, right where they need fixing, and a preview lets builders hear a voice before real users do.',
+          summary: 'Inline errors, so builders catch problems before their users do.',
+          body: 'A form that saves is not the same as an agent that works. Errors appear inline, right where they need fixing, and for voice, the existing preview lets builders hear the result before real users do.',
         },
       ],
       tables: [
         {
-          title: 'What changes the setup',
+          title: 'Four factors I had to design for',
           caption: 'Based on IBM’s public watsonx Orchestrate documentation.',
           columns: ['Factor', 'Examples', 'What it changes in the form'],
           rows: [
@@ -280,9 +301,10 @@ export const projects: Project[] = [
           ],
         },
         {
-          title: 'How I decided what Bob sees',
+          title: 'Through Bob’s eyes',
+          cursor: 'glasses',
           caption:
-            'A tiered model, agreed field by field with product and engineering. [TODO: add “ElevenLabs documents ~X parameters; builders see Y by default”, counted from the public API docs]',
+            'How I decided what Bob sees: a tiered model, agreed field by field in a 3-in-a-box review with product and engineering, working from each provider’s own documentation, such as Deepgram’s Flux configuration reference. Some settings were cut; the rest were kept and placed in a tier.',
           columns: ['Tier', 'Rule', 'How it appears'],
           rows: [
             ['Required', 'The connection cannot work without it', 'Always visible, at the top'],
@@ -302,44 +324,83 @@ export const projects: Project[] = [
       ],
       decisions: [
         {
-          title: 'The provider comes first and drives everything else',
-          body: 'Provider is the first field, and every field below depends on it: models, languages, voices and their settings. Switching provider resets everything to that provider’s defaults, so Bob never carries over a setting the new provider doesn’t support. Fields also adapt to the model: Deepgram’s Flux offers Expressivity, Aura 2 doesn’t, so it isn’t shown.',
+          title: 'The provider leads',
+          summary: 'Pick a provider first; every field below adapts to it.',
+          body: 'Models, languages and voices all depend on the provider, so it is the first field. Switching provider resets everything to that provider’s defaults, so a builder never carries over a setting the new provider doesn’t support.',
         },
         {
-          title: 'A step-by-step setup, with the complexity at the end',
-          body: 'Voice setup runs as four steps: Set up voice, Speech to text, Text to speech, then Advanced settings. Within each step, fields are grouped into “API and authentication” and “Language and voice”, so builders deal with access first and then with how the agent sounds. Anything most builders won’t touch waits in the final step.',
+          title: 'Complexity comes last',
+          summary: 'Four steps, with advanced settings saved for the end.',
+          body: 'Set up voice, Speech to text, Text to speech, then Advanced settings. Each step groups access details first and behaviour second, and anything most builders won’t touch waits in the final step.',
         },
         {
-          title: 'Sliders you can hear',
-          body: 'Speed and Expressivity use a slider together with a number input, with the range and a help tooltip shown. The slider is for adjusting by ear: drag, press Preview, listen, and adjust again. The input is for when a builder already knows the exact value.',
+          title: 'One experience, any provider',
+          summary: 'IBM, ElevenLabs or Deepgram: same layout, same preview.',
+          body: 'I extended the existing Watson setup and preview to third-party providers instead of designing new ones, and added a clear notice whenever a model is non-IBM and governed by its own licence terms.',
+        },
+      ],
+      spotlights: [
+        {
+          label: 'Voice configuration',
+          title: 'Bringing third-party voices in',
+          points: [
+            'Provider first: choosing it decides the models, languages and voices below',
+            'Switching provider resets every field to that provider’s defaults',
+            'Access details grouped under “API and authentication settings”, ahead of how the agent sounds',
+            'A licence notice whenever the provider is non-IBM',
+          ],
+          image: {
+            src: '/images/voice-config.gif',
+            alt: 'Screen recording of the Text to speech step: the builder switches the provider from Deepgram to ElevenLabs, the form updates with a cost warning and new models, they pick a model and voice, adjust the speed, stability and style sliders, and save.',
+            caption: 'Switching provider to ElevenLabs: the form adapts to the provider and model.',
+            width: 760,
+            height: 711,
+          },
         },
         {
-          title: 'One experience across providers',
-          body: 'I extended the existing Watson preview panel to third-party voices rather than designing a new one, so ElevenLabs, Deepgram and IBM voices all look and behave the same. A notice under the provider makes clear when a model is non-IBM and governed by its own license terms.',
-        },
-        {
-          title: 'A pronunciation dictionary that scales',
-          body: 'Agents mispronounce product names, brands and jargon, so I designed a pronunciation dictionary. Bob adds a word and its IPA pronunciation in a row above the table, and mistakes are caught inline (“Enter valid IPA pronunciation”) before they are saved. Entries go into a searchable, paginated table with delete on every row, built to hold hundreds of words. [TODO: why inline instead of a modal, how duplicates are handled, and whether Bob can hear a word in the preview]',
+          label: 'Channel configuration',
+          title: '[TODO: one channel flow, e.g. connecting Microsoft Teams]',
+          body: '[TODO: one or two sentences on what the builder does in this flow and what made it tricky]',
+          points: [
+            'Different credentials for each channel: Teams, Slack, WhatsApp and Facebook Messenger',
+            'Fields that change with the deployment: IBM Cloud, AWS or on-premises',
+            'A separate setup for draft and live environments',
+          ],
+          image: {
+            src: '/images/cover-ibm.svg',
+            alt: 'Channel configuration flow',
+            caption: '[TODO: redrawn channel setup screen with generic labels]',
+          },
         },
       ],
       callout: {
         heading: 'Designing for AI',
         body: 'These flows are where an AI agent leaves the builder and meets real people, in a chat app or on a call. Preview, pronunciation control and sensible defaults exist so builders can trust what the agent will say and sound like before anyone else hears it.',
       },
+      persona: {
+        trigger: 'our persona, Bob',
+        name: 'Bob',
+        role: 'Builder',
+        product: 'watsonx Orchestrate',
+        quote: 'My role is to help increase productivity for our end users.',
+        summary:
+          'Pro-code developer who owns the full agent lifecycle, from build to post-launch quality. Writes evaluation suites, only ships when they pass, debugs failures by inspecting traces, and turns production issues into regression tests.',
+        details: [
+          {
+            label: 'Common titles',
+            value:
+              'Software Developer, AI Engineer, Agent Builder, Agent Dev, AI Quality Engineer, ML Evaluation Engineer',
+          },
+          {
+            label: 'In this project',
+            value:
+              'Connects his agents to Teams, Slack, WhatsApp and Facebook Messenger, and sets up voice for agents that take calls',
+          },
+        ],
+      },
       outcome:
-        'Channel integrations and voice configuration shipped in watsonx Orchestrate’s agent builder. [TODO: one real, shareable result: adoption, setups completed, fewer support questions, or field counts before and after]',
-      images: [
-        {
-          src: '/images/cover-ibm.svg',
-          alt: 'Placeholder for a redrawn channel setup screen',
-          caption: '[TODO: redrawn channel setup screen with generic labels]',
-        },
-        {
-          src: '/images/cover-ibm.svg',
-          alt: 'Placeholder for a redrawn voice configuration screen',
-          caption: '[TODO: redrawn voice configuration with the provider, model and preview step]',
-        },
-      ],
+        'Channel integrations and voice configuration shipped in watsonx Orchestrate’s agent builder, including Slack and Microsoft Teams, the platform’s most heavily used customer channels. Core voice interactions saw substantial growth from Q2 to Q3.',
+      images: [],
     },
   },
   {
@@ -533,10 +594,12 @@ export const caseStudyLabels = {
   timeline: 'Timeline',
   team: 'Team',
   tools: 'Tools',
+  context: 'Context',
   problem: 'The problem',
   process: 'Process',
   outcome: 'Outcome',
   decisions: 'Key decisions',
+  spotlights: 'The experience',
   next: 'Next project',
 };
 

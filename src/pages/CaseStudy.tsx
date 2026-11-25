@@ -3,7 +3,21 @@ import { caseStudyLabels as L, projects } from '../content';
 import LazyImage from '../components/common/LazyImage';
 import { usePageTitle } from '../components/common/usePageTitle';
 import NotFound from './NotFound';
+import PersonaPeek from '../components/work/PersonaPeek';
+import PerchedBob from '../components/work/PerchedBob';
+import ProcessStack from '../components/work/ProcessStack';
 import './CaseStudy.css';
+
+/** Bob's glasses as a pointer (hotspot at the bridge). */
+const GLASSES_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="56" height="28" viewBox="0 0 56 28">' +
+  '<path d="M4 9 L1 6 M52 9 L55 6" stroke="#2a2633" stroke-width="2.5" stroke-linecap="round"/>' +
+  '<rect x="3" y="7" width="21" height="16" rx="6" fill="#ffffff" fill-opacity="0.55" stroke="#2a2633" stroke-width="3"/>' +
+  '<rect x="32" y="7" width="21" height="16" rx="6" fill="#ffffff" fill-opacity="0.55" stroke="#2a2633" stroke-width="3"/>' +
+  '<path d="M24 13 q4 -4 8 0" fill="none" stroke="#2a2633" stroke-width="3" stroke-linecap="round"/>' +
+  '<path d="M7 11 l5 -2 M36 11 l5 -2" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>' +
+  '</svg>';
+const GLASSES_CURSOR = `url("data:image/svg+xml,${encodeURIComponent(GLASSES_SVG)}") 28 14, auto`;
 
 /** Template for /work/:slug — every field comes from the project in content.ts */
 export default function CaseStudy() {
@@ -11,6 +25,7 @@ export default function CaseStudy() {
   const index = projects.findIndex((p) => p.slug === slug);
   const project = projects[index];
   usePageTitle(project?.title);
+
 
   if (!project) return <NotFound />;
 
@@ -39,7 +54,10 @@ export default function CaseStudy() {
         </ul>
         <p className="cs__eyebrow">{project.eyebrow}</p>
         <h1 className="cs__title">{project.title}</h1>
-        <p className="cs__overview">{cs.overview}</p>
+        <div className="cs__context">
+          <p className="cs__context-label">{L.context}</p>
+          <p className="cs__overview">{cs.overview}</p>
+        </div>
       </header>
 
       <dl className="cs__meta">
@@ -57,27 +75,38 @@ export default function CaseStudy() {
 
       <section className="cs__section" aria-labelledby="cs-problem">
         <h2 id="cs-problem">{L.problem}</h2>
-        <p>{cs.problem}</p>
+        <p>
+          {(() => {
+            const p = cs.persona;
+            const at = p ? cs.problem.indexOf(p.trigger) : -1;
+            if (!p || at < 0) return cs.problem;
+            return (
+              <>
+                {cs.problem.slice(0, at)}
+                <PersonaPeek label={p.trigger} persona={p} />
+                {cs.problem.slice(at + p.trigger.length)}
+              </>
+            );
+          })()}
+        </p>
       </section>
 
       <section className="cs__section" aria-labelledby="cs-process">
         <h2 id="cs-process">{L.process}</h2>
-        <ol role="list" className="cs__steps">
-          {cs.process.map((step, i) => (
-            <li key={i}>
-              <span className="cs__step-num" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3>{step.heading}</h3>
-              <p>{step.body}</p>
-            </li>
-          ))}
-        </ol>
+        <ProcessStack steps={cs.process} />
       </section>
 
       {cs.tables?.map((t, ti) => (
-        <section key={ti} className="cs__section" aria-labelledby={`cs-table-${ti}`}>
-          <h2 id={`cs-table-${ti}`}>{t.title}</h2>
+        <section
+          key={ti}
+          className="cs__section"
+          aria-labelledby={`cs-table-${ti}`}
+          style={t.cursor === 'glasses' ? { cursor: GLASSES_CURSOR } : undefined}
+        >
+          <h2 id={`cs-table-${ti}`} className={t.cursor === 'glasses' ? 'cs__perched' : undefined}>
+            {t.cursor === 'glasses' && <PerchedBob />}
+            {t.title}
+          </h2>
           <div className="cs__table-wrap">
             <table className="cs__table">
               {t.caption && <caption>{t.caption}</caption>}
@@ -113,16 +142,43 @@ export default function CaseStudy() {
       ))}
 
       {cs.decisions && cs.decisions.length > 0 && (
-        <section className="cs__section" aria-labelledby="cs-decisions">
+        <section className="cs__section cs__section--stack" aria-labelledby="cs-decisions">
           <h2 id="cs-decisions">{L.decisions}</h2>
           <ul role="list" className="cs__decisions">
             {cs.decisions.map((d, i) => (
               <li key={i}>
                 <h3>{d.title}</h3>
-                <p>{d.body}</p>
+                {d.summary && <p className="cs__decision-summary">{d.summary}</p>}
+                <p className="cs__decision-why">{d.body}</p>
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {cs.spotlights && cs.spotlights.length > 0 && (
+        <section className="cs__section cs__section--stack" aria-labelledby="cs-spotlights">
+          <h2 id="cs-spotlights">{L.spotlights}</h2>
+          <div className="cs__spotlights">
+            {cs.spotlights.map((sp, i) => (
+              <article key={i} className="cs__spotlight">
+                <figure>
+                  <LazyImage {...sp.image} width={sp.image.width ?? 1200} height={sp.image.height ?? 800} />
+                  {sp.image.caption && <figcaption>{sp.image.caption}</figcaption>}
+                </figure>
+                <div className="cs__spotlight-text">
+                  <p className="cs__spotlight-label">{sp.label}</p>
+                  <h3>{sp.title}</h3>
+                  {sp.body && <p>{sp.body}</p>}
+                  <ul>
+                    {sp.points.map((pt) => (
+                      <li key={pt}>{pt}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
       )}
 

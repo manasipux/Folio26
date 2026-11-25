@@ -1,5 +1,6 @@
 .cs {
   max-width: 64rem;
+  overflow-x: clip; /* pop-up cards never widen the page on phones */
   display: flex;
   flex-direction: column;
   gap: var(--space-7);
@@ -43,6 +44,18 @@
   letter-spacing: -0.02em;
 }
 
+.cs__context {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--c-lavender-2);
+}
+.cs__context-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--c-purple-deep);
+}
 .cs__overview {
   max-width: 48ch;
   font-size: var(--fs-lg);
@@ -216,9 +229,14 @@
   white-space: nowrap;
 }
 
+.cs__section--stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Key decisions: three bold cards that read at a glance */
 .cs__decisions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-4);
   margin: 0;
   padding: 0;
@@ -226,14 +244,108 @@
 .cs__decisions li {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
   padding: var(--space-5);
-  border-radius: var(--radius-md);
-  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  background: var(--c-dark);
+  color: var(--c-ink-inverse);
+}
+.cs__decision-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c-lavender-2);
 }
 .cs__decisions h3 {
   font-size: var(--fs-lg);
   line-height: var(--lh-tight);
+}
+.cs__decision-summary {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.cs__decision-why {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgb(255 255 255 / 0.18);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  opacity: 0.8;
+}
+
+/* Interesting parts: one flow each, image with annotated points */
+.cs__spotlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+.cs__spotlight {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+.cs__spotlight:nth-child(even) {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+.cs__spotlight:nth-child(even) > figure {
+  order: 2;
+}
+.cs__spotlight figure {
+  margin: 0;
+}
+.cs__spotlight img {
+  width: 100%;
+  height: auto;
+  box-shadow: 0 8px 28px -12px rgb(42 38 51 / 0.35);
+  border-radius: var(--radius-md);
+}
+.cs__spotlight figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-muted);
+}
+.cs__spotlight-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.cs__spotlight-label {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--c-purple-deep);
+}
+.cs__spotlight h3 {
+  font-size: var(--fs-h3, 1.5rem);
+  line-height: var(--lh-tight);
+}
+.cs__spotlight ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: var(--fs-base);
+}
+.cs__spotlight li::marker {
+  color: var(--c-purple);
+}
+
+@media (max-width: 1023px) {
+  .cs__decisions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .cs__spotlight,
+  .cs__spotlight:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+  .cs__spotlight:nth-child(even) > figure {
+    order: 0;
+  }
 }
 
 .cs__callout {
@@ -276,5 +388,59 @@
     font-size: var(--fs-sm);
     font-weight: 700;
     color: var(--c-purple-deep);
+  }
+}
+
+@media (min-width: 768px) {
+  /* Keep the "Process" heading in view while its cards stack */
+  .cs__section:has(> .pstack--live) > h2 {
+    position: sticky;
+    top: 40px;
+    align-self: start;
+  }
+}
+
+/* Tiny Bob perched on top of a heading */
+.cs__perched {
+  position: relative;
+  margin-top: 34px;
+}
+.cs__perch {
+  position: absolute;
+  bottom: calc(100% - 0.28em); /* fingertips rest on the cap height of the letters */
+  left: 3em; /* sits towards the end of the first word */
+  line-height: 0;
+  transform-origin: 50% 100%;
+  transition:
+    translate 0.35s cubic-bezier(0.3, 1.5, 0.5, 1),
+    transform 0.45s cubic-bezier(0.25, 1.2, 0.5, 1);
+}
+.cs__section:hover .cs__perch {
+  translate: 0 -5px;
+}
+/* Fingers tap away like he's typing */
+.bobpeek__fingers rect {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bob-type 0.55s ease-in-out infinite;
+}
+@keyframes bob-type {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-2.5px);
+  }
+  60% {
+    transform: translateY(0.5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs__perch {
+    transition: none;
+  }
+  .bobpeek__fingers rect {
+    animation: none;
   }
 }
