@@ -241,7 +241,12 @@ export const projects: Project[] = [
       'Turning dense technical requirements into setup flows that let builders put AI agents into Teams, Slack, WhatsApp and phone calls, without drowning in settings.',
     tags: ['Enterprise UX', 'AI platform', 'Complex forms'],
     size: 'large',
-    cover: placeholderCover('the watsonx Orchestrate case study', 'ibm'),
+    cover: {
+      src: '/images/cover-ibm.webp',
+      alt: 'Layered screens from the voice configuration flow: Text to speech with ElevenLabs selected, a cost warning and the voice preview in front of Advanced settings, with Speech to text (Flux model, turn-taking sliders, a key term and filters) on top.',
+      width: 1600,
+      height: 1000,
+    },
     caseStudy: {
       role: 'UX Designer, channel and voice configuration',
       timeline: '2025 – 2026, ongoing',
