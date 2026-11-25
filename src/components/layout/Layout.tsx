@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import IconNav from './IconNav';
 import './Layout.css';
 
-export default function Layout() {
+export default function Layout({ bare = false }: { bare?: boolean }) {
   const { pathname } = useLocation();
   const isHome = pathname === '/';
   const mainRef = useRef<HTMLElement>(null);
@@ -25,13 +25,13 @@ export default function Layout() {
         Skip to content
       </a>
       {/* On Home, the objects on the desk are the navigation */}
-      {!isHome && <IconNav />}
+      {!isHome && !bare && <IconNav />}
       <motion.main
         id="main"
         ref={mainRef}
         tabIndex={-1}
         key={pathname}
-        className={`main${isHome ? ' main--home' : ''}`}
+        className={`main${isHome ? ' main--home' : ''}${bare ? ' main--bare' : ''}`}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}

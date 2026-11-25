@@ -18,6 +18,10 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <Suspense fallback={null}>
         <Routes>
+          {/* A case study on its own, with no navigation: for sharing one link */}
+          <Route element={<Layout bare />}>
+            <Route path="case-study/:slug" element={<CaseStudy standalone />} />
+          </Route>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="work" element={<Work />} />

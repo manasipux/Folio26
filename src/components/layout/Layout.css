@@ -29,3 +29,14 @@
     padding: 0;
   }
 }
+
+/* Standalone case study: no nav, so no space reserved for it */
+.main.main--bare {
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+}
+@media (max-width: 767px) {
+  .main.main--bare {
+    padding: var(--space-6) var(--space-4);
+  }
+}

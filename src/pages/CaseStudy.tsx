@@ -21,8 +21,11 @@ const GLASSES_SVG =
   '</svg>';
 const GLASSES_CURSOR = `url("data:image/svg+xml,${encodeURIComponent(GLASSES_SVG)}") 28 14, auto`;
 
-/** Template for /work/:slug — every field comes from the project in content.ts */
-export default function CaseStudy() {
+/**
+ * Template for /work/:slug — every field comes from the project in content.ts.
+ * `standalone` (used by /case-study/:slug) drops every link to the rest of the site.
+ */
+export default function CaseStudy({ standalone = false }: { standalone?: boolean }) {
   const { slug } = useParams();
   const index = projects.findIndex((p) => p.slug === slug);
   const project = projects[index];
@@ -42,9 +45,11 @@ export default function CaseStudy() {
 
   return (
     <article className="page cs">
-      <Link to="/work" className="cs__back">
-        <span aria-hidden="true">←</span> {L.back}
-      </Link>
+      {!standalone && (
+        <Link to="/work" className="cs__back">
+          <span aria-hidden="true">←</span> {L.back}
+        </Link>
+      )}
 
       <header className="cs__header">
         <ul role="list" className="tag-list" aria-label="Tags">
@@ -211,7 +216,7 @@ export default function CaseStudy() {
         <p>{cs.outcome}</p>
       </section>
 
-      {next && next.slug !== project.slug && (
+      {!standalone && next && next.slug !== project.slug && (
         <Link to={`/work/${next.slug}`} className="cs__next">
           <span className="cs__next-label">{L.next}</span>
           <span className="cs__next-title">
