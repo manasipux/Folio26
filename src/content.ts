@@ -41,8 +41,9 @@ export const site = {
 export const nav = [
   { id: 'home', label: 'Home', to: '/' },
   { id: 'work', label: 'Work', to: '/work' },
-  { id: 'about', label: 'About me', to: '/about' },
-  { id: 'contact', label: 'Contact me', to: '/contact' },
+  // About me opens on the homepage (the ID card); Contact me scrolls to the footer on any page
+  { id: 'about', label: 'About me', to: '/#about' },
+  { id: 'contact', label: 'Contact me', to: '#contact' },
 ] as const;
 
 export type NavId = (typeof nav)[number]['id'];
@@ -58,8 +59,11 @@ export const home = {
     clearWord: 'clarity',
     // These words start with their letters jumbled; they untangle on hover, or once the word above is cleared
     tangledWords: 'complex systems',
-    // Printed on the ID card
+    // Printed on the ID card. Clicking the card opens the About section under the headline.
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
+    cardHint: 'Click my ID card to get to know me',
+    aboutLabel: 'About me',
+    aboutClose: 'Close',
     // Intro under the headline: the first part is set in black, the rest in grey.
     introLead: 'I’ve spent five years in B2B enterprise UX,',
     introRest:

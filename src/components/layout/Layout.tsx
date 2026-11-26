@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import IconNav from './IconNav';
+import Footer from './Footer';
 import './Layout.css';
 
 export default function Layout({ bare = false }: { bare?: boolean }) {
-  const { pathname } = useLocation();
+  const { pathname, hash, key } = useLocation();
   const mainRef = useRef<HTMLElement>(null);
   const prevPath = useRef(pathname);
 
@@ -17,6 +18,17 @@ export default function Layout({ bare = false }: { bare?: boolean }) {
     window.scrollTo(0, 0);
     mainRef.current?.focus({ preventScroll: true });
   }, [pathname]);
+
+  // A link to #contact (from any page) scrolls down to the footer
+  useEffect(() => {
+    if (hash !== '#contact') return;
+    const t = window.setTimeout(() => {
+      const footer = document.getElementById('contact');
+      footer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      footer?.focus({ preventScroll: true });
+    }, 60);
+    return () => window.clearTimeout(t);
+  }, [hash, key]);
 
   return (
     <>
@@ -36,6 +48,7 @@ export default function Layout({ bare = false }: { bare?: boolean }) {
       >
         <Outlet />
       </motion.main>
+      {!bare && <Footer />}
     </>
   );
 }

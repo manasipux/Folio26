@@ -1,13 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { MotionConfig } from 'motion/react';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 
 // Home loads eagerly; other pages are split into their own chunks.
 const Work = lazy(() => import('./pages/Work'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -26,8 +24,9 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="work" element={<Work />} />
             <Route path="work/:slug" element={<CaseStudy />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
+            {/* About lives on the homepage and contact in the footer; old links still work */}
+            <Route path="about" element={<Navigate to="/#about" replace />} />
+            <Route path="contact" element={<Navigate to="/#contact" replace />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
