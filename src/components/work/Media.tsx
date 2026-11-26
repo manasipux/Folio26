@@ -69,6 +69,13 @@ export default function Media({
       preload="metadata"
       controls={reduce}
       onEnded={onEnded}
+      onClick={(e) => {
+        // On touch screens, tap a recording to see it full screen.
+        if (!window.matchMedia('(hover: none)').matches) return;
+        const v = e.currentTarget as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+        if (v.requestFullscreen) v.requestFullscreen().catch(() => v.webkitEnterFullscreen?.());
+        else v.webkitEnterFullscreen?.();
+      }}
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
         if (onProgress && v.duration) onProgress(v.currentTime / v.duration);

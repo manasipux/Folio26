@@ -170,3 +170,38 @@ body:has(.cs) {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Phones ---------- */
+@media (max-width: 767px) {
+  .cs__section {
+    font-size: var(--fs-base);
+  }
+  .cs__overview {
+    font-size: 1.0625rem;
+  }
+  .cs__title {
+    font-size: 2.125rem;
+    line-height: 1.12;
+  }
+  /* Spotlights: title and points first, then the recordings */
+  .cs__spotlight > .cs__spotlight-text,
+  .cs__spotlight:nth-child(even) > .cs__spotlight-text {
+    order: -1;
+  }
+  .cs__spotlight ul {
+    font-size: var(--fs-base);
+  }
+  .cs__callout,
+  .cs__outcome {
+    padding: var(--space-5);
+  }
+  .cs__callout {
+    font-size: var(--fs-base);
+  }
+  .cs__decisions li {
+    padding: var(--space-5);
+  }
+  .cs .pstack__card h3 {
+    font-size: 1.125rem;
+  }
+}

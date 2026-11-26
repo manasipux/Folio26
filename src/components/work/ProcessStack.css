@@ -89,3 +89,39 @@
     left: 22px;
   }
 }
+
+/* Phones: detail folded behind "Read more" */
+.pstack__more {
+  margin-top: var(--space-3);
+}
+.pstack__more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-purple-deep);
+  cursor: pointer;
+  list-style: none;
+}
+.pstack__more summary::-webkit-details-marker {
+  display: none;
+}
+.pstack__more summary::after {
+  content: '+';
+  font-size: 1.1em;
+}
+.pstack__more[open] summary::after {
+  content: '−';
+}
+.pstack__more[open] summary {
+  font-size: 0;
+}
+.pstack__more[open] summary::before {
+  content: 'Show less';
+  font-size: var(--fs-sm);
+}
+.pstack__more .pstack__body {
+  margin: 0;
+}

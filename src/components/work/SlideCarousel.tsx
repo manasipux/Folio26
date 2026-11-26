@@ -78,6 +78,13 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
         })}
       </div>
 
+      {/* Phones: the step labels are too cramped under the bar, so the
+          current step is named here instead. */}
+      <p className="carousel__now" aria-hidden="true">
+        <strong>{slides[active]?.label}</strong>
+        <span>Tap to enlarge</span>
+      </p>
+
       <div
         ref={trackRef}
         className="carousel__track"

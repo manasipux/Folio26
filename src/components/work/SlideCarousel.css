@@ -146,3 +146,45 @@
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
+
+/* Current step name: phones only */
+.carousel__now {
+  display: none;
+}
+@media (max-width: 767px) {
+  .carousel__progress {
+    gap: 6px;
+  }
+  .carousel__seg {
+    min-height: 32px;
+    padding-top: var(--space-3);
+  }
+  .carousel__seg-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .carousel__now {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: var(--fs-sm);
+  }
+  .carousel__now strong {
+    color: var(--c-purple-deep);
+    font-weight: 600;
+  }
+  .carousel__now span {
+    color: var(--c-ink-muted);
+  }
+}
+@media (max-width: 767px) and (hover: hover) {
+  .carousel__now span {
+    display: none;
+  }
+}

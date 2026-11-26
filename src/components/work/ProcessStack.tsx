@@ -31,12 +31,21 @@ export default function ProcessStack({ steps }: { steps: Step[] }) {
   const headRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [enabled, setEnabled] = useState(false);
+  // Phones get a plain list with each step's detail folded away.
+  const [narrow, setNarrow] = useState(false);
   const [dims, setDims] = useState<{ heads: number[]; fulls: number[] } | null>(null);
   const [scrolled, setScrolled] = useState(0);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    setEnabled(true);
+    const mq = window.matchMedia('(max-width: 767px)');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const update = () => {
+      setNarrow(mq.matches);
+      setEnabled(!reduce && !mq.matches);
+    };
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
   }, []);
 
   const measure = useCallback(() => {
@@ -108,7 +117,14 @@ export default function ProcessStack({ steps }: { steps: Step[] }) {
             <h3>{step.heading}</h3>
             {step.summary && <p className="pstack__line">{step.summary}</p>}
           </div>
-          <p className="pstack__body">{step.body}</p>
+          {narrow ? (
+            <details className="pstack__more">
+              <summary>Read more</summary>
+              <p className="pstack__body">{step.body}</p>
+            </details>
+          ) : (
+            <p className="pstack__body">{step.body}</p>
+          )}
         </li>
       ))}
     </ol>
