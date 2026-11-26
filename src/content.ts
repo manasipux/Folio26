@@ -595,7 +595,7 @@ const allProjects: Project[] = [
     size: 'large',
     cover: {
       src: '/images/cover-agent-assist-translation.webp',
-      alt: 'The agent’s workspace: the customer’s message arrives in Spanish on the left, and Agent Assist shows it in English on the right, with a suggested next action.',
+      alt: 'Layered screens from the prototype: the customer’s Spanish message, Agent Assist’s chat transcript showing it in English, a reply translated into Spanish with a Copy & Translate confirmation, and the customer’s phone with the whole conversation in Spanish.',
       width: 1600,
       height: 1000,
     },
@@ -603,7 +603,7 @@ const allProjects: Project[] = [
       src: '/images/peek-agent-assist-translation.webp',
       alt: 'Preview of the case study page, scrolling from top to bottom',
       width: 640,
-      height: 2398,
+      height: 2478,
     },
     caseStudy: {
       role: 'Lead UX Designer, Agent Assist',
@@ -611,9 +611,9 @@ const allProjects: Project[] = [
       team: '[TODO: e.g. Product manager, engineering]',
       tools: 'Figma, Figma Make, Carbon Design System',
       overview:
-        'Agent Assist is the AI assistant in watsonx Orchestrate that sits beside a human care agent during live conversations, suggesting responses and surfacing answers. I designed real-time translation for it: customer messages arrive in English, and agents reply in the customer’s own language.',
+        'Agent Assist is the AI assistant in watsonx Orchestrate that sits beside a human care agent during live conversations, suggesting responses and surfacing answers. It’s an app that runs inside whichever contact-center (CCaaS) platform a business uses; here, Genesys. I designed real-time translation for it: customer messages arrive in English, and agents reply in the customer’s own language.',
       problem:
-        'Customers write in many languages, but agents work in English. [TODO: what happened to a non-English chat before — a transfer, a bilingual queue, a public translator]. Agent Assist also doesn’t send messages itself: agents chat with customers in Genesys, a separate contact-center tool. So translation had to help in both directions, keep pace with a live chat, and still get the reply into a window Agent Assist doesn’t control.',
+        'Customers write in many languages, but agents work in English. Before this, agents copied each customer message into a separate translator widget by hand, translated their reply the same way, and pasted it back, all while the customer waited. Agent Assist also doesn’t send messages itself: agents chat with customers in the host platform, Genesys in this case. So translation had to work in both directions, keep pace with a live chat, and still get the reply into a window Agent Assist doesn’t control.',
       process: [
         {
           heading: 'Follow the conversation, both ways',
@@ -640,12 +640,12 @@ const allProjects: Project[] = [
         {
           title: 'Incoming is automatic, outgoing is on request',
           summary: 'Agents read in English instantly; they choose when to translate a reply.',
-          body: 'Every incoming message appears in English in the chat transcript without a click, because understanding the customer should cost nothing. Outgoing translation is triggered by the agent, so nothing reaches the customer until the agent has chosen it.',
+          body: 'Every incoming message appears in English in the chat transcript without a click, replacing the manual copy into a translator widget. Understanding the customer should cost nothing. Outgoing translation is triggered by the agent, so nothing reaches the customer until the agent has chosen it.',
         },
         {
           title: 'Copy and translate in one action',
           summary: 'AI suggestions go to the clipboard already translated.',
-          body: 'Agent Assist can’t post into the Genesys chat, so the clipboard is the bridge. Combining copy and translate into one action means a suggested reply is one click away from being pasted, and a confirmation tells the agent it worked. Free-form replies go through the Translation tab and end in the same copy step.',
+          body: 'Agent Assist runs inside the host platform but can’t post into its chat, so the clipboard is the bridge. That also keeps the flow the same on any CCaaS platform, not just Genesys. Combining copy and translate into one action means a suggested reply is one click away from being pasted, and a confirmation tells the agent it worked. Free-form replies go through the Translation tab and end in the same copy step.',
         },
         {
           title: 'One detected language at a time',
@@ -662,12 +662,12 @@ const allProjects: Project[] = [
             'Incoming customer messages appear in English in the chat transcript',
             'Copy & Translate an AI-suggested reply in one click',
             'Write your own reply in the Translation tab and copy the translated text',
-            'Paste into Genesys; the customer reads it in their language',
+            'Paste into the host platform’s chat (here, Genesys); the customer reads it in their language',
             'The language is detected automatically, one per conversation',
           ],
           image: {
             src: '/images/cover-agent-assist-translation.webp',
-            alt: 'The agent’s workspace with Agent Assist beside the Genesys chat.',
+            alt: 'Layered screens from the prototype: Spanish on the customer’s side, English on the agent’s.',
             width: 1600,
             height: 1000,
           },
