@@ -9,6 +9,7 @@ import SlideCarousel from '../components/work/SlideCarousel';
 import Media from '../components/work/Media';
 import ProcessStack from '../components/work/ProcessStack';
 import './CaseStudy.css';
+import './CaseStudyEnterprise.css';
 
 /** Bob's glasses as a pointer (hotspot at the bridge). */
 const GLASSES_SVG =
