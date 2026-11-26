@@ -10,10 +10,16 @@ import LazyImage, { withBase } from '../common/LazyImage';
 export default function Media({
   image,
   onProgress,
+  onEnded,
+  active,
 }: {
   image: Img;
   /** Called with 0–1 as a video plays. */
   onProgress?: (p: number) => void;
+  /** When given, the video plays once (no loop) and this is called at the end. */
+  onEnded?: () => void;
+  /** In a carousel: restart from the beginning each time the slide becomes active. */
+  active?: boolean;
 }) {
   const isVideo = /\.(mp4|webm)$/i.test(image.src);
   const ref = useRef<HTMLVideoElement>(null);
@@ -36,6 +42,17 @@ export default function Media({
     return () => io.disconnect();
   }, [isVideo]);
 
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || active === undefined) return;
+    if (active) {
+      v.currentTime = 0;
+      if (!reduce) v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, [active, reduce]);
+
   if (!isVideo) {
     return <LazyImage {...image} width={image.width ?? 1200} height={image.height ?? 800} />;
   }
@@ -47,10 +64,11 @@ export default function Media({
       width={image.width}
       height={image.height}
       muted
-      loop
+      loop={!onEnded}
       playsInline
       preload="metadata"
       controls={reduce}
+      onEnded={onEnded}
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
         if (onProgress && v.duration) onProgress(v.currentTime / v.duration);

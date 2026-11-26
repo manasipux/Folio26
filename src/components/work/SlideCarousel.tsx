@@ -9,6 +9,8 @@ export type Slide = { label: string; image?: Img };
  * Step-by-step carousel for flow GIFs. Native horizontal scroll with snap,
  * step chips, Previous/Next buttons and arrow keys. A slide without an image
  * shows a placeholder until its GIF is added.
+ * Each recording plays once, then the carousel moves on to the next step
+ * (and from the last step back to the first).
  */
 export default function SlideCarousel({ slides }: { slides: Slide[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,12 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
       track.removeEventListener('scroll', onScroll);
     };
   }, []);
+
+  // After a recording finishes, move on; wrap to the first step after the last.
+  const advance = (from: number) => {
+    if (from !== active) return;
+    go(from + 1 < slides.length ? from + 1 : 0);
+  };
 
   const go = (i: number) => {
     const track = trackRef.current;
@@ -98,6 +106,8 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
               <>
                 <Media
                   image={s.image}
+                  active={i === active}
+                  onEnded={() => advance(i)}
                   onProgress={(p) =>
                     setProgress((prev) => {
                       const next = [...prev];
