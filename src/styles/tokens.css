@@ -1,5 +1,8 @@
 /* ============================================================
    Design tokens. Change the look of the whole site from here.
+   Current look: editorial — white, black type, thin rules,
+   almost no colour. (Names like --c-lavender are kept so
+   components don't need renaming; their values are neutral.)
    ============================================================ */
 :root {
   /* Font — swap to Maison Neue later by changing this one line
@@ -18,31 +21,31 @@
   --lh-body: 1.55;
 
   /* Palette — neutrals */
-  --c-bg: #fbfaf7;             /* warm off-white page */
-  --c-surface: #f4f3f7;        /* light grey card */
-  --c-surface-2: #e8e6ee;      /* nav squares, placeholders */
-  --c-ink: #1c1a22;            /* main text  (16.9:1 on white) */
-  --c-ink-muted: #55515f;      /* secondary  (7.6:1 on white, 6.1:1 on lavender) */
+  --c-bg: #ffffff;             /* warm off-white page */
+  --c-surface: #f5f5f5;        /* light grey card */
+  --c-surface-2: #f0f0f0;      /* nav squares, placeholders */
+  --c-ink: #111111;            /* main text  (16.9:1 on white) */
+  --c-ink-muted: #5c5c5c;      /* secondary  (7.6:1 on white, 6.1:1 on lavender) */
   --c-ink-inverse: #ffffff;
-  --c-dark: #2a2633;           /* active nav, label chips */
+  --c-dark: #111111;           /* active nav, label chips */
 
   /* Palette — accents */
-  --c-lavender: #e9e4fb;       /* project cards */
-  --c-lavender-2: #ddd5f7;     /* hover */
-  --c-purple: #a99fd0;         /* borders (decorative) */
-  --c-purple-deep: #5b4b9a;    /* text/icons on lavender (6.4:1) */
-  --c-pink: #ff85b3;           /* pill tags */
-  --c-pink-ink: #4a0f2a;       /* text on pink (8.3:1) */
+  --c-lavender: #ffffff;       /* project cards */
+  --c-lavender-2: #e2e2e2;     /* hover */
+  --c-purple: #cfcfcf;         /* borders (decorative) */
+  --c-purple-deep: #111111;    /* text/icons on lavender (6.4:1) */
+  --c-pink: #f0f0f0;           /* pill tags */
+  --c-pink-ink: #111111;       /* text on pink (8.3:1) */
 
-  --c-focus: #5b4b9a;
+  --c-focus: #111111;
 
   /* Shape + depth */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 2px rgb(28 26 34 / 6%), 0 12px 32px -8px rgb(28 26 34 / 18%);
+  --shadow-card: 0 1px 2px rgb(17 17 17 / 6%), 0 8px 20px -10px rgb(17 17 17 / 18%);
   --shadow-lift: 0 2px 4px rgb(28 26 34 / 8%), 0 20px 40px -12px rgb(28 26 34 / 25%);
 
   /* Spacing */
@@ -66,7 +69,8 @@
   --c-desk: #f3efe8;           /* warm "desk" behind the Home card */
   --c-paper: #fffdf8;          /* cardstock */
   /* Fine grain to make flat colours feel like paper (tiny inline SVG noise) */
-  --tex-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tex-grain: none;
+  --tex-grain-playful: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   --shadow-paper:
     0 0.5px 0 rgb(255 255 255 / 80%) inset,
     0 1px 1px rgb(60 40 20 / 10%),

@@ -51,6 +51,26 @@ export type NavId = (typeof nav)[number]['id'];
 // Home
 // ------------------------------------------------------------
 export const home = {
+  // Editorial homepage. Its headline and intro reuse `heading` and `intro` below.
+  editorial: {
+    label: 'UX Designer · Enterprise AI',
+    facts: [
+      { label: 'Currently', value: 'User Experience Designer – AI, IBM' },
+      { label: 'Product', value: 'IBM watsonx Orchestrate' },
+      { label: 'Focus', value: 'AI agents, complex configuration, customer care' },
+      { label: 'Based in', value: 'Kochi, India' },
+    ],
+    workHeading: 'Selected work',
+    allWork: 'All work',
+    aboutHeading: 'About',
+    aboutBody:
+      'My background spans industrial, graphic and UX design. At IBM I design for complex enterprise systems, where clarity matters more than fewer features.',
+    aboutLink: 'More about me',
+    contactHeading: 'Contact',
+    contactBody: 'Open to roles, projects and conversations about untangling complex systems.',
+    contactLink: 'Say hello',
+  },
+
   // Printed on the ID card. heading = the big line, intro = the small print
   // (the small print is hidden on narrow phones, where the card is small).
   heading: 'I’m a UX designer who enjoys bringing clarity to complex systems.',

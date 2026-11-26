@@ -1,0 +1,173 @@
+/* ============================================================
+   Editorial overrides for the shared parts of the site:
+   navigation, About and Contact. (Work, case studies and Home
+   have their own editorial files.) Every rule starts with :root
+   so it wins over page styles that load later.
+   ============================================================ */
+
+/* ---------- Navigation ---------- */
+:root .icon-nav__square {
+  border: 1px solid var(--c-lavender-2);
+  border-radius: 4px;
+  background: #ffffff;
+}
+:root .icon-nav__item:hover .icon-nav__square,
+:root .icon-nav__item:focus-visible .icon-nav__square {
+  border-color: var(--c-ink);
+  background: #ffffff;
+  color: var(--c-ink);
+  transform: none;
+  box-shadow: none;
+}
+:root .icon-nav__item.active .icon-nav__square {
+  border-color: var(--c-ink);
+  background: var(--c-ink);
+  color: #ffffff;
+}
+:root .icon-nav__label {
+  border-radius: 2px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+@media (max-width: 767px) {
+  :root .icon-nav {
+    border-top-color: var(--c-lavender-2);
+  }
+  :root .icon-nav__square {
+    border: 0;
+    background: transparent;
+  }
+  :root .icon-nav__item.active .icon-nav__square {
+    background: var(--c-ink);
+  }
+}
+
+/* ---------- About ---------- */
+:root .about__headline {
+  max-width: 30ch;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+:root .about__intro {
+  min-height: 0;
+  padding: var(--space-5) 0 0;
+  border-top: 1px solid var(--c-ink);
+  border-radius: 0;
+  background: none;
+}
+:root .about__print {
+  padding: 0;
+  border: 1px solid var(--c-lavender-2);
+  background: #ffffff;
+  box-shadow: none;
+  transform: none;
+  margin-top: 0;
+}
+:root .about__print::before {
+  display: none;
+}
+:root .about__copy {
+  font-size: var(--fs-base);
+  line-height: 1.65;
+}
+:root .about__more summary {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--c-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+/* Photo feed: a plain bordered panel */
+:root .feed {
+  height: clamp(28rem, 70vh, 40rem);
+  border: 1px solid var(--c-lavender-2);
+  border-radius: 2px;
+  background: #ffffff;
+}
+:root .feed__header {
+  border-bottom: 1px solid var(--c-lavender-2);
+  background: #ffffff;
+}
+:root .feed__avatar {
+  border: 1px solid var(--c-lavender-2);
+}
+:root .feed__scroller {
+  border-radius: 0;
+}
+:root .feed__post figure {
+  border: 1px solid var(--c-lavender-2);
+  border-radius: 2px;
+  box-shadow: none;
+}
+:root .feed__caption {
+  font-size: var(--fs-base);
+}
+:root .feed__hint {
+  border-radius: 2px;
+}
+
+/* ---------- Contact ---------- */
+:root .contact {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  min-height: 0;
+  max-width: 48rem;
+  margin-inline: 0;
+}
+:root .contact__text {
+  max-width: none;
+  gap: var(--space-6);
+}
+:root .contact__heading {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+:root .contact__menu {
+  gap: 0;
+  border-bottom: 1px solid var(--c-lavender-2);
+}
+:root .contact__option {
+  padding: var(--space-5) 0;
+  border: 0;
+  border-top: 1px solid var(--c-ink);
+  border-radius: 0;
+  background: none;
+}
+:root a.contact__option:hover {
+  border-color: var(--c-ink);
+  background: none;
+  transform: none;
+}
+:root a.contact__option:hover .contact__option-value {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+:root .contact__key {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  min-width: 1.25rem;
+  color: var(--c-ink-muted);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+:root .contact__option-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--c-ink-muted);
+}
+:root .contact__option-value {
+  font-size: var(--fs-lg);
+}
+:root .contact__arrow {
+  color: var(--c-ink);
+}
