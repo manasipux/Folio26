@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { about, home, projects, site } from '../content';
 import { withBase } from '../components/common/LazyImage';
 import ProjectCard from '../components/work/ProjectCard';
+import ClearWord from '../components/home/ClearWord';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Work.css';
 import './WorkEditorial.css';
@@ -16,6 +17,8 @@ export default function Home() {
   usePageTitle();
   const ed = home.editorial;
   const featured = projects.slice(0, 2);
+  // The word in the headline that sits behind frosted glass until it's rubbed clear
+  const [before, after] = home.heading.split(ed.clearWord);
 
   return (
     <div className="page home">
@@ -24,7 +27,17 @@ export default function Home() {
           <p className="home__label">
             {site.name} · {ed.label}
           </p>
-          <h1 className="home__heading">{home.heading}</h1>
+          <h1 className="home__heading">
+            {after === undefined ? (
+              home.heading
+            ) : (
+              <>
+                {before}
+                <ClearWord>{ed.clearWord}</ClearWord>
+                {after}
+              </>
+            )}
+          </h1>
           <p className="home__intro">
             <strong>{ed.introLead}</strong> {ed.introRest}
           </p>

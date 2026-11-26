@@ -54,6 +54,8 @@ export const home = {
   // Editorial homepage. Its headline and intro reuse `heading` and `intro` below.
   editorial: {
     label: 'UX Designer · Enterprise AI',
+    // This word in the headline starts frosted; rubbing it wipes the glass away
+    clearWord: 'clarity',
     // Printed on the ID card
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
     // Intro under the headline: the first part is set in black, the rest in grey.
