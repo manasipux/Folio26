@@ -414,9 +414,9 @@ export const projects: Project[] = [
             },
           ],
           errorStates: {
-            button: 'See error states',
-            title: 'Error states: pronunciation dictionary',
-            intro: 'Builders can override how the agent says up to 500 words. Each error says what went wrong and what to do next.',
+            button: 'How I handle error states',
+            title: 'How I handle error states',
+            intro: 'Every error should say what went wrong and how to fix it, as close as possible to where it happened. Here is that approach in the pronunciation dictionary, where builders can override how the agent says up to 500 words.',
             items: [
               {
                 title: 'Limit reached',
