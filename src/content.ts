@@ -189,6 +189,11 @@ export type Project = {
   tags: string[];
   size: ProjectSize;
   cover: Img;
+  /**
+   * A tall snapshot of the case study page. On hover, the card scrolls through it.
+   * Regenerate it after changing the case study (ask Claude, or screenshot the page at 1280px wide).
+   */
+  peek?: Img;
   /** Hidden projects stay in this file but don't show on the site. */
   hidden?: boolean;
   caseStudy: {
@@ -284,6 +289,12 @@ const allProjects: Project[] = [
       alt: 'Layered screens from the project: Microsoft Teams app registration at the back, the Text to speech step with Deepgram and the voice preview in the middle, and a pronunciation dictionary error (Enter valid IPA pronunciation) in front.',
       width: 1600,
       height: 1000,
+    },
+    peek: {
+      src: '/images/peek-ibm.webp',
+      alt: 'Preview of the case study page, scrolling from top to bottom',
+      width: 640,
+      height: 3335,
     },
     caseStudy: {
       role: 'UX Designer, channel and voice configuration',
@@ -583,6 +594,12 @@ const allProjects: Project[] = [
     tags: ['Enterprise UX', 'AI assist', 'Customer care'],
     size: 'large',
     cover: placeholderCover('Real-time translation in Agent Assist', 'ux'),
+    peek: {
+      src: '/images/peek-agent-assist-translation.webp',
+      alt: 'Preview of the case study page, scrolling from top to bottom',
+      width: 640,
+      height: 2124,
+    },
     caseStudy: {
       role: 'Lead UX Designer, Agent Assist',
       timeline: '[TODO: timeline]',

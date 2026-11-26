@@ -32,8 +32,14 @@ export default function ProjectCard({ project, className = '' }: Props) {
       </div>
 
       {showCover && (
-        <div className="pcard__cover">
+        <div className={`pcard__cover${project.peek ? ' pcard__cover--peek' : ''}`}>
           <LazyImage {...project.cover} width={800} height={500} />
+          {project.peek && (
+            // On hover the cover gives way to a scroll through the case study itself
+            <div className="pcard__peek" aria-hidden="true">
+              <LazyImage {...project.peek} alt="" />
+            </div>
+          )}
         </div>
       )}
 
