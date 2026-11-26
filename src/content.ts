@@ -56,11 +56,9 @@ export const home = {
     label: 'UX Designer · 5 years in B2B enterprise UX',
     // Printed on the ID card
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
-    // Big numbers under the headline. Keep them to figures you can share publicly.
+    // Big number(s) under the headline. Add more objects here to show more figures.
     stats: [
       { value: '5 years', label: 'in B2B enterprise UX, designing complex systems for IBM' },
-      { value: '~80%', label: 'growth in channel traffic that my channel work contributed to' },
-      { value: '500K+', label: 'voice requests, up from the low hundreds of thousands' },
     ],
     workHeading: 'Selected work',
     allWork: 'All work',
