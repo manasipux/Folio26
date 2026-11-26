@@ -103,7 +103,15 @@ export default function Home() {
             <span className="idcard__band" aria-hidden="true">{ed.card.band}</span>
           </button>
           <p className="idcard__hint" aria-hidden="true">
-            {aboutOpen ? ed.aboutClose : ed.cardHint} <span>{aboutOpen ? '↑' : '↓'}</span>
+            {aboutOpen ? (
+              ed.aboutClose
+            ) : (
+              <>
+                <span className="idcard__hint-mouse">{ed.cardHint}</span>
+                <span className="idcard__hint-touch">{ed.cardHintTouch}</span>
+              </>
+            )}{' '}
+            <span>{aboutOpen ? '↑' : '↓'}</span>
           </p>
         </div>
       </header>

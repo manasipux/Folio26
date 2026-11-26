@@ -62,6 +62,7 @@ export const home = {
     // Printed on the ID card. Clicking the card opens the About section under the headline.
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
     cardHint: 'Click my ID card to get to know me',
+    cardHintTouch: 'Tap my ID card to get to know me',
     aboutLabel: 'About me',
     aboutClose: 'Close',
     // Intro under the headline: the first part is set in black, the rest in grey.

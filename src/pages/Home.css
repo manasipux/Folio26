@@ -333,3 +333,76 @@
     transition: none;
   }
 }
+
+/* Click on desktop, tap on touch screens */
+.idcard__hint-touch {
+  display: none;
+}
+@media (hover: none) {
+  .idcard__hint-mouse {
+    display: none;
+  }
+  .idcard__hint-touch {
+    display: inline;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 680px) {
+  .home {
+    gap: var(--space-7);
+  }
+  .home__hero {
+    gap: var(--space-5);
+  }
+  /* A smaller card, so the headline starts on the first screen */
+  .idcard {
+    --card-w: 10.5rem;
+  }
+  .idcard__strap {
+    width: 1.1rem;
+    height: 2rem;
+  }
+  .idcard__card {
+    padding: 1.75rem 0.9rem 0;
+    border-radius: 10px;
+  }
+  .idcard__slot {
+    top: 0.7rem;
+  }
+  .idcard__name {
+    margin-top: var(--space-3);
+    font-size: 1.2rem;
+  }
+  .idcard__role {
+    font-size: var(--fs-sm);
+  }
+  .idcard__place {
+    font-size: 0.8125rem;
+  }
+  .idcard__band {
+    margin: var(--space-3) -0.9rem 0;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.6875rem;
+    white-space: nowrap;
+  }
+  .idcard__hint {
+    margin-top: var(--space-3);
+    font-size: 0.8125rem;
+  }
+  .home__hero-text {
+    gap: var(--space-4);
+  }
+  .home__heading {
+    font-size: clamp(2.25rem, 10vw, 2.75rem);
+  }
+  .home__intro {
+    font-size: 1.0625rem;
+  }
+  .home__about-body {
+    padding: var(--space-5) 0 var(--space-6);
+  }
+  .home__section {
+    gap: var(--space-5);
+  }
+}

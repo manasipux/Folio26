@@ -23,7 +23,8 @@
 
 @media (max-width: 767px) {
   .main {
-    padding: var(--space-6) var(--space-4) calc(var(--bottom-bar) + var(--space-6));
+    /* the footer below already clears the bottom bar */
+    padding: var(--space-6) var(--space-4) var(--space-5);
   }
   .main--home {
     padding: 0;

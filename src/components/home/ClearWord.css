@@ -40,3 +40,8 @@
     transition: none;
   }
 }
+
+/* Let a finger rub sideways across the word while still scrolling the page up and down */
+.clear-word {
+  touch-action: pan-y;
+}
