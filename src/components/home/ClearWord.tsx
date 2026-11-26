@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent } from 'react';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import './ClearWord.css';
 
 const STRIPS = 16; // the glass is wiped in thin vertical bands, each tracked separately
@@ -9,11 +9,18 @@ const WIPE = 0.34; // how much one pass over a strip clears it (about three pass
  * glass away where you rub, like a scratch card; a click or tap clears it all.
  * Once clear, it stays clear.
  */
-export default function ClearWord({ children }: { children: string }) {
+export default function ClearWord({ children, onClear }: { children: string; onClear?: () => void }) {
   const [frost, setFrost] = useState<number[]>(() => Array(STRIPS).fill(1));
   const lastStrip = useRef<number | null>(null);
   const ref = useRef<HTMLSpanElement>(null);
   const done = frost.every((f) => f <= 0.05);
+  const told = useRef(false);
+  useEffect(() => {
+    if (done && !told.current) {
+      told.current = true;
+      onClear?.();
+    }
+  }, [done, onClear]);
 
   const rub = (e: PointerEvent<HTMLSpanElement>) => {
     if (done || !ref.current) return;

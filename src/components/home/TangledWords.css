@@ -1,0 +1,21 @@
+/* Jumbled letters that slide into order */
+.tangle {
+  position: relative; /* letters measure their positions against this */
+  outline: none;
+}
+.tangle.is-tangled {
+  cursor: pointer;
+}
+.tangle__word {
+  white-space: nowrap; /* a word never splits across lines, so its letters stay on one line */
+}
+.tangle__ch {
+  display: inline-block;
+  transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.5, 1); /* a small overshoot as each letter lands */
+  will-change: transform;
+}
+.tangle:focus-visible {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

@@ -56,6 +56,8 @@ export const home = {
     label: 'UX Designer · Enterprise AI',
     // This word in the headline starts frosted; rubbing it wipes the glass away
     clearWord: 'clarity',
+    // These words start with their letters jumbled; they untangle on hover, or once the word above is cleared
+    tangledWords: 'complex systems',
     // Printed on the ID card
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
     // Intro under the headline: the first part is set in black, the rest in grey.

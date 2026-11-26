@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { about, home, projects, site } from '../content';
 import { withBase } from '../components/common/LazyImage';
 import ProjectCard from '../components/work/ProjectCard';
 import ClearWord from '../components/home/ClearWord';
+import TangledWords from '../components/home/TangledWords';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Work.css';
 import './WorkEditorial.css';
@@ -17,8 +19,12 @@ export default function Home() {
   usePageTitle();
   const ed = home.editorial;
   const featured = projects.slice(0, 2);
-  // The word in the headline that sits behind frosted glass until it's rubbed clear
+  // Headline play: one word behind frosted glass, two words with jumbled letters.
+  // Clearing the glass also untangles the letters.
+  const [untangled, setUntangled] = useState(false);
   const [before, after] = home.heading.split(ed.clearWord);
+  const [middle, end] = after === undefined ? [] : after.split(ed.tangledWords);
+  const untangle = () => setUntangled(true);
 
   return (
     <div className="page home">
@@ -33,8 +39,16 @@ export default function Home() {
             ) : (
               <>
                 {before}
-                <ClearWord>{ed.clearWord}</ClearWord>
-                {after}
+                <ClearWord onClear={untangle}>{ed.clearWord}</ClearWord>
+                {end === undefined ? (
+                  after
+                ) : (
+                  <>
+                    {middle}
+                    <TangledWords text={ed.tangledWords} untangled={untangled} onUntangle={untangle} />
+                    {end}
+                  </>
+                )}
               </>
             )}
           </h1>
