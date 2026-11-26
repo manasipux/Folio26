@@ -408,21 +408,72 @@ export const projects: Project[] = [
         },
         {
           label: 'Channel configuration',
-          title: 'Connecting Microsoft Teams',
+          title: 'One pattern, many channels',
           points: [
-            'Get started sets expectations: the four things Bob will do in Azure and Teams, before he touches a field',
-            'Instructions sit next to the fields they fill: each numbered step says where to find a value in Azure, right above where it goes',
-            'Saved secrets are never shown back: fields read “Value stored, leave blank to keep unchanged”, and a note reminds Bob to renew the client secret before it expires',
+            'Every channel follows the same shape: a short overview, numbered steps that mirror the setup in the channel’s own console, then optional settings. Microsoft Teams, shown here, is one of several',
+            'Instructions sit next to the fields they fill: each step says where to find a value, right above where it goes',
+            'Values the platform generates, like Teams’ messaging endpoint, come with a copy button',
+            'Saved credentials are never shown back (“Value stored, leave blank to keep unchanged”), with a reminder to renew secrets before they expire',
             'Each channel asks only for its own credentials, and the fields change with the deployment: IBM Cloud, AWS or on-premises',
-            'Draft and live are set up separately, so Bob can test without touching what users see',
           ],
           image: {
-            src: '/images/channel-teams.mp4',
-            alt: 'Screen recording of configuring Microsoft Teams: the Get started step lists four steps (create an app registration in Azure, create a bot, create a Teams app, publish the bot); the builder moves to App registration, where numbered instructions sit above the Application (client) ID, Tenant ID and Client secret fields.',
-            caption: 'Microsoft Teams: a short overview first, then each Azure value asked for right under the instruction that explains where to find it.',
+            src: '/images/channel-teams-start.mp4',
+            alt: 'Microsoft Teams channel setup',
             width: 1200,
             height: 1206,
           },
+          slides: [
+            {
+              label: 'Get started',
+              image: {
+                src: '/images/channel-teams-start.mp4',
+                alt: 'Screen recording of the Get started step for Microsoft Teams: a short overview lists the four things to do (create an app registration in Azure, create a bot, create a Teams app, publish the bot) before any fields.',
+                caption: 'Get started: what Bob will do outside the product, before he touches a field.',
+                width: 1200,
+                height: 1206,
+              },
+            },
+            {
+              label: 'App registration',
+              image: {
+                src: '/images/channel-teams-app-reg.mp4',
+                alt: 'Screen recording of the App registration step: numbered Azure instructions sit above the Application (client) ID, Tenant ID and Client secret fields, which the builder fills in; the secret is masked.',
+                caption: 'App registration: each instruction sits right above the field it fills.',
+                width: 1200,
+                height: 1206,
+              },
+            },
+            {
+              label: 'Create your bot',
+              image: {
+                src: '/images/channel-teams-bot.mp4',
+                alt: 'Screen recording of the Create your bot step: the builder copies the application ID and the generated messaging endpoint with copy buttons, next to a note on configuring a single-tenant app.',
+                caption: 'Create your bot: values the platform generates come with a copy button, ready to paste into Azure.',
+                width: 1200,
+                height: 1206,
+              },
+            },
+            {
+              label: 'Create your Teams app',
+              image: {
+                src: '/images/channel-teams-app.mp4',
+                alt: 'Screen recording of the Create your Teams app step: numbered Developer Portal instructions with the application ID ready to copy.',
+                caption: 'Create your Teams app: the last steps in Teams’ own Developer Portal, with the ID it needs on hand.',
+                width: 1200,
+                height: 1206,
+              },
+            },
+            {
+              label: 'Settings',
+              image: {
+                src: '/images/channel-teams-settings.mp4',
+                alt: 'Screen recording of the optional Settings step: the builder turns on thumbs up/down feedback and reviews the Standard and Fast response modes before finishing.',
+                caption: 'Settings (optional): how the agent behaves in the channel, kept to the end.',
+                width: 1200,
+                height: 1206,
+              },
+            },
+          ],
         },
       ],
       callout: {
