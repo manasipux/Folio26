@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { home, projects, site } from '../content';
+import { about, home, projects, site } from '../content';
+import { withBase } from '../components/common/LazyImage';
 import ProjectCard from '../components/work/ProjectCard';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Work.css';
@@ -19,18 +20,41 @@ export default function Home() {
   return (
     <div className="page home">
       <header className="home__hero">
-        <p className="home__label">
-          {site.name} · {ed.label}
-        </p>
-        <h1 className="home__heading">{home.heading}</h1>
-        <p className="home__intro">{home.intro}</p>
+        <div className="home__hero-text">
+          <p className="home__label">
+            {site.name} · {ed.label}
+          </p>
+          <h1 className="home__heading">{home.heading}</h1>
+          <p className="home__intro">{home.intro}</p>
+        </div>
+
+        {/* My ID card, hanging from its lanyard */}
+        <div className="idcard" aria-label={`ID card: ${site.name}, ${ed.card.role}, ${site.location}`} role="img">
+          <span className="idcard__strap" aria-hidden="true" />
+          <span className="idcard__clip" aria-hidden="true" />
+          <div className="idcard__card" aria-hidden="true">
+            <span className="idcard__slot" />
+            <img
+              className="idcard__photo"
+              src={withBase(about.photo.src)}
+              alt=""
+              width={800}
+              height={1000}
+              decoding="async"
+            />
+            <p className="idcard__name">{site.name}</p>
+            <p className="idcard__role">{ed.card.role}</p>
+            <p className="idcard__place">{site.location}</p>
+            <p className="idcard__band">{ed.card.band}</p>
+          </div>
+        </div>
       </header>
 
-      <dl className="home__facts">
-        {ed.facts.map((f) => (
-          <div key={f.label}>
-            <dt>{f.label}</dt>
-            <dd>{f.value}</dd>
+      <dl className="home__stats">
+        {ed.stats.map((st) => (
+          <div key={st.value}>
+            <dt>{st.label}</dt>
+            <dd>{st.value}</dd>
           </div>
         ))}
       </dl>

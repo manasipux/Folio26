@@ -1,22 +1,22 @@
 /* ============================================================
-   Editorial look for case study pages: white page, black type,
+   Editorial look for case study pages: beige page, black type,
    thin rules, square corners, almost no colour, no soft shadows.
    Scoped to .cs, so the rest of the site keeps its own style.
    ============================================================ */
 body:has(.cs) {
-  background: #ffffff;
+  background: #f3eee6;
 }
 
 .cs {
-  --c-bg: #ffffff;
-  --c-surface: #ffffff;
-  --c-surface-2: #f2f2f2;
+  --c-bg: #f3eee6;
+  --c-surface: #faf7f2;
+  --c-surface-2: #ebe5da;
   --c-ink: #111111;
-  --c-ink-muted: #5c5c5c;
+  --c-ink-muted: #5e584f;
   --c-dark: #111111;
-  --c-lavender: #ffffff;       /* cards → white */
-  --c-lavender-2: #e2e2e2;     /* hairlines */
-  --c-purple: #cfcfcf;         /* decorative borders → grey */
+  --c-lavender: #faf7f2;       /* cards → white */
+  --c-lavender-2: #ddd5c8;     /* hairlines */
+  --c-purple: #c9c0b1;         /* decorative borders → grey */
   --c-purple-deep: #111111;    /* accent text → ink */
   --c-focus: #111111;
   --radius-sm: 2px;
@@ -34,7 +34,7 @@ body:has(.cs) {
   border: 0;
   border-radius: 0;
   background: none;
-  color: #5c5c5c;
+  color: #5e584f;
   font-size: 0.8125rem;
   font-weight: 500;
 }
@@ -63,7 +63,7 @@ body:has(.cs) {
 .cs__meta {
   border: 0;
   border-top: 1px solid #111111;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #ddd5c8;
   border-radius: 0;
   background: none;
   box-shadow: none;
@@ -71,7 +71,7 @@ body:has(.cs) {
 
 .cs__hero,
 .cs__gallery figure {
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ddd5c8;
   box-shadow: none;
 }
 
@@ -82,10 +82,10 @@ body:has(.cs) {
 /* Tables */
 .cs__table-wrap {
   border-width: 1px;
-  background: #ffffff;
+  background: #faf7f2;
 }
 .cs__table thead th {
-  background: #f2f2f2;
+  background: #ebe5da;
   color: #111111;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -104,8 +104,8 @@ body:has(.cs) {
   color: #111111;
 }
 .cs__decision-why {
-  border-top-color: #e2e2e2;
-  color: #5c5c5c;
+  border-top-color: #ddd5c8;
+  color: #5e584f;
 }
 
 /* Callout: the one solid band, in ink */
@@ -127,7 +127,7 @@ body:has(.cs) {
 
 .cs__spotlight img,
 .cs__spotlight video {
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ddd5c8;
   box-shadow: none;
 }
 .cs__spotlight li::marker {
@@ -142,18 +142,18 @@ body:has(.cs) {
   box-shadow: none;
 }
 .cs__next:hover {
-  background: #f7f7f7;
+  background: #ece6dc;
 }
 
 /* Process cards and carousel */
 .cs .pstack__card {
   border-width: 1px;
-  border-color: #e2e2e2;
+  border-color: #ddd5c8;
   box-shadow: 0 -1px 0 rgb(17 17 17 / 0.03), 0 -6px 14px -12px rgb(17 17 17 / 0.18);
 }
 .cs .carousel__controls button {
   border-radius: 4px;
-  background: #ffffff;
+  background: #faf7f2;
 }
 
 /* Persona badge: ink band */
@@ -168,7 +168,7 @@ body:has(.cs) {
   border-radius: 7px 7px 0 0;
 }
 .cs .peek__photo {
-  background: linear-gradient(160deg, #f2f2f2, #e2e2e2);
+  background: linear-gradient(160deg, #ebe5da, #ddd5c8);
 }
 
 /* How I handle errors */
@@ -182,10 +182,10 @@ body:has(.cs) {
 }
 .cs__errors-list li {
   padding: var(--space-3) var(--space-4);
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ddd5c8;
   border-left: 2px solid #111111;
   border-radius: 0;
-  background: #ffffff;
+  background: #faf7f2;
   font-size: var(--fs-base);
   font-weight: 500;
 }

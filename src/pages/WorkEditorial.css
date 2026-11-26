@@ -1,17 +1,17 @@
 /* ============================================================
-   Editorial look for the Work page: white page, black type,
+   Editorial look for the Work page: beige page, black type,
    thin rules, no card fills, almost no colour.
    Scoped to .work, so Home / About / Contact keep their style.
    ============================================================ */
 body:has(.work) {
-  background: #ffffff;
+  background: #f3eee6;
 }
 
 .work {
   --c-ink: #111111;
-  --c-ink-muted: #5c5c5c;
+  --c-ink-muted: #5e584f;
   --c-rule: #111111;
-  --c-hairline: #e2e2e2;
+  --c-hairline: #ddd5c8;
   --c-focus: #111111;
 }
 
@@ -106,7 +106,7 @@ body:has(.work) {
   border: 1px solid var(--c-hairline);
   border-radius: 2px;
   box-shadow: none;
-  background: #f6f6f6;
+  background: #ebe5da;
 }
 .work .pcard:hover .pcard__cover img {
   transform: none;

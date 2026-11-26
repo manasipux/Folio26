@@ -9,12 +9,12 @@
 :root .icon-nav__square {
   border: 1px solid var(--c-lavender-2);
   border-radius: 4px;
-  background: #ffffff;
+  background: #faf7f2;
 }
 :root .icon-nav__item:hover .icon-nav__square,
 :root .icon-nav__item:focus-visible .icon-nav__square {
   border-color: var(--c-ink);
-  background: #ffffff;
+  background: #faf7f2;
   color: var(--c-ink);
   transform: none;
   box-shadow: none;
@@ -59,7 +59,7 @@
 :root .about__print {
   padding: 0;
   border: 1px solid var(--c-lavender-2);
-  background: #ffffff;
+  background: #faf7f2;
   box-shadow: none;
   transform: none;
   margin-top: 0;
@@ -87,11 +87,11 @@
   height: clamp(28rem, 70vh, 40rem);
   border: 1px solid var(--c-lavender-2);
   border-radius: 2px;
-  background: #ffffff;
+  background: #faf7f2;
 }
 :root .feed__header {
   border-bottom: 1px solid var(--c-lavender-2);
-  background: #ffffff;
+  background: #faf7f2;
 }
 :root .feed__avatar {
   border: 1px solid var(--c-lavender-2);

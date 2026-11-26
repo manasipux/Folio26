@@ -17,7 +17,7 @@
   transition: background-color 0.15s ease;
 }
 .errs__open:hover {
-  background: #f2f2f2;
+  background: #ebe5da;
 }
 .errs__open:focus-visible,
 .errs__close:focus-visible {
@@ -29,9 +29,9 @@
   width: min(64rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 0;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ddd5c8;
   border-radius: 8px;
-  background: #ffffff;
+  background: #faf7f2;
   color: #14181f;
   box-shadow: 0 24px 64px -16px rgb(11 31 58 / 0.45);
 }
@@ -55,7 +55,7 @@
   justify-content: space-between;
   gap: var(--space-5);
   padding-bottom: var(--space-5);
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #ddd5c8;
 }
 .errs .errs__head h2 {
   margin: 0;
@@ -96,7 +96,7 @@
   box-shadow: none;
   width: 100%;
   height: auto;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ddd5c8;
   border-radius: 6px;
 }
 .errs .errs__item h3 {

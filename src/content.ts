@@ -53,18 +53,20 @@ export type NavId = (typeof nav)[number]['id'];
 export const home = {
   // Editorial homepage. Its headline and intro reuse `heading` and `intro` below.
   editorial: {
-    label: 'UX Designer · Enterprise AI',
-    facts: [
-      { label: 'Currently', value: 'User Experience Designer – AI, IBM' },
-      { label: 'Product', value: 'IBM watsonx Orchestrate' },
-      { label: 'Focus', value: 'AI agents, complex configuration, customer care' },
-      { label: 'Based in', value: 'Kochi, India' },
+    label: 'UX Designer · 5 years in B2B enterprise UX',
+    // Printed on the ID card
+    card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
+    // Big numbers under the headline. Keep them to figures you can share publicly.
+    stats: [
+      { value: '5 years', label: 'in B2B enterprise UX, designing complex systems for IBM' },
+      { value: '~80%', label: 'growth in channel traffic that my channel work contributed to' },
+      { value: '500K+', label: 'voice requests, up from the low hundreds of thousands' },
     ],
     workHeading: 'Selected work',
     allWork: 'All work',
     aboutHeading: 'About',
     aboutBody:
-      'My background spans industrial, graphic and UX design. At IBM I design for complex enterprise systems, where clarity matters more than fewer features.',
+      'Five years in B2B enterprise UX, built on a background in industrial and graphic design. At IBM I design for complex enterprise systems, where clarity matters more than fewer features.',
     aboutLink: 'More about me',
     contactHeading: 'Contact',
     contactBody: 'Open to roles, projects and conversations about untangling complex systems.',
@@ -764,7 +766,7 @@ export const about = {
   // Short version — shown on the page
   short: [
     'My background spans industrial design, graphic design, and user experience design, a progression that has shaped how I approach problem-solving today.',
-    'For the past four years, I’ve worked as a UX designer at IBM, designing for complex enterprise systems where usability, structure, and clarity are essential. I’m particularly interested in simplifying complexity, improving workflows, and crafting experiences that feel intuitive without oversimplifying reality.',
+    'For the past five years, I’ve worked as a UX designer at IBM, designing for complex enterprise systems where usability, structure, and clarity are essential. I’m particularly interested in simplifying complexity, improving workflows, and crafting experiences that feel intuitive without oversimplifying reality.',
     'My multidisciplinary foundation continues to inform my thinking, while my professional focus remains firmly rooted in UX design.',
   ],
   longToggleLabel: 'Read the longer story',
@@ -773,7 +775,7 @@ export const about = {
     'I didn’t start my career in UX.',
     'My background is in industrial design, where I first learned to think about how people interact with products, how form, function, constraints, and human behaviour come together. Designing for the physical world shaped how I approach problems today, with structure, curiosity, and a strong sensitivity to usability.',
     'I later moved into graphic design, which sharpened my visual thinking and strengthened my understanding of hierarchy, clarity, and communication. Over time, I found myself increasingly drawn to interaction, systems, and the logic behind how things work, a shift that naturally led me into user experience design.',
-    'For the past four years, I’ve been working as a UX designer at IBM, designing for complex enterprise environments where simplicity isn’t about reducing features, but about creating clarity within complexity. I enjoy untangling messy problems, improving workflows, and shaping experiences that feel intuitive without oversimplifying reality.',
+    'For the past five years, I’ve been working as a UX designer at IBM, designing for complex enterprise environments where simplicity isn’t about reducing features, but about creating clarity within complexity. I enjoy untangling messy problems, improving workflows, and shaping experiences that feel intuitive without oversimplifying reality.',
     'While my multidisciplinary background continues to inform how I think, my professional focus is firmly rooted in UX design, crafting thoughtful, structured, and human-centered digital experiences.',
     'Outside of work, I’m naturally drawn to observing how people interact with everyday products, interfaces, and systems, a curiosity that tends to follow me everywhere. I’m particularly interested in interaction patterns, behavioural nuances, and the small details that quietly shape how experiences feel.',
   ],
