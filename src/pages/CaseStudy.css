@@ -337,6 +337,51 @@
   color: var(--c-purple);
 }
 
+/* Wide spotlight: title and points in a row above, the recording across the full width */
+.cs__spotlight.cs__spotlight--wide {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+.cs__spotlight--wide > .cs__spotlight-text {
+  order: -1;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  column-gap: var(--space-7);
+  row-gap: var(--space-2);
+  align-items: start;
+}
+.cs__spotlight--wide .cs__spotlight-label,
+.cs__spotlight--wide h3 {
+  grid-column: 1;
+}
+.cs__spotlight--wide .cs__spotlight-text > p:not(.cs__spotlight-label) {
+  grid-column: 1;
+}
+.cs__spotlight--wide .cs__spotlight-text ul {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+.cs__spotlight--wide > .carousel,
+.cs__spotlight--wide > figure {
+  order: 0;
+}
+/* The caption explains each step, so it reads as text, not small print */
+.cs__spotlight--wide .carousel__slide figcaption {
+  margin-top: var(--space-3);
+  font-size: var(--fs-lg);
+  color: var(--c-ink);
+}
+
+@media (max-width: 1023px) {
+  .cs__spotlight--wide > .cs__spotlight-text {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cs__spotlight--wide .cs__spotlight-text ul {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
 @media (max-width: 1023px) {
   .cs__decisions {
     grid-template-columns: minmax(0, 1fr);

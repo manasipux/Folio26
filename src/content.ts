@@ -212,7 +212,7 @@ export type Project = {
     decisions?: { title: string; summary?: string; body: string }[];
     /** A closer look at one flow: an image with a few annotated points. */
     /** `slides` turns the image into a step-by-step carousel (a slide without an image shows a placeholder). */
-    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img; slides?: { label: string; image?: Img }[]; }[];
+    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img; slides?: { label: string; image?: Img }[]; /** Full width: text above, media across the page. For detailed screen recordings. */ wide?: boolean; }[];
     /** `cursor: 'glasses'` turns the pointer into Bob's glasses over the section. */
     tables?: { title: string; cursor?: 'glasses'; caption?: string; columns: string[]; rows: string[][] }[];
     callout?: { heading: string; body: string };
@@ -603,7 +603,7 @@ const allProjects: Project[] = [
       src: '/images/peek-agent-assist-translation.webp',
       alt: 'Preview of the case study page, scrolling from top to bottom',
       width: 640,
-      height: 2124,
+      height: 2398,
     },
     caseStudy: {
       role: 'Lead UX Designer, Agent Assist',
@@ -657,6 +657,7 @@ const allProjects: Project[] = [
         {
           label: 'Real-time translation',
           title: 'Replying in the customer’s language',
+          wide: true,
           points: [
             'Incoming customer messages appear in English in the chat transcript',
             'Copy & Translate an AI-suggested reply in one click',
@@ -677,8 +678,8 @@ const allProjects: Project[] = [
                 src: '/images/tr-incoming.mp4',
                 alt: 'Screen recording: the agent answers a new chat. The customer wrote “Hola, quiero reservar un vuelo” in Genesys, and Agent Assist’s chat transcript shows it as “Hello, I want to book a flight”, with a suggested Book flight action.',
                 caption: 'The customer writes in Spanish; Agent Assist shows the agent the message in English.',
-                width: 1600,
-                height: 922,
+                width: 1800,
+                height: 1200,
               },
             },
             {
@@ -687,8 +688,8 @@ const allProjects: Project[] = [
                 src: '/images/tr-suggestion.mp4',
                 alt: 'Screen recording: the agent runs Book flight, Agent Assist suggests a reply in English, and the agent uses Copy & Translate. A confirmation appears and the reply is pasted into Genesys in Spanish.',
                 caption: 'Copy & Translate puts the suggested reply on the clipboard in Spanish, ready to paste.',
-                width: 1600,
-                height: 922,
+                width: 1800,
+                height: 1200,
               },
             },
             {
@@ -697,8 +698,8 @@ const allProjects: Project[] = [
                 src: '/images/tr-freeform.mp4',
                 alt: 'Screen recording: in the Translation tab the agent types “I’m sorry, I see you mentioned the date already”, gets the Spanish translation, copies it and sends it from Genesys.',
                 caption: 'For their own words, the agent writes in English in the Translation tab and copies the Spanish.',
-                width: 1600,
-                height: 922,
+                width: 1800,
+                height: 1200,
               },
             },
             {
@@ -707,8 +708,8 @@ const allProjects: Project[] = [
                 src: '/images/tr-customer.mp4',
                 alt: 'Screen recording of the customer simulator on a phone: the conversation with the care agent reads entirely in Spanish, including a list of flight options, and the customer replies with a flight number.',
                 caption: 'In the customer simulator, the whole conversation reads in Spanish.',
-                width: 1600,
-                height: 922,
+                width: 1800,
+                height: 1200,
               },
             },
           ],
