@@ -146,3 +146,27 @@ body:has(.cs) {
 .cs .peek__photo {
   background: linear-gradient(160deg, #eef1f5, #dde1e7);
 }
+
+/* How I handle errors */
+.cs__errors-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cs__errors-list li {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid #dde1e7;
+  border-left: 3px solid #1d4e9e;
+  border-radius: 4px;
+  background: #ffffff;
+  font-size: var(--fs-base);
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .cs__errors-list {
+    grid-template-columns: 1fr;
+  }
+}

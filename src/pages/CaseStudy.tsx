@@ -188,7 +188,6 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
                       <li key={pt}>{pt}</li>
                     ))}
                   </ul>
-                  {sp.errorStates && <ErrorStates set={sp.errorStates} />}
                 </div>
               </article>
             ))}
@@ -205,6 +204,21 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
             </figure>
           ))}
         </div>
+      )}
+
+      {cs.errors && (
+        <section className="cs__section cs__errors" aria-labelledby="cs-errors">
+          <h2 id="cs-errors">{cs.errors.heading}</h2>
+          <div>
+            <p>{cs.errors.body}</p>
+            <ul className="cs__errors-list">
+              {cs.errors.principles.map((pr) => (
+                <li key={pr}>{pr}</li>
+              ))}
+            </ul>
+            <ErrorStates set={cs.errors} />
+          </div>
+        </section>
       )}
 
       {cs.callout && (
