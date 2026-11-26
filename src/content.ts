@@ -255,7 +255,7 @@ export const projects: Project[] = [
     size: 'large',
     cover: {
       src: '/images/cover-ibm.webp',
-      alt: 'Layered screens from the voice configuration flow: Text to speech with ElevenLabs selected, a cost warning and the voice preview in front of Advanced settings, with Speech to text (Flux model, turn-taking sliders, a key term and filters) on top.',
+      alt: 'Layered screens from the project: Microsoft Teams app registration at the back, the Text to speech step with Deepgram and the voice preview in the middle, and a pronunciation dictionary error (Enter valid IPA pronunciation) in front.',
       width: 1600,
       height: 1000,
     },
