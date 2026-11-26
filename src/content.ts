@@ -181,13 +181,21 @@ export type Project = {
     decisions?: { title: string; summary?: string; body: string }[];
     /** A closer look at one flow: an image with a few annotated points. */
     /** `slides` turns the image into a step-by-step carousel (a slide without an image shows a placeholder). */
-    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img; slides?: { label: string; image?: Img }[] }[];
+    spotlights?: { label: string; title: string; body?: string; points: string[]; image: Img; slides?: { label: string; image?: Img }[]; errorStates?: ErrorStateSet }[];
     /** `cursor: 'glasses'` turns the pointer into Bob's glasses over the section. */
     tables?: { title: string; cursor?: 'glasses'; caption?: string; columns: string[]; rows: string[][] }[];
     callout?: { heading: string; body: string };
     /** Inline persona: the first match of `trigger` in the problem text opens a card. */
     persona?: { trigger: string } & Persona;
   };
+};
+
+/** Error states shown in a modal from a ghost button under a spotlight. */
+export type ErrorStateSet = {
+  button: string;
+  title: string;
+  intro?: string;
+  items: { title: string; body: string; image: Img }[];
 };
 
 export type Persona = {
@@ -405,6 +413,33 @@ export const projects: Project[] = [
               },
             },
           ],
+          errorStates: {
+            button: 'See error states',
+            title: 'Error states: pronunciation dictionary',
+            intro: 'Builders can override how the agent says up to 500 words. Each error says what went wrong and what to do next.',
+            items: [
+              {
+                title: 'Limit reached',
+                body: 'At 500 entries, a notification explains the limit and the fix: delete an entry to add a new one.',
+                image: { src: '/images/voice-error-1.webp', alt: 'Error notification: Maximum entries reached. You can add up to 500 pronunciation overrides. Delete an existing entry to add a new one.' },
+              },
+              {
+                title: 'Invalid pronunciation',
+                body: 'The IPA field is flagged inline, next to the word it belongs to, before the entry is added.',
+                image: { src: '/images/voice-error-2.webp', alt: 'Pronunciation dictionary with the word Apple and an invalid pronunciation; the field is outlined in red with the message: Enter valid IPA pronunciation.' },
+              },
+              {
+                title: 'Duplicate word',
+                body: 'A word that already has a pronunciation is caught on entry, so the list never holds conflicting overrides.',
+                image: { src: '/images/voice-error-3.webp', alt: 'The word Hello entered again; the field is outlined in red with the message: Pronunciation already exists.' },
+              },
+              {
+                title: 'No search results',
+                body: 'Searching a long list for a missing word shows an empty state that suggests what to try next.',
+                image: { src: '/images/voice-error-4.webp', alt: 'Search for banana in the pronunciation list returns an empty state: No results found. Try a different keyword or check for spelling mistakes.' },
+              },
+            ],
+          },
         },
         {
           label: 'Channel configuration',

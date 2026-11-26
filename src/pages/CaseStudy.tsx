@@ -8,6 +8,7 @@ import PerchedBob from '../components/work/PerchedBob';
 import SlideCarousel from '../components/work/SlideCarousel';
 import Media from '../components/work/Media';
 import ProcessStack from '../components/work/ProcessStack';
+import ErrorStates from '../components/work/ErrorStates';
 import './CaseStudy.css';
 import './CaseStudyEnterprise.css';
 
@@ -187,6 +188,7 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
                       <li key={pt}>{pt}</li>
                     ))}
                   </ul>
+                  {sp.errorStates && <ErrorStates set={sp.errorStates} />}
                 </div>
               </article>
             ))}
