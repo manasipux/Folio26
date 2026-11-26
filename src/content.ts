@@ -490,13 +490,8 @@ export const projects: Project[] = [
       ],
       errors: {
         heading: 'How I handle errors',
-        body: 'Configuration flows fail in predictable ways: a limit is hit, a value is wrong, something already exists, a search finds nothing. I design every error to answer two questions where the builder is already looking: what went wrong, and what do I do now?',
-        principles: [
-          'Say the rule and the way out, not just “something went wrong”',
-          'Flag the field, not the whole form',
-          'Catch conflicts before they are saved',
-          'Turn empty results into a next step',
-        ],
+        body: 'Every error should answer two questions where the builder is already looking: what went wrong, and what do I do now?',
+        principles: [],
         button: 'See examples',
         title: 'How I handle errors',
         intro: 'Examples from the pronunciation dictionary in voice configuration, where builders can override how the agent says up to 500 words. The same rules apply across the channel and voice flows.',

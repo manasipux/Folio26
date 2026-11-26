@@ -211,11 +211,13 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
           <h2 id="cs-errors">{cs.errors.heading}</h2>
           <div>
             <p>{cs.errors.body}</p>
+            {cs.errors.principles.length > 0 && (
             <ul className="cs__errors-list">
               {cs.errors.principles.map((pr) => (
                 <li key={pr}>{pr}</li>
               ))}
             </ul>
+            )}
             <ErrorStates set={cs.errors} />
           </div>
         </section>
