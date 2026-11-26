@@ -603,12 +603,12 @@ const allProjects: Project[] = [
       src: '/images/peek-agent-assist-translation.webp',
       alt: 'Preview of the case study page, scrolling from top to bottom',
       width: 640,
-      height: 2478,
+      height: 2502,
     },
     caseStudy: {
       role: 'Lead UX Designer, Agent Assist',
       timeline: 'A few weeks of design iterations; test prototypes built in one day',
-      team: '[TODO: e.g. Product manager, engineering]',
+      team: 'Product manager, architect, engineering',
       tools: 'Figma, Figma Make, Carbon Design System',
       overview:
         'Agent Assist is the AI assistant in watsonx Orchestrate that sits beside a human care agent during live conversations, suggesting responses and surfacing answers. It’s an app that runs inside whichever contact-center (CCaaS) platform a business uses; here, Genesys. I designed real-time translation for it: customer messages arrive in English, and agents reply in the customer’s own language.',
