@@ -544,7 +544,7 @@ export const projects: Project[] = [
         ],
       },
       outcome:
-        'Channel integrations and voice configuration shipped in watsonx Orchestrate’s agent builder, including Slack and Microsoft Teams, the platform’s most heavily used customer channels. Core voice interactions saw substantial growth from Q2 to Q3.',
+        'Core voice interactions scaled substantially, growing from the low hundreds of thousands to well over half a million requests. These efforts contributed to channel traffic growth of roughly 80%, while improving the experience across Slack and Microsoft Teams, among the platform’s most heavily used customer channels.',
       images: [],
     },
   },
