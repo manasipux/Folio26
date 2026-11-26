@@ -1,0 +1,42 @@
+/* A word behind frosted glass that you rub clear, like a scratch card */
+.clear-word {
+  position: relative;
+  display: inline-block;
+  cursor: crosshair;
+  touch-action: none; /* lets a finger rub across it instead of scrolling */
+  outline: none;
+}
+.clear-word.is-clear {
+  cursor: auto;
+  touch-action: auto;
+}
+
+/* The pane of glass: blurs the word behind it. The mask (set in ClearWord.tsx) wipes it away where rubbed. */
+.clear-word__glass {
+  position: absolute;
+  inset: 0.06em -0.06em -0.14em;
+  border-radius: 0.16em;
+  background:
+    linear-gradient(115deg, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.04) 55%, rgb(255 255 255 / 0.1)),
+    rgb(250 247 242 / 0.22);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.5) inset;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.clear-word.is-clear .clear-word__glass {
+  opacity: 0;
+}
+
+.clear-word:focus-visible {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clear-word__glass {
+    transition: none;
+  }
+}

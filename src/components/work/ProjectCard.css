@@ -109,7 +109,44 @@
   transform: translateX(4px);
 }
 
+/* ---------- Hover: scroll through the case study ---------- */
+.pcard__cover--peek {
+  position: relative;
+}
+.pcard__peek {
+  position: absolute;
+  inset: 0;
+  container-type: size; /* 100cqh below = the cover's height */
+  overflow: hidden;
+  background: var(--c-bg);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.pcard__peek img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Return to the top quickly when the pointer leaves */
+  transition: transform 0.6s var(--ease-out);
+}
+@media (hover: hover) {
+  .pcard:hover .pcard__peek {
+    opacity: 1;
+  }
+  /* Glide from the top of the page to the bottom, after a short pause on the title */
+  .pcard.pcard:hover .pcard__cover--peek .pcard__peek img {
+    transform: translateY(calc(-100% + 100cqh));
+    transition: transform 14s cubic-bezier(0.45, 0, 0.4, 1) 0.6s;
+  }
+
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .pcard.pcard:hover .pcard__cover--peek .pcard__peek img {
+    transform: none;
+    transition: none;
+  }
   .pcard,
   .pcard__cover img,
   .pcard__arrow {

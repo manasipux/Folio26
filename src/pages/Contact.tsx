@@ -1,6 +1,5 @@
 import { contact, site } from '../content';
 import SmartLink from '../components/common/SmartLink';
-import PhoneX222 from '../components/illustrations/PhoneX222';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Contact.css';
 
@@ -42,10 +41,6 @@ export default function Contact() {
         </ul>
 
         <p className="contact__location">{contact.locationLine}</p>
-      </div>
-
-      <div className="contact__phone">
-        <PhoneX222 interactive />
       </div>
     </div>
   );

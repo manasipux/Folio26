@@ -170,7 +170,7 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
           <h2 id="cs-spotlights">{L.spotlights}</h2>
           <div className="cs__spotlights">
             {cs.spotlights.map((sp, i) => (
-              <article key={i} className="cs__spotlight">
+              <article key={i} className={`cs__spotlight${sp.wide ? ' cs__spotlight--wide' : ''}`}>
                 {sp.slides && sp.slides.length > 0 ? (
                   <SlideCarousel slides={sp.slides} />
                 ) : (
