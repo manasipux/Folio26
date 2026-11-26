@@ -36,12 +36,16 @@ export default function Home() {
   useEffect(() => {
     if (hash !== '#about') return;
     setAboutOpen(true);
-    const t = window.setTimeout(() => aboutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    const t = window.setTimeout(() => aboutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
     return () => window.clearTimeout(t);
   }, [hash, key]);
   const toggleAbout = () => {
     const next = !aboutOpen;
     setAboutOpen(next);
+    // On phones the panel opens right under the card; bring it into view once it has grown.
+    if (next && window.matchMedia('(max-width: 900px)').matches) {
+      window.setTimeout(() => aboutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 450);
+    }
     navigate({ hash: next ? '#about' : '' }, { replace: true, preventScrollReset: true });
   };
 
@@ -114,40 +118,41 @@ export default function Home() {
             <span>{aboutOpen ? '↑' : '↓'}</span>
           </p>
         </div>
-      </header>
-
-      <div className={`home__about-wrap${aboutOpen ? ' is-open' : ''}`}>
-        <section
-          id="about"
-          ref={aboutRef}
-          className="home__about"
-          aria-labelledby="home-about"
-          inert={!aboutOpen}
-        >
-          <div className="home__about-head">
-            <p className="home__label">{ed.aboutLabel}</p>
-            <button type="button" className="home__more home__about-close" onClick={toggleAbout}>
-              {ed.aboutClose} <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div className="home__about-body">
-            <h2 id="home-about" className="home__about-headline">
-              {about.headline}
-            </h2>
-            <div className="home__about-copy">
-              {about.short.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-              <details className="home__about-more">
-                <summary>{about.longToggleLabel}</summary>
-                {about.long.map((p) => (
+        <div className={`home__about-wrap${aboutOpen ? ' is-open' : ''}`}>
+          <section
+            id="about"
+            ref={aboutRef}
+            className="home__about"
+            aria-labelledby="home-about"
+            inert={!aboutOpen}
+          >
+            <div className="home__about-card">
+            <div className="home__about-head">
+              <p className="home__label">{ed.aboutLabel}</p>
+              <button type="button" className="home__more home__about-close" onClick={toggleAbout}>
+                {ed.aboutClose} <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="home__about-body">
+              <h2 id="home-about" className="home__about-headline">
+                {about.headline}
+              </h2>
+              <div className="home__about-copy">
+                {about.short.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
-              </details>
+                <details className="home__about-more">
+                  <summary>{about.longToggleLabel}</summary>
+                  {about.long.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </details>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
+            </div>
+          </section>
+        </div>
+      </header>
 
       <section className="home__section" aria-labelledby="home-work">
         <div className="home__section-head">
