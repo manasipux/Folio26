@@ -1,4 +1,5 @@
-import { contact, site } from '../../content';
+import { contact, resume, site } from '../../content';
+import { withBase } from '../common/LazyImage';
 import './Footer.css';
 
 /** Contact details on every page. "Contact me" in the navigation scrolls here. */
@@ -25,6 +26,13 @@ export default function Footer() {
             <a className="footer__link" href={site.linkedin} target="_blank" rel="noreferrer">
               linkedin.com/in/manasiparulekar <span aria-hidden="true">↗</span>
               <span className="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <span className="footer__label">{resume.label}</span>
+            <a className="footer__link" href={withBase(resume.href)} target="_blank" rel="noreferrer">
+              Download my résumé <span aria-hidden="true">↓</span>
+              <span className="visually-hidden"> ({resume.note}, opens in a new tab)</span>
             </a>
           </li>
           <li>

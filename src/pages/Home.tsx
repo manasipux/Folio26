@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { about, home, projects, site } from '../content';
+import { about, home, projects, resume, site } from '../content';
 import { withBase } from '../components/common/LazyImage';
 import ProjectCard from '../components/work/ProjectCard';
 import ClearWord from '../components/home/ClearWord';
@@ -147,6 +147,10 @@ export default function Home() {
                 {about.short.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
+                <a className="home__about-resume" href={withBase(resume.href)} target="_blank" rel="noreferrer">
+                  Download my résumé <span aria-hidden="true">↓</span>
+                  <span className="visually-hidden"> ({resume.note}, opens in a new tab)</span>
+                </a>
                 <details className="home__about-more">
                   <summary>{about.longToggleLabel}</summary>
                   {about.long.map((p) => (

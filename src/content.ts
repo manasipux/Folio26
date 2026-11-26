@@ -880,6 +880,13 @@ export const about = {
 // ------------------------------------------------------------
 // Contact me
 // ------------------------------------------------------------
+/** Résumé PDF, linked from the footer and the About panel. */
+export const resume = {
+  label: 'Résumé',
+  href: '/files/Manasi-Parulekar-Resume.pdf',
+  note: 'PDF',
+};
+
 export const contact = {
   heading: 'Say hello',
   invite:
