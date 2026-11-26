@@ -8,20 +8,16 @@ const noise = (seed: number) => {
   return (x - Math.floor(x)) * 2 - 1;
 };
 
-/** A repeatable shuffle of 0..n-1 that moves every letter it can. */
+/**
+ * A light jumble of 0..n-1: swap two pairs of neighbouring letters,
+ * away from the first letter, so the word still reads at a glance ("comlpex").
+ */
 const shuffle = (n: number, seed: number) => {
   const order = Array.from({ length: n }, (_, i) => i);
-  for (let i = n - 1; i > 0; i--) {
-    const j = Math.floor(((noise(seed * 31 + i) + 1) / 2) * (i + 1)) % (i + 1);
-    [order[i], order[j]] = [order[j], order[i]];
-  }
-  // Nudge any letter that landed back on its own spot
-  for (let i = 0; i < n; i++) {
-    if (order[i] === i && n > 1) {
-      const k = (i + 1) % n;
-      [order[i], order[k]] = [order[k], order[i]];
-    }
-  }
+  if (n < 4) return order;
+  const first = 1 + (Math.abs(Math.floor(noise(seed) * 100)) % Math.max(1, Math.floor(n / 2) - 1));
+  const second = Math.min(n - 2, first + 2 + (Math.abs(Math.floor(noise(seed + 5) * 100)) % 2));
+  for (const i of [first, second]) [order[i], order[i + 1]] = [order[i + 1], order[i]];
   return order;
 };
 
@@ -34,8 +30,8 @@ type Props = {
 };
 
 /**
- * Words whose letters start jumbled (swapped around and slightly tilted, each word
- * keeping to itself so lines never break differently) and slide into order.
+ * Words with a few letters quietly swapped (each word
+ * keeping to itself so lines never break differently) that slide into order.
  * Screen readers always get the plain text.
  */
 export default function TangledWords({ text, untangled, onUntangle }: Props) {
@@ -67,9 +63,9 @@ export default function TangledWords({ text, untangled, onUntangle }: Props) {
         for (let i = 0; i < n; i++) {
           const own = start + i;
           const dx = target[i] - xs[own];
-          const dy = noise(own + 7) * 0.14;
-          const turn = noise(own + 3) * 14;
-          out.push(`translate(${dx.toFixed(1)}px, ${dy.toFixed(2)}em) rotate(${turn.toFixed(1)}deg)`);
+          const moved = Math.abs(dx) > 0.5;
+          const dy = moved ? noise(own + 7) * 0.05 : 0;
+          out.push(`translate(${dx.toFixed(1)}px, ${dy.toFixed(2)}em)`);
         }
         start += n;
       });
@@ -108,7 +104,7 @@ export default function TangledWords({ text, untangled, onUntangle }: Props) {
                     className="tangle__ch"
                     style={{
                       transform: tangled && moves ? moves[i] : 'none',
-                      transitionDelay: tangled ? '0ms' : `${i * 28}ms`,
+                      transitionDelay: tangled ? '0ms' : `${i * 12}ms`,
                     }}
                   >
                     {ch}
