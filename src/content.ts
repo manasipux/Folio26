@@ -165,6 +165,8 @@ export type Project = {
   tags: string[];
   size: ProjectSize;
   cover: Img;
+  /** Hidden projects stay in this file but don't show on the site. */
+  hidden?: boolean;
   caseStudy: {
     role: string;
     timeline: string;
@@ -244,7 +246,7 @@ const templateProcess = [
  *  3rd + 4th  → the two medium cards on the bottom row
  *  5th + 6th  → the stacked cards in the right-hand column
  */
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     slug: 'ibm',
     eyebrow: 'IBM watsonx Orchestrate · Enterprise UX',
@@ -635,6 +637,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'epfo-portal-redesign',
+    hidden: true,
     eyebrow: 'High-impact UX',
     title: 'EPFO Portal Redesign',
     summary: '[TODO: one-line summary]',
@@ -655,6 +658,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ai-research-synthesizer',
+    hidden: true,
     eyebrow: 'UX work',
     title: 'AI Research Synthesizer',
     summary: '[TODO: one-line summary]',
@@ -675,6 +679,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'salt-pe',
+    hidden: true,
     eyebrow: 'Visual design',
     title: 'Salt.pe',
     summary:
@@ -696,6 +701,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'student-work',
+    hidden: true,
     eyebrow: 'ID work · Student work',
     title: 'Brand as Design Foundation',
     summary: '[TODO: one-line summary]',
@@ -715,6 +721,9 @@ export const projects: Project[] = [
     },
   },
 ];
+
+/** What the site shows: every project not marked `hidden`. */
+export const projects = allProjects.filter((p) => !p.hidden);
 
 export const work = {
   heading: 'Work', // read by screen readers; the nav label shows it visually
