@@ -8,7 +8,7 @@ import './WorkEditorial.css';
 import './Home.css';
 
 /**
- * Editorial homepage: headline, a facts strip, selected work, then About and Contact.
+ * Editorial homepage: headline and ID card, selected work, then About and Contact.
  * The earlier photo-of-a-desk homepage is still in components/home/DeskScene.tsx;
  * to bring it back, render <DeskScene /> here and restore the home special-casing in Layout.
  */
@@ -25,7 +25,9 @@ export default function Home() {
             {site.name} · {ed.label}
           </p>
           <h1 className="home__heading">{home.heading}</h1>
-          <p className="home__intro">{home.intro}</p>
+          <p className="home__intro">
+            <strong>{ed.introLead}</strong> {ed.introRest}
+          </p>
         </div>
 
         {/* My ID card, hanging from its lanyard */}
@@ -49,15 +51,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-
-      <dl className="home__stats">
-        {ed.stats.map((st) => (
-          <div key={st.value}>
-            <dt>{st.label}</dt>
-            <dd>{st.value}</dd>
-          </div>
-        ))}
-      </dl>
 
       <section className="home__section" aria-labelledby="home-work">
         <div className="home__section-head">

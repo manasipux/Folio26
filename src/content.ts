@@ -53,13 +53,13 @@ export type NavId = (typeof nav)[number]['id'];
 export const home = {
   // Editorial homepage. Its headline and intro reuse `heading` and `intro` below.
   editorial: {
-    label: 'UX Designer · 5 years in B2B enterprise UX',
+    label: 'UX Designer · Enterprise AI',
     // Printed on the ID card
     card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
-    // Big number(s) under the headline. Add more objects here to show more figures.
-    stats: [
-      { value: '5 years', label: 'in B2B enterprise UX, designing complex systems for IBM' },
-    ],
+    // Intro under the headline: the first part is set in black, the rest in grey.
+    introLead: 'I’ve spent five years in B2B enterprise UX,',
+    introRest:
+      'designing for environments where simplicity isn’t about reducing features, but about creating clarity within complexity.',
     workHeading: 'Selected work',
     allWork: 'All work',
     aboutHeading: 'About',
