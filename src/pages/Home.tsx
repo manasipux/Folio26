@@ -27,6 +27,12 @@ export default function Home() {
   const [before, after] = home.heading.split(ed.clearWord);
   const [middle, end] = after === undefined ? [] : after.split(ed.tangledWords);
   const untangle = () => setUntangled(true);
+  // Don't leave the jumble for a skimming reader to mistake for a typo:
+  // the letters slide into order on their own shortly after the page loads.
+  useEffect(() => {
+    const t = window.setTimeout(untangle, 1800);
+    return () => window.clearTimeout(t);
+  }, []);
 
   // About opens from the ID card, or arrives open via /#about
   const { hash, key } = useLocation();
