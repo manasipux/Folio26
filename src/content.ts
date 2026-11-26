@@ -589,24 +589,88 @@ export const projects: Project[] = [
     },
   },
   {
-    // Spare slot from the wireframe. Rename the slug + fill in, or delete this object.
-    slug: 'ux-project',
-    eyebrow: 'UX work',
-    title: '[TODO: UX project title]',
-    summary: '[TODO: one-line summary]',
-    tags: ['UX Design'],
+    slug: 'agent-assist-translation',
+    eyebrow: 'IBM watsonx Orchestrate · Agent Assist',
+    title: 'Real-time translation for customer care agents',
+    summary:
+      'Letting English-speaking agents serve customers in any language, mid-chat, without a transfer or a second tool.',
+    tags: ['Enterprise UX', 'AI assist', 'Customer care'],
     size: 'medium',
-    cover: placeholderCover('this UX project', 'ux'),
+    cover: placeholderCover('Real-time translation in Agent Assist', 'ux'),
     caseStudy: {
-      role: '[TODO: your role]',
+      role: 'Lead UX Designer, Agent Assist',
       timeline: '[TODO: timeline]',
-      team: '[TODO: team]',
-      tools: '[TODO: tools]',
-      overview: '[TODO: overview]',
-      problem: '[TODO: the problem]',
-      process: templateProcess,
-      outcome: '[TODO: add outcome]',
-      images: placeholderGallery('this UX project', 'ux'),
+      team: '[TODO: e.g. Product manager, engineering]',
+      tools: 'Figma, Carbon Design System',
+      overview:
+        'Agent Assist is the AI assistant in watsonx Orchestrate that sits beside a human care agent during live conversations, suggesting responses and surfacing answers. I designed real-time translation for it: customer messages arrive in English, and agents reply in the customer’s own language.',
+      problem:
+        'Customers write in many languages, but agents work in English. [TODO: what happened to a non-English chat before — a transfer, a bilingual queue, a public translator]. Agent Assist also doesn’t send messages itself: agents chat with customers in Genesys, a separate contact-center tool. So translation had to help in both directions, keep pace with a live chat, and still get the reply into a window Agent Assist doesn’t control.',
+      process: [
+        {
+          heading: 'Follow the conversation, both ways',
+          summary: 'Split the work into reading the customer and replying to them.',
+          body: 'Translation is two different jobs. Reading a customer’s message carries little risk; sending a reply the agent can’t read does. Treating them separately shaped every decision that followed.',
+        },
+        {
+          heading: 'Build on the assist flow agents already use',
+          summary: 'Translation works on AI-suggested responses, not just typed ones.',
+          body: 'Agents already lean on Agent Assist’s suggested responses. Rather than a separate translator, translation plugs into that flow, so a suggestion can be translated as easily as a free-form reply.',
+        },
+        {
+          heading: 'Design around the second window',
+          summary: 'Made the handoff to Genesys a single, obvious copy action.',
+          body: 'With replies sent from Genesys, every translated message has to cross between two tools. [TODO: was deeper integration considered, and why copy-and-paste was the right call]. I kept that crossing to one step: translate, copy, paste.',
+        },
+        {
+          heading: 'Validate with the client',
+          summary: '[TODO: what you tested and what changed]',
+          body: '[TODO: how the flow was reviewed in client feedback sessions, what agents or supervisors said, and at least one change it led to]',
+        },
+      ],
+      decisions: [
+        {
+          title: 'Incoming is automatic, outgoing is on request',
+          summary: 'Agents read in English instantly; they choose when to translate a reply.',
+          body: 'Every incoming message is translated without a click, because understanding the customer should cost nothing. Outgoing translation is triggered by the agent, so nothing reaches the customer until the agent has chosen and reviewed it.',
+        },
+        {
+          title: 'Two ways to reply, one way out',
+          summary: 'AI suggestion or free-form message, translated the same way.',
+          body: 'Agents can translate a suggested response or type their own when the AI misses. Both paths end in the same translated output and the same copy button, so agents learn the flow once.',
+        },
+        {
+          title: 'The clipboard is the bridge',
+          summary: 'Translate, copy, paste into Genesys.',
+          body: 'Agent Assist can’t post into the Genesys chat, so the translated text is one click from the clipboard. [TODO: what you weighed here]',
+        },
+      ],
+      spotlights: [
+        {
+          label: 'Real-time translation',
+          title: 'Replying in the customer’s language',
+          points: [
+            'Incoming customer messages are translated into English automatically',
+            'Translate an AI-suggested response, or write a free-form reply and translate that',
+            'Copy the translated text to the clipboard in one click, ready to paste into Genesys',
+            '[TODO: how translated messages are marked, and whether the original is shown]',
+            '[TODO: what happens when translation fails or a language isn’t supported]',
+          ],
+          image: placeholderCover('Real-time translation in Agent Assist', 'ux'),
+          slides: [
+            { label: 'Incoming message' },
+            { label: 'AI-suggested reply' },
+            { label: 'Free-form reply' },
+            { label: 'Copy to Genesys' },
+          ],
+        },
+      ],
+      callout: {
+        heading: 'Designing for AI',
+        body: 'Here the agent can’t check the AI’s work: they don’t read the customer’s language. So the design keeps the agent in charge of every outgoing message, and translation only reaches the customer when the agent sends it on.',
+      },
+      outcome: '[TODO: status, adoption and impact, in a form you can share publicly]',
+      images: [],
     },
   },
   {
