@@ -1,39 +1,46 @@
 /* ============================================================
-   Enterprise look for case study pages: neutral greys, one navy
-   accent, square-ish corners, hairline borders, no soft shadows.
+   Editorial look for case study pages: white page, black type,
+   thin rules, square corners, almost no colour, no soft shadows.
    Scoped to .cs, so the rest of the site keeps its own style.
    ============================================================ */
 body:has(.cs) {
-  background: #f5f6f8;
+  background: #ffffff;
 }
 
 .cs {
-  --c-bg: #f5f6f8;
+  --c-bg: #ffffff;
   --c-surface: #ffffff;
-  --c-surface-2: #eceef2;
-  --c-ink: #14181f;
-  --c-ink-muted: #4a5260;
-  --c-dark: #0b1f3a;           /* navy */
+  --c-surface-2: #f2f2f2;
+  --c-ink: #111111;
+  --c-ink-muted: #5c5c5c;
+  --c-dark: #111111;
   --c-lavender: #ffffff;       /* cards → white */
-  --c-lavender-2: #dde1e7;     /* hairlines */
-  --c-purple: #c4cad3;         /* decorative borders → grey */
-  --c-purple-deep: #1d4e9e;    /* accent text → corporate blue (7.6:1 on white) */
-  --c-focus: #1d4e9e;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 8px;
+  --c-lavender-2: #e2e2e2;     /* hairlines */
+  --c-purple: #cfcfcf;         /* decorative borders → grey */
+  --c-purple-deep: #111111;    /* accent text → ink */
+  --c-focus: #111111;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
 }
 
-/* Tags: quiet outlined labels instead of pink pills */
+/* Tags: plain small text, separated by a middle dot */
+.cs .tag-list {
+  gap: 0;
+}
 .cs .tag {
-  padding: 0.25rem 0.6rem;
-  border: 1px solid #c4cad3;
-  border-radius: 3px;
-  background: #ffffff;
-  color: #2b3340;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #5c5c5c;
   font-size: 0.8125rem;
   font-weight: 500;
+}
+.cs .tag:not(:last-child)::after {
+  content: '·';
+  margin: 0 0.5em;
 }
 
 .cs__title {
@@ -49,19 +56,23 @@ body:has(.cs) {
 }
 
 .cs__context {
-  border-left-color: #1d4e9e;
+  border-left: 1px solid #111111;
 }
 
-/* Meta: a bordered summary strip */
+/* Meta: a summary strip between two rules */
 .cs__meta {
-  border: 1px solid #dde1e7;
-  border-top: 3px solid #0b1f3a;
-  background: #ffffff;
+  border: 0;
+  border-top: 1px solid #111111;
+  border-bottom: 1px solid #e2e2e2;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .cs__hero,
 .cs__gallery figure {
-  border: 1px solid #dde1e7;
+  border: 1px solid #e2e2e2;
+  box-shadow: none;
 }
 
 .cs__section h2 {
@@ -74,67 +85,80 @@ body:has(.cs) {
   background: #ffffff;
 }
 .cs__table thead th {
-  background: #eef1f5;
-  color: #14181f;
+  background: #f2f2f2;
+  color: #111111;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.75rem;
 }
 
-/* Decisions: white cards with a navy rule instead of dark tiles */
+/* Decisions: columns under a black rule, no boxes */
 .cs__decisions li {
-  border: 1px solid #dde1e7;
-  border-top: 3px solid #1d4e9e;
-  background: #ffffff;
-  color: #14181f;
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-top: 1px solid #111111;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #111111;
 }
 .cs__decision-why {
-  border-top-color: #dde1e7;
-  color: #4a5260;
+  border-top-color: #e2e2e2;
+  color: #5c5c5c;
 }
 
-/* Callout: navy panel */
+/* Callout: the one solid band, in ink */
 .cs__callout {
-  background: #0b1f3a;
+  border-radius: 0;
+  background: #111111;
 }
 
-/* Outcome: bordered panel with an accent rule */
+/* Outcome: open section under a black rule */
 .cs__outcome {
-  border: 1px solid #dde1e7;
-  border-left: 4px solid #1d4e9e;
-  background: #ffffff;
+  padding-left: 0;
+  padding-right: 0;
+  border: 0;
+  border-top: 1px solid #111111;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .cs__spotlight img,
 .cs__spotlight video {
-  border: 1px solid #dde1e7;
-  box-shadow: 0 1px 2px rgb(20 24 31 / 0.08);
+  border: 1px solid #e2e2e2;
+  box-shadow: none;
 }
 .cs__spotlight li::marker {
-  color: #1d4e9e;
+  color: #111111;
 }
 
 .cs__next {
-  border-width: 1px;
-  background: #ffffff;
+  border: 0;
+  border-top: 1px solid #111111;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 .cs__next:hover {
-  background: #f5f6f8;
+  background: #f7f7f7;
 }
 
 /* Process cards and carousel */
 .cs .pstack__card {
   border-width: 1px;
-  box-shadow: 0 -1px 0 rgb(20 24 31 / 0.04), 0 -6px 14px -10px rgb(20 24 31 / 0.25);
+  border-color: #e2e2e2;
+  box-shadow: 0 -1px 0 rgb(17 17 17 / 0.03), 0 -6px 14px -12px rgb(17 17 17 / 0.18);
 }
 .cs .carousel__controls button {
   border-radius: 4px;
   background: #ffffff;
 }
 
-/* Persona badge: navy band */
+/* Persona badge: ink band */
 .cs .peek__band {
-  background: #0b1f3a;
+  background: #111111;
 }
 
 .cs .peek__card {
@@ -144,7 +168,7 @@ body:has(.cs) {
   border-radius: 7px 7px 0 0;
 }
 .cs .peek__photo {
-  background: linear-gradient(160deg, #eef1f5, #dde1e7);
+  background: linear-gradient(160deg, #f2f2f2, #e2e2e2);
 }
 
 /* How I handle errors */
@@ -158,9 +182,9 @@ body:has(.cs) {
 }
 .cs__errors-list li {
   padding: var(--space-3) var(--space-4);
-  border: 1px solid #dde1e7;
-  border-left: 3px solid #1d4e9e;
-  border-radius: 4px;
+  border: 1px solid #e2e2e2;
+  border-left: 2px solid #111111;
+  border-radius: 0;
   background: #ffffff;
   font-size: var(--fs-base);
   font-weight: 500;

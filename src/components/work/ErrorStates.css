@@ -6,10 +6,10 @@
   gap: var(--space-2);
   margin-top: var(--space-5);
   padding: 0.6rem 1rem;
-  border: 1px solid #1d4e9e;
+  border: 1px solid #111111;
   border-radius: 4px;
   background: transparent;
-  color: #1d4e9e;
+  color: #111111;
   font: inherit;
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -17,11 +17,11 @@
   transition: background-color 0.15s ease;
 }
 .errs__open:hover {
-  background: #eaf0fa;
+  background: #f2f2f2;
 }
 .errs__open:focus-visible,
 .errs__close:focus-visible {
-  outline: 2px solid #1d4e9e;
+  outline: 2px solid #111111;
   outline-offset: 2px;
 }
 
@@ -29,7 +29,7 @@
   width: min(64rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 0;
-  border: 1px solid #dde1e7;
+  border: 1px solid #e2e2e2;
   border-radius: 8px;
   background: #ffffff;
   color: #14181f;
@@ -55,7 +55,7 @@
   justify-content: space-between;
   gap: var(--space-5);
   padding-bottom: var(--space-5);
-  border-bottom: 1px solid #dde1e7;
+  border-bottom: 1px solid #e2e2e2;
 }
 .errs .errs__head h2 {
   margin: 0;
@@ -96,7 +96,7 @@
   box-shadow: none;
   width: 100%;
   height: auto;
-  border: 1px solid #dde1e7;
+  border: 1px solid #e2e2e2;
   border-radius: 6px;
 }
 .errs .errs__item h3 {

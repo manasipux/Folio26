@@ -2,6 +2,7 @@ import { projects, work } from '../content';
 import ProjectCard from '../components/work/ProjectCard';
 import { usePageTitle } from '../components/common/usePageTitle';
 import './Work.css';
+import './WorkEditorial.css';
 
 /**
  * Bento grid. Slots are filled in the order projects appear in content.ts:
