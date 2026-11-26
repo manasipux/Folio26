@@ -28,8 +28,8 @@ export const site = {
   fullName: 'Manasi [TODO: surname, or delete this placeholder]',
   roles: ['UX Designer', 'Visual Design', 'Industrial Design'],
   location: 'Kochi, India',
-  email: '[TODO: your email address]',
-  linkedin: '[TODO: https://www.linkedin.com/in/your-handle]',
+  email: 'manasipux@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/manasiparulekar/',
   linkedinLabel: 'LinkedIn',
   // Shown in the browser tab
   title: 'Manasi — UX Designer',
