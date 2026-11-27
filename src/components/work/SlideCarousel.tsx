@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import type React from "react";
 import type { Img } from "../../content";
 import Media from "./Media";
 import "./SlideCarousel.css";
@@ -16,6 +17,14 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState<number[]>(() => slides.map(() => 0));
+  // Which arrow the pointer is near: arrows stay hidden until the pointer drifts to an edge
+  const [near, setNear] = useState<"prev" | "next" | null>(null);
+  const trackPointer = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    setNear(x < 0.2 ? "prev" : x > 0.8 ? "next" : null);
+  };
   const id = useId();
 
   // Keep the active step in sync with the scroll position.
@@ -120,7 +129,7 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
           // Previous / next and the step count sit on the active slide's media
           const overlay =
             i === active ? (
-              <div className="carousel__overlay">
+              <div className="carousel__overlay" data-near={near ?? undefined}>
                 <span className="carousel__count" aria-live="polite">
                   {active + 1} / {slides.length}
                 </span>
@@ -157,7 +166,11 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
             >
               {s.image ? (
                 <>
-                  <div className="carousel__media">
+                  <div
+                    className="carousel__media"
+                    onPointerMove={trackPointer}
+                    onPointerLeave={() => setNear(null)}
+                  >
                     <Media
                       image={s.image}
                       active={i === active}
@@ -177,7 +190,11 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
                   )}
                 </>
               ) : (
-                <div className="carousel__media">
+                <div
+                  className="carousel__media"
+                  onPointerMove={trackPointer}
+                  onPointerLeave={() => setNear(null)}
+                >
                   <div className="carousel__placeholder">
                     <span>{s.label}</span>
                     <small>Recording coming soon</small>
