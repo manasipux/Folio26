@@ -108,10 +108,35 @@ body:has(.cs) {
   color: #5e584f;
 }
 
-/* Callout: the one solid band, in ink */
+/* Callout: the one solid band, in ink, labelled with an AI chip */
 .cs__callout {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: var(--space-4);
   border-radius: 0;
   background: #111111;
+}
+.cs .cs__callout-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.08);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #ffffff;
+}
+.cs .cs__callout-chip svg {
+  flex: none;
+}
+.cs__callout p {
+  max-width: 60ch;
+  font-size: var(--fs-lg);
+  line-height: 1.5;
 }
 
 /* Outcome: open section under a black rule */
