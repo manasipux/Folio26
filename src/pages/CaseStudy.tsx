@@ -241,7 +241,19 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
 
       <section className="cs__section cs__outcome" aria-labelledby="cs-outcome">
         <h2 id="cs-outcome">{L.outcome}</h2>
-        <p>{cs.outcome}</p>
+        <div className="cs__outcome-body">
+          {cs.outcomeStats && cs.outcomeStats.length > 0 && (
+            <dl className="cs__stats">
+              {cs.outcomeStats.map((st) => (
+                <div key={st.value}>
+                  <dt>{st.label}</dt>
+                  <dd>{st.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <p>{cs.outcome}</p>
+        </div>
       </section>
 
       {!standalone && next && next.slug !== project.slug && (

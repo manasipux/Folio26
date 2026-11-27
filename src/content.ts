@@ -211,6 +211,8 @@ export type Project = {
     /** `summary` is the one-liner shown on the closed tile; `body` opens on click. */
     process: { heading: string; summary?: string; body: string }[];
     outcome: string;
+    /** Headline figures shown large above the outcome text. Only figures you can share publicly. */
+    outcomeStats?: { value: string; label: string }[];
     images: Img[];
     /** Optional richer sections — only rendered when present. */
     /** `summary` is the short, bold decision; `body` is the reasoning. */
@@ -299,7 +301,7 @@ const allProjects: Project[] = [
       src: '/images/peek-ibm.webp',
       alt: 'Preview of the case study page, scrolling from top to bottom',
       width: 640,
-      height: 3335,
+      height: 3442,
     },
     caseStudy: {
       role: 'UX Designer, channel and voice configuration',
@@ -585,6 +587,10 @@ const allProjects: Project[] = [
           },
         ],
       },
+      outcomeStats: [
+        { value: '500K+', label: 'voice requests, up from the low hundreds of thousands' },
+        { value: '~80%', label: 'growth in channel traffic' },
+      ],
       outcome:
         'Core voice interactions scaled substantially, growing from the low hundreds of thousands to well over half a million requests. These efforts contributed to channel traffic growth of roughly 80%, while improving the experience across Slack and Microsoft Teams, among the platform’s most heavily used customer channels.',
       images: [],
@@ -608,7 +614,7 @@ const allProjects: Project[] = [
       src: '/images/peek-agent-assist-translation.webp',
       alt: 'Preview of the case study page, scrolling from top to bottom',
       width: 640,
-      height: 2502,
+      height: 2630,
     },
     caseStudy: {
       role: 'Lead UX Designer, Agent Assist',
@@ -724,6 +730,9 @@ const allProjects: Project[] = [
         heading: 'Designing for AI',
         body: 'Here the agent can’t check the AI’s work: they don’t read the customer’s language. So the design keeps the agent in charge of every outgoing message, and translation only reaches the customer when the agent sends it on.',
       },
+      outcomeStats: [
+        { value: '~4,000', label: 'customer interactions a week through Agent Assist, and growing' },
+      ],
       outcome:
         'Real-time translation was designed for an airline client whose customer service teams currently handle approximately 4,000 customer interactions per week through Agent Assist, with usage continuing to grow as the airline expands its operations.',
       images: [],

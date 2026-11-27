@@ -139,6 +139,45 @@ body:has(.cs) {
   line-height: 1.5;
 }
 
+/* Outcome: headline figures, large, with the full sentence underneath */
+.cs__outcome-body {
+  min-width: 0;
+}
+.cs__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin: 0 0 var(--space-6);
+}
+.cs__stats > div {
+  display: flex;
+  flex-direction: column-reverse; /* figure on top; the label is still read first */
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid #ddd5c8;
+}
+.cs__stats dd {
+  margin: 0;
+  font-size: clamp(3.25rem, 2.2rem + 4vw, 5.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: #111111;
+}
+.cs__stats dt {
+  max-width: 26ch;
+  font-size: var(--fs-base);
+  line-height: 1.45;
+  color: #5e584f;
+}
+.cs__outcome-body > p {
+  max-width: 62ch;
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+}
+
 /* Outcome: open section under a black rule */
 .cs__outcome {
   padding-left: 0;
