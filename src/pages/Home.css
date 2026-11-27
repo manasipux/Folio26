@@ -208,6 +208,9 @@
 .home__about-wrap.is-open {
   grid-template-rows: 1fr;
 }
+.home__about-wrap.is-instant {
+  transition: none;
+}
 .home__about {
   overflow: hidden;
   min-height: 0;

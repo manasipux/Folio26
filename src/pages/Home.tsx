@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import { about, home, projects, resume, site } from "../content";
 import { withBase } from "../components/common/LazyImage";
 import ProjectCard from "../components/work/ProjectCard";
@@ -39,6 +39,23 @@ export default function Home() {
   const navigate = useNavigate();
   const [aboutOpen, setAboutOpen] = useState(hash === "#about");
   const aboutRef = useRef<HTMLElement>(null);
+  // Going anywhere else from the navigation (Home, Work, Contact) closes About at once,
+  // without the fold animation, so the page doesn't shift under the scroll.
+  // (The card and Close button update the address with REPLACE, so they're left alone.)
+  const navType = useNavigationType();
+  const [closeInstantly, setCloseInstantly] = useState(false);
+  useEffect(() => {
+    if (hash === "#about" || navType === "REPLACE") return;
+    setAboutOpen((open) => {
+      if (open) setCloseInstantly(true);
+      return false;
+    });
+    const t = window.setTimeout(() => setCloseInstantly(false), 60);
+    // Home in the navigation, while already on the homepage: back to the top
+    if (hash === "" && navType === "PUSH")
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    return () => window.clearTimeout(t);
+  }, [hash, key, navType]);
   // "Work" in the navigation (and the case study back link) lands on /#work
   const workRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -158,7 +175,9 @@ export default function Home() {
             <span>{aboutOpen ? "↑" : "↓"}</span>
           </p>
         </div>
-        <div className={`home__about-wrap${aboutOpen ? " is-open" : ""}`}>
+        <div
+          className={`home__about-wrap${aboutOpen ? " is-open" : ""}${closeInstantly ? " is-instant" : ""}`}
+        >
           <section
             id="about"
             ref={aboutRef}
