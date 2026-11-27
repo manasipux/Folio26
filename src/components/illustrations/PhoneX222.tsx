@@ -51,7 +51,7 @@ export default function PhoneX222({ interactive = false }: Props) {
         </SmartLink>
       );
     return (
-      <Link to={kind === 'work' ? '/work' : '/about'} className="x222__tile">
+      <Link to={kind === 'work' ? '/#work' : '/#about'} className="x222__tile">
         {inner}
       </Link>
     );

@@ -40,7 +40,8 @@ export const site = {
 // ------------------------------------------------------------
 export const nav = [
   { id: 'home', label: 'Home', to: '/' },
-  { id: 'work', label: 'Work', to: '/work' },
+  // Work is a section of the homepage (only two projects), so this scrolls to it
+  { id: 'work', label: 'Work', to: '/#work' },
   // About me opens on the homepage (the ID card); Contact me scrolls to the footer on any page
   { id: 'about', label: 'About me', to: '/#about' },
   { id: 'contact', label: 'Contact me', to: '#contact' },
@@ -69,7 +70,7 @@ export const home = {
     introLead: 'I’ve spent five years in B2B enterprise UX,',
     introRest:
       'designing for environments where simplicity isn’t about reducing features, but about creating clarity within complexity.',
-    workHeading: 'Selected work',
+    workHeading: 'Work',
     allWork: 'All work',
     aboutHeading: 'About',
     aboutBody:
@@ -917,7 +918,7 @@ export const contact = {
 // Case study page labels
 // ------------------------------------------------------------
 export const caseStudyLabels = {
-  back: 'All work',
+  back: 'Back to work',
   role: 'Role',
   timeline: 'Timeline',
   team: 'Team',

@@ -48,7 +48,7 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
   return (
     <article className="page cs">
       {!standalone && (
-        <Link to="/work" className="cs__back">
+        <Link to="/#work" className="cs__back">
           <span aria-hidden="true">←</span> {L.back}
         </Link>
       )}

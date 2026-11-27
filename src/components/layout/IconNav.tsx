@@ -1,7 +1,7 @@
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { nav } from '../../content';
-import NavIcon from './NavIcons';
-import './IconNav.css';
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { nav } from "../../content";
+import NavIcon from "./NavIcons";
+import "./IconNav.css";
 
 /**
  * Desktop: vertical stack of square icon buttons, sticky on the left.
@@ -11,7 +11,10 @@ import './IconNav.css';
 export default function IconNav() {
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
-  const onHomeAbout = pathname === '/' && hash === '#about';
+  const onHomeAbout = pathname === "/" && hash === "#about";
+  // Work: the homepage section, and any case study under /work/
+  const onWork =
+    (pathname === "/" && hash === "#work") || pathname.startsWith("/work/");
 
   return (
     <nav aria-label="Main" className="icon-nav">
@@ -26,7 +29,7 @@ export default function IconNav() {
             </>
           );
           // Contact: stay on this page and scroll down to the footer
-          if (item.id === 'contact') {
+          if (item.id === "contact") {
             return (
               <li key={item.id}>
                 <a
@@ -34,7 +37,10 @@ export default function IconNav() {
                   className="icon-nav__item"
                   onClick={(e) => {
                     e.preventDefault();
-                    navigate({ pathname, hash: '#contact' }, { preventScrollReset: true });
+                    navigate(
+                      { pathname, hash: "#contact" },
+                      { preventScrollReset: true },
+                    );
                   }}
                 >
                   {inner}
@@ -42,14 +48,15 @@ export default function IconNav() {
               </li>
             );
           }
-          // About: the homepage with the About section open
-          if (item.id === 'about') {
+          // About and Work: sections of the homepage (/#about, /#work)
+          if (item.id === "about" || item.id === "work") {
+            const on = item.id === "about" ? onHomeAbout : onWork;
             return (
               <li key={item.id}>
                 <Link
                   to={item.to}
-                  className={`icon-nav__item${onHomeAbout ? ' active' : ''}`}
-                  aria-current={onHomeAbout ? 'location' : undefined}
+                  className={`icon-nav__item${on ? " active" : ""}`}
+                  aria-current={on ? "location" : undefined}
                 >
                   {inner}
                 </Link>
@@ -60,10 +67,13 @@ export default function IconNav() {
             <li key={item.id}>
               <NavLink
                 to={item.to}
-                end={item.id === 'home'}
+                end={item.id === "home"}
                 className={({ isActive }) => {
-                  const active = item.id === 'home' ? isActive && !onHomeAbout : isActive;
-                  return `icon-nav__item${active ? ' active' : ''}`;
+                  const active =
+                    item.id === "home"
+                      ? isActive && !onHomeAbout && !onWork
+                      : isActive;
+                  return `icon-nav__item${active ? " active" : ""}`;
                 }}
               >
                 {inner}
