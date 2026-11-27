@@ -5,6 +5,7 @@ import { withBase } from "../components/common/LazyImage";
 import ProjectCard from "../components/work/ProjectCard";
 import ClearWord from "../components/home/ClearWord";
 import TangledWords from "../components/home/TangledWords";
+import { badgeBeep } from "../components/home/badgeBeep";
 import { usePageTitle } from "../components/common/usePageTitle";
 import "./Work.css";
 import "./WorkEditorial.css";
@@ -82,6 +83,8 @@ export default function Home() {
   }, [hash, key]);
   const toggleAbout = () => {
     const next = !aboutOpen;
+    // Checking in: the badge reader beeps when the card opens About
+    if (next) badgeBeep();
     setAboutOpen(next);
     // On phones the panel opens right under the card; bring it into view once it has grown.
     if (next && window.matchMedia("(max-width: 900px)").matches) {
