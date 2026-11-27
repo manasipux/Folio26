@@ -1,7 +1,8 @@
 /* ============================================================
    Navigation drawer: a slim black tab on the left edge showing
-   icons. Hover (or keyboard focus) slides it open to reveal the
-   labels. The current page is a filled white tag. Curved fillets
+   icons, slightly see-through while folded. Hover (or keyboard
+   focus) slides it open to reveal the labels. Over the black
+   footer it turns light so it doesn't merge with it. The current page is a filled white tag. Curved fillets
    where the tab meets the edge make it look cut out of the page.
    Phones: the same tab on the bottom edge, current label shown.
    ============================================================ */
@@ -16,7 +17,36 @@
   border-radius: 0 16px 16px 0;
   background: var(--tab);
   translate: 0 -50%;
-  box-shadow: 0 10px 30px -18px rgb(17 17 17 / 0.6);
+  /* Quieter while folded; full strength when in use */
+  opacity: 0.78;
+  /* A faint edge keeps it distinct where it crosses the black footer */
+  outline: 1px solid rgb(255 255 255 / 0.1);
+  outline-offset: -1px;
+  transition: opacity 0.25s ease;
+}
+.icon-nav:hover,
+.icon-nav:focus-within {
+  opacity: 1;
+}
+
+/* Over the black footer: a light drawer, so it stays a tab and doesn't merge into the footer */
+.icon-nav--on-dark {
+  --tab: #f3eee6;
+  opacity: 0.92;
+}
+.icon-nav--on-dark .icon-nav__item {
+  color: rgb(17 17 17 / 0.62);
+}
+.icon-nav--on-dark .icon-nav__item:hover {
+  color: #111111;
+  background: rgb(17 17 17 / 0.07);
+}
+.icon-nav--on-dark .icon-nav__item.active {
+  color: #ffffff;
+  background: #111111;
+}
+.icon-nav--on-dark .icon-nav__item:focus-visible {
+  outline-color: #111111;
 }
 .icon-nav::before,
 .icon-nav::after {

@@ -25,12 +25,11 @@ const paths: Record<NavId, React.ReactNode> = {
       <path d="M7.4 17.2c1-2.2 2.7-3.2 4.6-3.2s3.6 1 4.6 3.2" />
     </>
   ),
-  // Candybar phone (Micromax X222)
+  // Envelope
   contact: (
     <>
-      <rect x="6.5" y="2.5" width="11" height="19" rx="3.5" />
-      <rect x="8.5" y="5.5" width="7" height="8" rx="1" />
-      <ellipse cx="12" cy="17.5" rx="2" ry="1.4" />
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" />
+      <path d="M4.5 7.5 12 13l7.5-5.5" />
     </>
   ),
 };

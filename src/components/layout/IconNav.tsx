@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { nav } from "../../content";
 import NavIcon from "./NavIcons";
@@ -17,8 +18,41 @@ export default function IconNav() {
   const onWork =
     (pathname === "/" && hash === "#work") || pathname.startsWith("/work/");
 
+  // Over the black footer the drawer switches to its light version, so the two don't merge
+  const navRef = useRef<HTMLElement>(null);
+  const [onDark, setOnDark] = useState(false);
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const nav = navRef.current?.getBoundingClientRect();
+        const footer = document
+          .getElementById("contact")
+          ?.getBoundingClientRect();
+        if (!nav || !footer) return setOnDark(false);
+        // Dark once the footer reaches the middle of the drawer
+        setOnDark(
+          footer.top < nav.top + nav.height / 2 && footer.bottom > nav.top,
+        );
+      });
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [pathname]);
+
   return (
-    <nav aria-label="Main" className="icon-nav">
+    <nav
+      ref={navRef}
+      aria-label="Main"
+      className={`icon-nav${onDark ? " icon-nav--on-dark" : ""}`}
+    >
       <ul role="list" className="icon-nav__list">
         {nav.map((item) => {
           const inner = (
