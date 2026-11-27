@@ -59,7 +59,7 @@
   --space-8: 4rem;
 
   /* Layout */
-  --nav-rail: 9rem;            /* space reserved for the left nav tab */
+  --nav-rail: 6rem;            /* space reserved for the folded nav drawer */
   --bottom-bar: 3.75rem;       /* mobile bottom nav height */
   --content-max: 1440px;
 
