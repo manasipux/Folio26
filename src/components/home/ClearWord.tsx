@@ -36,10 +36,11 @@ export default function ClearWord({ children, onClear }: { children: string; onC
 
   const clearAll = () => setFrost(Array(STRIPS).fill(0));
 
-  // One smooth pane of glass, masked so it's only as opaque as each rubbed spot
+  // One smooth pane of glass, masked so it's only as opaque as each rubbed spot,
+  // with soft edges on all four sides so it melts into the page instead of reading as a box
   const mask = `linear-gradient(90deg, ${frost
     .map((f, i) => `rgb(0 0 0 / ${f.toFixed(2)}) ${(((i + 0.5) / STRIPS) * 100).toFixed(1)}%`)
-    .join(', ')})`;
+    .join(', ')}), linear-gradient(90deg, transparent, #000 0.2em, #000 calc(100% - 0.2em), transparent), linear-gradient(180deg, transparent, #000 0.16em, #000 calc(100% - 0.16em), transparent)`;
 
   return (
     <span
