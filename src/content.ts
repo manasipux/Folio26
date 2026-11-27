@@ -61,7 +61,7 @@ export const home = {
     // These words start with their letters jumbled; they untangle on hover, or once the word above is cleared
     tangledWords: 'complex systems',
     // Printed on the ID card. Clicking the card opens the About section under the headline.
-    card: { role: 'UX Designer – AI', band: 'IBM watsonx Orchestrate' },
+    card: { role: 'UX Designer – AI', band: 'IBM' },
     cardHint: 'Click my ID card to get to know me',
     cardHintTouch: 'Tap my ID card to get to know me',
     aboutLabel: 'About me',
