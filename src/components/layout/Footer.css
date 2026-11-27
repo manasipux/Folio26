@@ -7,11 +7,6 @@
   outline: none;
   scroll-margin-top: var(--space-6);
 }
-@media (min-width: 768px) and (max-width: 1279px) {
-  .footer {
-    padding-left: calc(3.5rem + var(--space-6) * 2);
-  }
-}
 @media (max-width: 767px) {
   .footer {
     margin-top: var(--space-6);

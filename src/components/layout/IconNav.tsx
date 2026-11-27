@@ -1,12 +1,11 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { nav } from "../../content";
-import NavIcon from "./NavIcons";
 import "./IconNav.css";
 
 /**
- * Desktop: vertical stack of square icon buttons, sticky on the left.
- *          The active one shows its label; others reveal it on hover/focus.
- * Mobile:  restyled (CSS only) into a bottom tab bar.
+ * Navigation: a black tab on the left edge with text links as tags (on phones, a tab on the bottom edge).
+ * Home and case studies use real routes; Work and About me are sections of the homepage;
+ * Contact me scrolls to the footer on whatever page you're on.
  */
 export default function IconNav() {
   const { pathname, hash } = useLocation();
@@ -20,14 +19,7 @@ export default function IconNav() {
     <nav aria-label="Main" className="icon-nav">
       <ul role="list" className="icon-nav__list">
         {nav.map((item) => {
-          const inner = (
-            <>
-              <span className="icon-nav__square">
-                <NavIcon id={item.id} />
-              </span>
-              <span className="icon-nav__label">{item.label}</span>
-            </>
-          );
+          const inner = <>{item.label}</>;
           // Contact: stay on this page and scroll down to the footer
           if (item.id === "contact") {
             return (

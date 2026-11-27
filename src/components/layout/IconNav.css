@@ -1,164 +1,111 @@
+/* ============================================================
+   Navigation: one black tab fixed to the left edge, with text
+   links as tags. The current page is a filled white tag.
+   Curved "fillets" where the tab meets the edge make it look
+   cut out of the page. Phones: the same tab on the bottom edge.
+   ============================================================ */
 .icon-nav {
+  --tab: #111111;
+  --fillet: 16px;
   position: fixed;
-  left: var(--space-6);
+  left: 0;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 50;
+  padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+  border-radius: 0 16px 16px 0;
+  background: var(--tab);
+  translate: 0 -50%;
+}
+/* Concave corners above and below, joining the tab to the page edge */
+.icon-nav::before,
+.icon-nav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: var(--fillet);
+  height: var(--fillet);
+  pointer-events: none;
+}
+.icon-nav::before {
+  bottom: 100%;
+  background: radial-gradient(circle at 100% 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+}
+.icon-nav::after {
+  top: 100%;
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
 }
 
 .icon-nav__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .icon-nav__item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  text-decoration: none;
-  color: var(--c-ink);
-  border-radius: var(--radius-md);
-}
-
-.icon-nav__square {
-  display: grid;
-  place-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  flex: none;
-  border-radius: var(--radius-md);
-  background: var(--c-surface-2);
-  color: var(--c-ink);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.25s var(--ease-out),
-    box-shadow 0.25s var(--ease-out);
-}
-
-.icon-nav__label {
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-sm);
-  background: var(--c-dark);
-  color: var(--c-ink-inverse);
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.25;
+  display: block;
+  padding: 0.5rem 0.85rem;
+  border-radius: 10px;
+  color: rgb(255 255 255 / 0.62);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
   white-space: nowrap;
-  /* Hidden visually until hover/focus/active, but still read by screen readers */
-  opacity: 0;
-  transform: translateX(-0.5rem);
-  pointer-events: none;
-  transition:
-    opacity 0.2s ease,
-    transform 0.25s var(--ease-out);
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
-
-/* Hover / keyboard focus */
-.icon-nav__item:hover .icon-nav__square,
-.icon-nav__item:focus-visible .icon-nav__square {
-  background: var(--c-lavender-2);
-  color: var(--c-purple-deep);
-  transform: translateX(3px) scale(1.04);
-  box-shadow: var(--shadow-card);
+.icon-nav__item:hover {
+  color: #ffffff;
+  background: rgb(255 255 255 / 0.08);
 }
-.icon-nav__item:hover .icon-nav__label,
-.icon-nav__item:focus-visible .icon-nav__label {
-  opacity: 1;
-  transform: none;
+.icon-nav__item.active {
+  color: #111111;
+  background: #ffffff;
+  font-weight: 600;
 }
-
-/* Active page */
-.icon-nav__item.active .icon-nav__square {
-  background: var(--c-dark);
-  color: var(--c-ink-inverse);
-}
-.icon-nav__item.active .icon-nav__label {
-  opacity: 1;
-  transform: none;
-}
-
-/* Only the hovered/focused label should show alongside the active one */
 .icon-nav__item:focus-visible {
-  outline-offset: 4px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
-/* Narrower desktops: reserve room for icons only; labels float over content on hover/focus */
-@media (min-width: 768px) and (max-width: 1279px) {
-  .icon-nav__item.active .icon-nav__label {
-    opacity: 0;
-    transform: translateX(-0.5rem);
-  }
-  .icon-nav__item:hover .icon-nav__label,
-  .icon-nav__item:focus-visible .icon-nav__label {
-    opacity: 1;
-    transform: none;
-    box-shadow: var(--shadow-card);
-  }
-}
-
-/* ---------- Mobile: bottom tab bar ---------- */
+/* ---------- Phones: the tab sits on the bottom edge ---------- */
 @media (max-width: 767px) {
   .icon-nav {
-    display: block;
+    left: 50%;
     top: auto;
-    left: 0;
-    right: 0;
     bottom: 0;
-    transform: none;
-    background: rgb(243 238 230 / 94%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid var(--c-surface-2);
-    padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom));
+    padding: 0.4rem 0.4rem calc(0.4rem + env(safe-area-inset-bottom));
+    border-radius: 16px 16px 0 0;
+    translate: -50% 0;
   }
-
+  .icon-nav::before,
+  .icon-nav::after {
+    top: auto;
+    bottom: 0;
+  }
+  .icon-nav::before {
+    left: auto;
+    right: 100%;
+    background: radial-gradient(circle at 0 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+  }
+  .icon-nav::after {
+    left: 100%;
+    background: radial-gradient(circle at 100% 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+  }
   .icon-nav__list {
     flex-direction: row;
-    justify-content: space-around;
-    gap: 0;
+    gap: 0.125rem;
   }
-
-  .icon-nav__list > li {
-    flex: 1;
-  }
-
   .icon-nav__item {
-    flex-direction: column;
-    gap: 2px;
-    padding: 2px 0;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.875rem;
   }
+}
 
-  .icon-nav__square {
-    width: 2.75rem;
-    height: 2rem;
-    border-radius: var(--radius-pill);
-    background: transparent;
-  }
-
-  .icon-nav__label {
-    padding: 0;
-    background: none;
-    color: var(--c-ink-muted);
-    font-size: 0.75rem;
-    font-weight: 600;
-    opacity: 1;
-    transform: none;
-  }
-
-  .icon-nav__item:hover .icon-nav__square,
-  .icon-nav__item:focus-visible .icon-nav__square {
-    transform: none;
-    box-shadow: none;
-  }
-
-  .icon-nav__item.active .icon-nav__square {
-    background: var(--c-dark);
-  }
-  .icon-nav__item.active .icon-nav__label {
-    color: var(--c-ink);
+@media (prefers-reduced-motion: reduce) {
+  .icon-nav__item {
+    transition: none;
   }
 }
