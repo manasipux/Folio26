@@ -176,10 +176,6 @@ body:has(.cs) {
   border-color: #ddd5c8;
   box-shadow: 0 -1px 0 rgb(17 17 17 / 0.03), 0 -6px 14px -12px rgb(17 17 17 / 0.18);
 }
-.cs .carousel__controls button {
-  border-radius: 4px;
-  background: #faf7f2;
-}
 
 /* Persona badge: ink band */
 .cs .peek__band {

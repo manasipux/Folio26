@@ -1,7 +1,7 @@
-import { useEffect, useId, useRef, useState } from 'react';
-import type { Img } from '../../content';
-import Media from './Media';
-import './SlideCarousel.css';
+import { useEffect, useId, useRef, useState } from "react";
+import type { Img } from "../../content";
+import Media from "./Media";
+import "./SlideCarousel.css";
 
 export type Slide = { label: string; image?: Img };
 
@@ -26,13 +26,15 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        setActive(Math.round(track.scrollLeft / Math.max(1, track.clientWidth)));
+        setActive(
+          Math.round(track.scrollLeft / Math.max(1, track.clientWidth)),
+        );
       });
     };
-    track.addEventListener('scroll', onScroll, { passive: true });
+    track.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
-      track.removeEventListener('scroll', onScroll);
+      track.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -46,18 +48,29 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
     const track = trackRef.current;
     if (!track) return;
     const next = Math.max(0, Math.min(slides.length - 1, i));
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    track.scrollTo({ left: next * track.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    track.scrollTo({
+      left: next * track.clientWidth,
+      behavior: reduce ? "auto" : "smooth",
+    });
     setActive(next);
   };
 
   return (
-    <div className="carousel" role="group" aria-roledescription="carousel" aria-label="Flow walkthrough">
+    <div
+      className="carousel"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Flow walkthrough"
+    >
       {/* Progress bar: one segment per step. Past steps are full, the current
           step fills as its recording plays, upcoming steps are empty. */}
       <div className="carousel__progress" role="tablist" aria-label="Steps">
         {slides.map((s, i) => {
-          const fill = i < active ? 1 : i > active ? 0 : s.image ? progress[i] || 0.02 : 0;
+          const fill =
+            i < active ? 1 : i > active ? 0 : s.image ? progress[i] || 0.02 : 0;
           return (
             <button
               key={s.label}
@@ -70,7 +83,10 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
               onClick={() => go(i)}
             >
               <span className="carousel__seg-track" aria-hidden="true">
-                <span className="carousel__seg-fill" style={{ transform: `scaleX(${fill})` }} />
+                <span
+                  className="carousel__seg-fill"
+                  style={{ transform: `scaleX(${fill})` }}
+                />
               </span>
               <span className="carousel__seg-label">{s.label}</span>
             </button>
@@ -91,72 +107,87 @@ export default function SlideCarousel({ slides }: { slides: Slide[] }) {
         tabIndex={0}
         aria-label="Use the left and right arrow keys to move between steps"
         onKeyDown={(e) => {
-          if (e.key === 'ArrowRight') {
+          if (e.key === "ArrowRight") {
             e.preventDefault();
             go(active + 1);
-          } else if (e.key === 'ArrowLeft') {
+          } else if (e.key === "ArrowLeft") {
             e.preventDefault();
             go(active - 1);
           }
         }}
       >
-        {slides.map((s, i) => (
-          <figure
-            key={s.label}
-            id={`${id}-slide-${i}`}
-            role="tabpanel"
-            aria-labelledby={`${id}-tab-${i}`}
-            aria-roledescription="slide"
-            className="carousel__slide"
-          >
-            {s.image ? (
-              <>
-                <Media
-                  image={s.image}
-                  active={i === active}
-                  onEnded={() => advance(i)}
-                  onProgress={(p) =>
-                    setProgress((prev) => {
-                      const next = [...prev];
-                      next[i] = p;
-                      return next;
-                    })
-                  }
-                />
-                {s.image.caption && <figcaption>{s.image.caption}</figcaption>}
-              </>
-            ) : (
-              <div className="carousel__placeholder">
-                <span>{s.label}</span>
-                <small>Recording coming soon</small>
+        {slides.map((s, i) => {
+          // Previous / next and the step count sit on the active slide's media
+          const overlay =
+            i === active ? (
+              <div className="carousel__overlay">
+                <span className="carousel__count" aria-live="polite">
+                  {active + 1} / {slides.length}
+                </span>
+                {active > 0 && (
+                  <button
+                    type="button"
+                    className="carousel__arrow carousel__arrow--prev"
+                    onClick={() => go(active - 1)}
+                    aria-label="Previous step"
+                  >
+                    <span aria-hidden="true">←</span>
+                  </button>
+                )}
+                {active < slides.length - 1 && (
+                  <button
+                    type="button"
+                    className="carousel__arrow carousel__arrow--next"
+                    onClick={() => go(active + 1)}
+                    aria-label="Next step"
+                  >
+                    <span aria-hidden="true">→</span>
+                  </button>
+                )}
               </div>
-            )}
-          </figure>
-        ))}
-      </div>
-
-      <div className="carousel__controls">
-        <button
-          type="button"
-          className="carousel__arrow"
-          onClick={() => go(active - 1)}
-          disabled={active === 0}
-          aria-label="Previous step"
-        >
-          ←
-        </button>
-        <span className="carousel__count" aria-live="polite">
-          {active + 1} / {slides.length}
-        </span>
-        <button
-          type="button"
-          className="carousel__arrow"
-          onClick={() => go(active + 1)}
-          disabled={active === slides.length - 1}
-          aria-label="Next step"
-        >
-          →
-        </button>
+            ) : null;
+          return (
+            <figure
+              key={s.label}
+              id={`${id}-slide-${i}`}
+              role="tabpanel"
+              aria-labelledby={`${id}-tab-${i}`}
+              aria-roledescription="slide"
+              className="carousel__slide"
+            >
+              {s.image ? (
+                <>
+                  <div className="carousel__media">
+                    <Media
+                      image={s.image}
+                      active={i === active}
+                      onEnded={() => advance(i)}
+                      onProgress={(p) =>
+                        setProgress((prev) => {
+                          const next = [...prev];
+                          next[i] = p;
+                          return next;
+                        })
+                      }
+                    />
+                    {overlay}
+                  </div>
+                  {s.image.caption && (
+                    <figcaption>{s.image.caption}</figcaption>
+                  )}
+                </>
+              ) : (
+                <div className="carousel__media">
+                  <div className="carousel__placeholder">
+                    <span>{s.label}</span>
+                    <small>Recording coming soon</small>
+                  </div>
+                  {overlay}
+                </div>
+              )}
+            </figure>
+          );
+        })}
       </div>
     </div>
   );
