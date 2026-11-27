@@ -48,7 +48,7 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
   return (
     <article className="page cs">
       {!standalone && (
-        <Link to="/work" className="cs__back">
+        <Link to="/#work" className="cs__back">
           <span aria-hidden="true">←</span> {L.back}
         </Link>
       )}
@@ -225,14 +225,35 @@ export default function CaseStudy({ standalone = false }: { standalone?: boolean
 
       {cs.callout && (
         <aside className="cs__callout" aria-labelledby="cs-callout">
-          <h2 id="cs-callout">{cs.callout.heading}</h2>
+          <h2 id="cs-callout" className="cs__callout-chip">
+            {/* AI sparkle */}
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+              <path
+                d="M8 0.8 9.6 6.4 15.2 8 9.6 9.6 8 15.2 6.4 9.6 0.8 8 6.4 6.4Z"
+                fill="currentColor"
+              />
+            </svg>
+            {cs.callout.heading}
+          </h2>
           <p>{cs.callout.body}</p>
         </aside>
       )}
 
       <section className="cs__section cs__outcome" aria-labelledby="cs-outcome">
         <h2 id="cs-outcome">{L.outcome}</h2>
-        <p>{cs.outcome}</p>
+        <div className="cs__outcome-body">
+          {cs.outcomeStats && cs.outcomeStats.length > 0 && (
+            <dl className="cs__stats">
+              {cs.outcomeStats.map((st) => (
+                <div key={st.value}>
+                  <dt>{st.label}</dt>
+                  <dd>{st.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          <p>{cs.outcome}</p>
+        </div>
       </section>
 
       {!standalone && next && next.slug !== project.slug && (

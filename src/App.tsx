@@ -5,7 +5,6 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 
 // Home loads eagerly; other pages are split into their own chunks.
-const Work = lazy(() => import('./pages/Work'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -22,7 +21,8 @@ export default function App() {
           </Route>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="work" element={<Work />} />
+            {/* Work is a section of the homepage now; the old page link still lands there */}
+            <Route path="work" element={<Navigate to="/#work" replace />} />
             <Route path="work/:slug" element={<CaseStudy />} />
             {/* About lives on the homepage and contact in the footer; old links still work */}
             <Route path="about" element={<Navigate to="/#about" replace />} />

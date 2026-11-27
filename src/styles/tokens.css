@@ -59,8 +59,8 @@
   --space-8: 4rem;
 
   /* Layout */
-  --nav-rail: 14rem;           /* space reserved for the left nav (icons + active label) */
-  --bottom-bar: 4.25rem;       /* mobile bottom nav height */
+  --nav-rail: 6rem;            /* space reserved for the folded nav drawer */
+  --bottom-bar: 3.75rem;       /* mobile bottom nav height */
   --content-max: 1440px;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

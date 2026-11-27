@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { about, home, projects, resume, site } from '../content';
-import { withBase } from '../components/common/LazyImage';
-import ProjectCard from '../components/work/ProjectCard';
-import ClearWord from '../components/home/ClearWord';
-import TangledWords from '../components/home/TangledWords';
-import { usePageTitle } from '../components/common/usePageTitle';
-import './Work.css';
-import './WorkEditorial.css';
-import './Home.css';
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
+import { about, home, projects, resume, site } from "../content";
+import { withBase } from "../components/common/LazyImage";
+import ProjectCard from "../components/work/ProjectCard";
+import ClearWord from "../components/home/ClearWord";
+import TangledWords from "../components/home/TangledWords";
+import { badgeBeep } from "../components/home/badgeBeep";
+import { usePageTitle } from "../components/common/usePageTitle";
+import "./Work.css";
+import "./WorkEditorial.css";
+import "./Home.css";
 
 /**
  * Editorial homepage: headline and ID card, then selected work. Clicking the ID card
@@ -20,7 +21,7 @@ import './Home.css';
 export default function Home() {
   usePageTitle();
   const ed = home.editorial;
-  const featured = projects.slice(0, 2);
+  const featured = projects;
   // Headline play: one word behind frosted glass, two words with jumbled letters.
   // Clearing the glass also untangles the letters.
   const [untangled, setUntangled] = useState(false);
@@ -37,22 +38,69 @@ export default function Home() {
   // About opens from the ID card, or arrives open via /#about
   const { hash, key } = useLocation();
   const navigate = useNavigate();
-  const [aboutOpen, setAboutOpen] = useState(hash === '#about');
+  const [aboutOpen, setAboutOpen] = useState(hash === "#about");
   const aboutRef = useRef<HTMLElement>(null);
+  // Going anywhere else from the navigation (Home, Work, Contact) closes About at once,
+  // without the fold animation, so the page doesn't shift under the scroll.
+  // (The card and Close button update the address with REPLACE, so they're left alone.)
+  const navType = useNavigationType();
+  const [closeInstantly, setCloseInstantly] = useState(false);
   useEffect(() => {
-    if (hash !== '#about') return;
+    if (hash === "#about" || navType === "REPLACE") return;
+    setAboutOpen((open) => {
+      if (open) setCloseInstantly(true);
+      return false;
+    });
+    const t = window.setTimeout(() => setCloseInstantly(false), 60);
+    // Home in the navigation, while already on the homepage: back to the top
+    if (hash === "" && navType === "PUSH")
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    return () => window.clearTimeout(t);
+  }, [hash, key, navType]);
+  // "Work" in the navigation (and the case study back link) lands on /#work
+  const workRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (hash !== "#work") return;
+    const t = window.setTimeout(
+      () =>
+        workRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      80,
+    );
+    return () => window.clearTimeout(t);
+  }, [hash, key]);
+  useEffect(() => {
+    if (hash !== "#about") return;
     setAboutOpen(true);
-    const t = window.setTimeout(() => aboutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+    const t = window.setTimeout(
+      () =>
+        aboutRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        }),
+      80,
+    );
     return () => window.clearTimeout(t);
   }, [hash, key]);
   const toggleAbout = () => {
     const next = !aboutOpen;
+    // Checking in: the badge reader beeps when the card opens About
+    if (next) badgeBeep();
     setAboutOpen(next);
     // On phones the panel opens right under the card; bring it into view once it has grown.
-    if (next && window.matchMedia('(max-width: 900px)').matches) {
-      window.setTimeout(() => aboutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 450);
+    if (next && window.matchMedia("(max-width: 900px)").matches) {
+      window.setTimeout(
+        () =>
+          aboutRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          }),
+        450,
+      );
     }
-    navigate({ hash: next ? '#about' : '' }, { replace: true, preventScrollReset: true });
+    navigate(
+      { hash: next ? "#about" : "" },
+      { replace: true, preventScrollReset: true },
+    );
   };
 
   return (
@@ -74,7 +122,11 @@ export default function Home() {
                 ) : (
                   <>
                     {middle}
-                    <TangledWords text={ed.tangledWords} untangled={untangled} onUntangle={untangle} />
+                    <TangledWords
+                      text={ed.tangledWords}
+                      untangled={untangled}
+                      onUntangle={untangle}
+                    />
                     {end}
                   </>
                 )}
@@ -110,7 +162,9 @@ export default function Home() {
             <span className="idcard__name">{site.name}</span>
             <span className="idcard__role">{ed.card.role}</span>
             <span className="idcard__place">{site.location}</span>
-            <span className="idcard__band" aria-hidden="true">{ed.card.band}</span>
+            <span className="idcard__band" aria-hidden="true">
+              {ed.card.band}
+            </span>
           </button>
           <p className="idcard__hint" aria-hidden="true">
             {aboutOpen ? (
@@ -120,11 +174,13 @@ export default function Home() {
                 <span className="idcard__hint-mouse">{ed.cardHint}</span>
                 <span className="idcard__hint-touch">{ed.cardHintTouch}</span>
               </>
-            )}{' '}
-            <span>{aboutOpen ? '↑' : '↓'}</span>
+            )}{" "}
+            <span>{aboutOpen ? "↑" : "↓"}</span>
           </p>
         </div>
-        <div className={`home__about-wrap${aboutOpen ? ' is-open' : ''}`}>
+        <div
+          className={`home__about-wrap${aboutOpen ? " is-open" : ""}${closeInstantly ? " is-instant" : ""}`}
+        >
           <section
             id="about"
             ref={aboutRef}
@@ -133,53 +189,70 @@ export default function Home() {
             inert={!aboutOpen}
           >
             <div className="home__about-card">
-            <div className="home__about-head">
-              <p className="home__label">{ed.aboutLabel}</p>
-              <button type="button" className="home__more home__about-close" onClick={toggleAbout}>
-                {ed.aboutClose} <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="home__about-body">
-              <h2 id="home-about" className="home__about-headline">
-                {about.headline}
-              </h2>
-              <div className="home__about-copy">
-                {about.short.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-                <a className="home__about-resume" href={withBase(resume.href)} target="_blank" rel="noreferrer">
-                  Download my résumé <span aria-hidden="true">↓</span>
-                  <span className="visually-hidden"> ({resume.note}, opens in a new tab)</span>
-                </a>
-                <details className="home__about-more">
-                  <summary>{about.longToggleLabel}</summary>
-                  {about.long.map((p) => (
+              <div className="home__about-head">
+                <p className="home__label">{ed.aboutLabel}</p>
+                <button
+                  type="button"
+                  className="home__more home__about-close"
+                  onClick={toggleAbout}
+                >
+                  {ed.aboutClose} <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div className="home__about-body">
+                <h2 id="home-about" className="home__about-headline">
+                  {about.headline}
+                </h2>
+                <div className="home__about-copy">
+                  {about.short.map((p) => (
                     <p key={p}>{p}</p>
                   ))}
-                </details>
+                  <a
+                    className="home__about-resume"
+                    href={withBase(resume.href)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Download my résumé <span aria-hidden="true">↓</span>
+                    <span className="visually-hidden">
+                      {" "}
+                      ({resume.note}, opens in a new tab)
+                    </span>
+                  </a>
+                  <details className="home__about-more">
+                    <summary>{about.longToggleLabel}</summary>
+                    {about.long.map((p) => (
+                      <p key={p}>{p}</p>
+                    ))}
+                  </details>
+                </div>
               </div>
-            </div>
             </div>
           </section>
         </div>
       </header>
 
-      <section className="home__section" aria-labelledby="home-work">
+      <section
+        id="work"
+        ref={workRef}
+        className="home__section"
+        aria-labelledby="home-work"
+      >
         <div className="home__section-head">
           <h2 id="home-work">{ed.workHeading}</h2>
-          <Link to="/work" className="home__more">
-            {ed.allWork} <span aria-hidden="true">→</span>
-          </Link>
         </div>
         <div className="work">
           <div className="bento">
             {featured.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} className={`bento__${'ab'[i]}`} />
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                className={`bento__${"ab"[i]}`}
+              />
             ))}
           </div>
         </div>
       </section>
-
     </div>
   );
 }

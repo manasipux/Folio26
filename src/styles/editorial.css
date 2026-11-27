@@ -5,43 +5,6 @@
    so it wins over page styles that load later.
    ============================================================ */
 
-/* ---------- Navigation ---------- */
-:root .icon-nav__square {
-  border: 1px solid var(--c-lavender-2);
-  border-radius: 4px;
-  background: #faf7f2;
-}
-:root .icon-nav__item:hover .icon-nav__square,
-:root .icon-nav__item:focus-visible .icon-nav__square {
-  border-color: var(--c-ink);
-  background: #faf7f2;
-  color: var(--c-ink);
-  transform: none;
-  box-shadow: none;
-}
-:root .icon-nav__item.active .icon-nav__square {
-  border-color: var(--c-ink);
-  background: var(--c-ink);
-  color: #ffffff;
-}
-:root .icon-nav__label {
-  border-radius: 2px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-@media (max-width: 767px) {
-  :root .icon-nav {
-    border-top-color: var(--c-lavender-2);
-  }
-  :root .icon-nav__square {
-    border: 0;
-    background: transparent;
-  }
-  :root .icon-nav__item.active .icon-nav__square {
-    background: var(--c-ink);
-  }
-}
-
 /* ---------- About ---------- */
 :root .about__headline {
   max-width: 30ch;

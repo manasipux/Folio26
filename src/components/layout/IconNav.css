@@ -1,164 +1,183 @@
+/* ============================================================
+   Navigation drawer: a slim black tab on the left edge showing
+   icons, slightly see-through while folded. Hover (or keyboard
+   focus) slides it open to reveal the labels. Over the black
+   footer it turns light so it doesn't merge with it. The current page is a filled white tag. Curved fillets
+   where the tab meets the edge make it look cut out of the page.
+   Phones: the same tab on the bottom edge, current label shown.
+   ============================================================ */
 .icon-nav {
+  --tab: #111111;
+  --fillet: 16px;
   position: fixed;
-  left: var(--space-6);
+  left: 0;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 50;
+  padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+  border-radius: 0 16px 16px 0;
+  background: var(--tab);
+  translate: 0 -50%;
+  /* Quieter while folded; full strength when in use */
+  opacity: 0.78;
+  /* A faint edge keeps it distinct where it crosses the black footer */
+  outline: 1px solid rgb(255 255 255 / 0.1);
+  outline-offset: -1px;
+  transition: opacity 0.25s ease;
+}
+.icon-nav:hover,
+.icon-nav:focus-within {
+  opacity: 1;
+}
+
+/* Over the black footer: a light drawer, so it stays a tab and doesn't merge into the footer */
+.icon-nav--on-dark {
+  --tab: #f3eee6;
+  opacity: 0.92;
+}
+.icon-nav--on-dark .icon-nav__item {
+  color: rgb(17 17 17 / 0.62);
+}
+.icon-nav--on-dark .icon-nav__item:hover {
+  color: #111111;
+  background: rgb(17 17 17 / 0.07);
+}
+.icon-nav--on-dark .icon-nav__item.active {
+  color: #ffffff;
+  background: #111111;
+}
+.icon-nav--on-dark .icon-nav__item:focus-visible {
+  outline-color: #111111;
+}
+.icon-nav::before,
+.icon-nav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: var(--fillet);
+  height: var(--fillet);
+  pointer-events: none;
+}
+.icon-nav::before {
+  bottom: 100%;
+  background: radial-gradient(circle at 100% 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+}
+.icon-nav::after {
+  top: 100%;
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
 }
 
 .icon-nav__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .icon-nav__item {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  padding: 0.625rem;
+  border-radius: 10px;
+  color: rgb(255 255 255 / 0.62);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
   text-decoration: none;
-  color: var(--c-ink);
-  border-radius: var(--radius-md);
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
-
-.icon-nav__square {
+.icon-nav__icon {
   display: grid;
   place-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   flex: none;
-  border-radius: var(--radius-md);
-  background: var(--c-surface-2);
-  color: var(--c-ink);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.25s var(--ease-out),
-    box-shadow 0.25s var(--ease-out);
+}
+.icon-nav__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
+/* Labels: folded away until the drawer opens */
 .icon-nav__label {
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-sm);
-  background: var(--c-dark);
-  color: var(--c-ink-inverse);
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.25;
-  white-space: nowrap;
-  /* Hidden visually until hover/focus/active, but still read by screen readers */
+  display: block;
+  max-width: 0;
+  overflow: hidden;
   opacity: 0;
-  transform: translateX(-0.5rem);
-  pointer-events: none;
-  transition:
-    opacity 0.2s ease,
-    transform 0.25s var(--ease-out);
+  transition: max-width 0.32s var(--ease-out), opacity 0.2s ease, margin-left 0.32s var(--ease-out);
 }
-
-/* Hover / keyboard focus */
-.icon-nav__item:hover .icon-nav__square,
-.icon-nav__item:focus-visible .icon-nav__square {
-  background: var(--c-lavender-2);
-  color: var(--c-purple-deep);
-  transform: translateX(3px) scale(1.04);
-  box-shadow: var(--shadow-card);
-}
-.icon-nav__item:hover .icon-nav__label,
-.icon-nav__item:focus-visible .icon-nav__label {
+.icon-nav:hover .icon-nav__label,
+.icon-nav:focus-within .icon-nav__label {
+  max-width: 7.5rem;
+  margin-left: 0.625rem;
   opacity: 1;
-  transform: none;
+  transition-delay: 0s, 0.08s, 0s;
 }
 
-/* Active page */
-.icon-nav__item.active .icon-nav__square {
-  background: var(--c-dark);
-  color: var(--c-ink-inverse);
+.icon-nav__item:hover {
+  color: #ffffff;
+  background: rgb(255 255 255 / 0.08);
 }
-.icon-nav__item.active .icon-nav__label {
-  opacity: 1;
-  transform: none;
+.icon-nav__item.active {
+  color: #111111;
+  background: #ffffff;
+  font-weight: 600;
 }
-
-/* Only the hovered/focused label should show alongside the active one */
 .icon-nav__item:focus-visible {
-  outline-offset: 4px;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
-/* Narrower desktops: reserve room for icons only; labels float over content on hover/focus */
-@media (min-width: 768px) and (max-width: 1279px) {
-  .icon-nav__item.active .icon-nav__label {
-    opacity: 0;
-    transform: translateX(-0.5rem);
-  }
-  .icon-nav__item:hover .icon-nav__label,
-  .icon-nav__item:focus-visible .icon-nav__label {
-    opacity: 1;
-    transform: none;
-    box-shadow: var(--shadow-card);
-  }
-}
-
-/* ---------- Mobile: bottom tab bar ---------- */
+/* ---------- Phones: the tab sits on the bottom edge ---------- */
 @media (max-width: 767px) {
   .icon-nav {
-    display: block;
+    left: 50%;
     top: auto;
-    left: 0;
-    right: 0;
     bottom: 0;
-    transform: none;
-    background: rgb(243 238 230 / 94%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid var(--c-surface-2);
-    padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom));
+    padding: 0.4rem 0.4rem calc(0.4rem + env(safe-area-inset-bottom));
+    border-radius: 16px 16px 0 0;
+    translate: -50% 0;
   }
-
+  .icon-nav::before,
+  .icon-nav::after {
+    top: auto;
+    bottom: 0;
+  }
+  .icon-nav::before {
+    left: auto;
+    right: 100%;
+    background: radial-gradient(circle at 0 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+  }
+  .icon-nav::after {
+    left: 100%;
+    background: radial-gradient(circle at 100% 0, transparent calc(var(--fillet) - 0.5px), var(--tab) var(--fillet));
+  }
   .icon-nav__list {
     flex-direction: row;
-    justify-content: space-around;
-    gap: 0;
+    gap: 0.25rem;
   }
-
-  .icon-nav__list > li {
-    flex: 1;
-  }
-
   .icon-nav__item {
-    flex-direction: column;
-    gap: 2px;
-    padding: 2px 0;
+    padding: 0.7rem;
   }
-
-  .icon-nav__square {
-    width: 2.75rem;
-    height: 2rem;
-    border-radius: var(--radius-pill);
-    background: transparent;
+  /* No hover on phones: the current page shows its label, the rest stay as icons */
+  .icon-nav:hover .icon-nav__label,
+  .icon-nav:focus-within .icon-nav__label {
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
   }
-
-  .icon-nav__label {
-    padding: 0;
-    background: none;
-    color: var(--c-ink-muted);
-    font-size: 0.75rem;
-    font-weight: 600;
+  .icon-nav .icon-nav__item.active .icon-nav__label {
+    max-width: 7.5rem;
+    margin-left: 0.5rem;
     opacity: 1;
-    transform: none;
   }
+}
 
-  .icon-nav__item:hover .icon-nav__square,
-  .icon-nav__item:focus-visible .icon-nav__square {
-    transform: none;
-    box-shadow: none;
-  }
-
-  .icon-nav__item.active .icon-nav__square {
-    background: var(--c-dark);
-  }
-  .icon-nav__item.active .icon-nav__label {
-    color: var(--c-ink);
+@media (prefers-reduced-motion: reduce) {
+  .icon-nav__item,
+  .icon-nav__label {
+    transition: none;
   }
 }

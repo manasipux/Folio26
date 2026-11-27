@@ -112,39 +112,79 @@
 }
 
 /* Prev / count / next */
-.carousel__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
+/* Controls on the media: arrows at the left and right edges, the step count in the corner */
+.carousel__media {
+  position: relative;
+}
+.carousel__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.carousel__arrow,
+.carousel__count {
+  pointer-events: auto;
 }
 .carousel__arrow {
+  position: absolute;
+  top: 50%;
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--c-lavender-2);
+  border: 1px solid rgb(17 17 17 / 0.12);
   border-radius: 50%;
-  background: var(--c-bg);
-  font: inherit;
-  font-size: 1.1rem;
+  background: rgb(255 255 255 / 0.86);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 14px -6px rgb(17 17 17 / 0.35);
   color: var(--c-ink);
+  font: inherit;
+  font-size: 1.125rem;
+  line-height: 1;
   cursor: pointer;
+  translate: 0 -50%;
+  /* Hidden until the pointer comes near this edge (see SlideCarousel) or it gets keyboard focus */
+  opacity: 0;
+  transition: opacity 0.25s ease, background-color 0.2s ease, scale 0.2s ease;
 }
-.carousel__arrow:hover:not(:disabled) {
-  border-color: var(--c-purple);
-  background: var(--c-lavender);
+.carousel__arrow--prev {
+  left: var(--space-3);
 }
-.carousel__arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
+.carousel__arrow--next {
+  right: var(--space-3);
+}
+.carousel__overlay[data-near='prev'] .carousel__arrow--prev,
+.carousel__overlay[data-near='next'] .carousel__arrow--next,
+.carousel__arrow:focus-visible {
+  opacity: 1;
+}
+/* Touch screens have no pointer to come near: keep the arrows in view */
+@media (hover: none) {
+  .carousel__arrow {
+    opacity: 0.85;
+  }
+}
+.carousel__arrow:hover {
+  background: #ffffff;
+  scale: 1.06;
 }
 .carousel__count {
-  min-width: 3.5em;
-  font-size: var(--fs-sm);
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgb(17 17 17 / 0.72);
+  color: #ffffff;
+  font-size: 0.8125rem;
   font-weight: 600;
-  text-align: center;
   font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel__arrow {
+    transition: none;
+  }
 }
 
 /* Current step name: phones only */
